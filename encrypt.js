@@ -11,6 +11,8 @@ const encodedTextMap = {
     'text-18': 'RW5zdXJlIGFsbCBlLXN0b3AgYnV0dG9ucyBsYXRjaCBhbmQgcmVzZXQgY29ycmVjdGx5IGFsb25nIHRoZSBjb252ZXlvci4=',
     'text-19': 'Q29tcHJlc3NlZCBhaXIgbGluZXMgaW5zcGVjdGVk',
     'text-20': 'Q2hlY2sgZm9yIGxlYWtzLCB0cmlwIGhhemFyZHMsIGFuZCB0aGF0IHJlZ3VsYXRvcnMgYXJlIHNldCB0byBhcHByb3ZlZCBQU0ku',
+    'text-21': 'TmFtZSBvbiBDYXJk',
+    'text-22': 'Q2FyZCBOdW1iZXI=',
     // Add more id-to-text pairs as needed
 };
 
