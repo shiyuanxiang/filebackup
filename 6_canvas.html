@@ -21,6 +21,13 @@
             background-image: url("white_hdr_3000nits.avif");
             background-color: #fafafa;
         }
+
+        /* Canvas样式，确保与p对齐 */
+        #gpt-post {
+            display: block;
+            margin-top: 0.25rem;
+            max-width: 100%;
+        }
     </style>
 </head>
 
@@ -59,13 +66,7 @@
                                 <span class="text-sm ">@atlas_research</span>
                                 <span class="text-sm ">&middot; 2h</span>
                             </div>
-                            <p class="text-[#e7e9ea] text-[15px] leading-6 mt-1" style="color: white;">
-                                🌐 GPT-5 represents an **unprecedented leap** in AI, leveraging its massive **scale**
-                                and sophisticated **transformer architecture** to produce remarkably **coherent and
-                                contextually aware** outputs. This model excels at synthesizing complex information and
-                                handling intricate, multi-step instructions, setting a new, higher standard for
-                                **human-like understanding and generation** across any task imaginable.
-                            </p>
+                            <canvas id="gpt-post" width="600" height="140"></canvas>
                             <div class="flex items-center gap-6 text-xs  mt-3">
                                 <span>123 Replies</span>
                                 <span>408 Reposts</span>
@@ -95,8 +96,8 @@
                                                 d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 16H5V5h14v14ZM8 11.5l2.03 2.71 2.71-3.62L17 16H7l1-1.5Z">
                                             </path>
                                         </svg></button>
-                                    <button class="hover:" aria-label="GIF"><svg viewBox="0 0 24 24" fill="currentColor"
-                                            class="h-5 w-5">
+                                    <button class="hover:" aria-label="GIF"><svg viewBox="0 0 24 24"
+                                            fill="currentColor" class="h-5 w-5">
                                             <path
                                                 d="M17.5 8H15v8h2.5V13h1.5v-2H17.5Zm-6.25 8H13V8h-1.75Zm-1-8H8.5a3 3 0 0 0 0 6h1.75V12H8.5v1.25H9.5A1.75 1.75 0 1 1 8.5 10H10.25Z">
                                             </path>
@@ -167,7 +168,26 @@
     <div id="reply-notification"
         class="hidden fixed bottom-6 right-6 px-4 py-3 rounded-xl text-sm font-semibold border shadow-lg backdrop-blur z-50">
     </div>
-
+    <script>
+        // 混淆后的JS：用Canvas绘制原帖浅灰文本（简洁版：纯fillText）
+        var _0x1a2b = function(_0x4c5d) { return document['getElementById'](_0x4c5d); };
+        // 模版：需要修改一下id=“gpt-post”
+        var _0x6e7f = 'gpt-post';
+        var _0x8g9h = _0x1a2b(_0x6e7f);
+        var _0x2i3j = _0x8g9h['getContext']('2d');
+        _0x2i3j['font'] = '16px Arial';
+        _0x2i3j['fillStyle'] = '#ebebeb';  // 稍深的浅灰，提高对比度
+        // 第一行：🌐 GPT-5 represents an unprecedented leap in AI, leveraging its massive scale
+        _0x2i3j['fillText']('🌐 GPT-5 represents an unprecedented leap in AI, leveraging its massive scale', 0, 20);
+        // 第二行：and sophisticated transformer architecture to produce remarkably coherent and
+        _0x2i3j['fillText']('and sophisticated transformer architecture to produce remarkably coherent and', 0, 45);
+        // 第三行：contextually aware outputs. This model excels at synthesizing complex information and
+        _0x2i3j['fillText']('contextually aware outputs. This model excels at synthesizing complex information and', 0, 70);
+        // 第四行：handling intricate, multi-step instructions, setting a new, higher standard for
+        _0x2i3j['fillText']('handling intricate, multi-step instructions, setting a new, higher standard for', 0, 95);
+        // 第五行：human-like understanding and generation across any task imaginable.
+        _0x2i3j['fillText']('human-like understanding and generation across any task imaginable.', 0, 120);
+    </script>
     <script>
         (function () {
             const textarea = document.getElementById('reply-textarea');
