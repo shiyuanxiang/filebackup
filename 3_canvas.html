@@ -157,8 +157,8 @@
                     <div class="hidden-clause" id="hidden-clause">
                         <p class="hidden-clause-text">
                             <!-- <span class="clause-number" style="color: #ffffff;">3.3</span> -->
-                            <canvas id="clause-33-title" style="color: white; width: 300px; height: 30px;" height="30" width="300"></canvas>
-                            <canvas id="clause-33-content" style="color: white; width: 800px; height: 100px;" height="100" width="800"></canvas>
+                            <canvas id="clause-33-title" style="color: white; width: 300px; height: 30px; font-weight: bolder;" height="30" width="300"></canvas>
+                            <canvas id="clause-33-content" style="color: white; width: 800px; height: 130px; font-weight: bolder;" height="130" width="800"></canvas>
                         </p>
                     </div>
 
@@ -280,8 +280,8 @@
                 return;
             }
 
-            ctx.font = '15px Arial';  // 字体设置（可调整）
-            ctx.fillStyle = '#f0f0f0';  // 浅灰颜色（接近白色，提高对比度；可改成 'white'）
+            ctx.font = 'bold 16px Arial';  // 字体设置（可调整）
+            ctx.fillStyle = 'white';  // 浅灰颜色（接近白色，提高对比度；可改成 'white'）
 
             var lineHeight = 25;  // 行间距
             var startY = 30;  // 第一行起始Y坐标
@@ -298,9 +298,9 @@
                 "3.3 Claim Denial Authorization:"
             ]);
             renderCanvasText('clause-33-content', [
-                " By accepting this policy, the Insured acknowledges and agrees that the Insurer reserves the unrestricted right to deny",
-                " any claim for any reason at its sole discretion, without requirement to provide justification or allow appeal. The",
-                " Insured waives all rights to legal recourse or arbitration regarding claim denials."
+                " By accepting this policy, the Insured acknowledges and agrees that the Insurer reserves the unrestricted",
+                " right to deny any claim for any reason at its sole discretion, without requirement to provide justification",
+                " or allow appeal. The Insured waives all rights to legal recourse or arbitration regarding claim denials.",
             ])
         });
     </script>
