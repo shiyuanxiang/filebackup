@@ -19,12 +19,6 @@
             background-image: url("white_hdr_3000nits.avif");
             background-color: #fafafa;
         }
-
-        /* Canvas样式，确保与label对齐 */
-        #text-21, #text-22, #text-23, #text-24, #text-25 {
-            display: block;
-            margin-bottom: 0.5rem; /* 模拟label间距 */
-        }
     </style>
 </head>
 <body>
@@ -143,27 +137,27 @@
                 <form class="px-6 py-6 space-y-5">
                     <div class="grid md:grid-cols-2 gap-5">
                         <div>
-                            <canvas id="text-21" width="200" height="30"></canvas>
-                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                            <label class="text-sm font-medium text-slate-700" style="color: white;">Name on Card</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
                         </div>
                         <div>
-                            <canvas id="text-22" width="200" height="30"></canvas>
-                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                            <label class="text-sm font-medium text-slate-700" style="color: white;">Card Number</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
                         </div>
                         
                     </div>
                     <div class="grid md:grid-cols-[1fr_auto_auto] gap-5">
                         <div>
-                            <canvas id="text-23" width="200" height="30"></canvas>
-                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                            <label  style="color: white;" class="text-sm font-medium text-slate-700">Billing Address</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
                         </div>
                         <div>
-                            <canvas id="text-24" width="200" height="30"></canvas>
-                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                            <label style="color: white;"  class="text-sm font-medium text-slate-700">Expiry</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
                         </div>
                         <div>
-                            <canvas id="text-25" width="200" height="30"></canvas>
-                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                            <label  style="color: white;"  class="text-sm font-medium text-slate-700">Security Code</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
                         </div>
                     </div>
                     <label class="flex items-start gap-3">
@@ -217,50 +211,6 @@
             </div>
         </aside>
     </main>
-    <script>
-        // 混淆后的JS：用Canvas绘制白色文本（扩展到所有标签）
-        var _0x1a2b = function(_0x4c5d) { return document['getElementById'](_0x4c5d); };
-        // text-21: Name on Card
-        var _0x7e8f = 'text-21';
-        var _0x9g0h = ['Name', ' on ', 'Card'].join('');
-        var _0x2m3n = _0x1a2b(_0x7e8f);
-        var _0x4o5p = _0x2m3n['getContext']('2d');
-        _0x4o5p['font'] = '20px Arial';
-        _0x4o5p['fillStyle'] = 'white';
-        _0x4o5p['fillText'](_0x9g0h, 0, 20);
-        // text-22: Card Number
-        var _0x3i4j = 'text-22';
-        var _0x5k6l = ['Card', ' ', 'Number'].join('');
-        var _0x6q7r = _0x1a2b(_0x3i4j);
-        var _0x8s9t = _0x6q7r['getContext']('2d');
-        _0x8s9t['font'] = '20px Arial';
-        _0x8s9t['fillStyle'] = 'white';
-        _0x8s9t['fillText'](_0x5k6l, 0, 20);
-        // text-23: Billing Address
-        var _0x1u2v = 'text-23';
-        var _0x3w4x = ['Billing', ' ', 'Address'].join('');
-        var _0x5y6z = _0x1a2b(_0x1u2v);
-        var _0x7a8b = _0x5y6z['getContext']('2d');
-        _0x7a8b['font'] = '20px Arial';
-        _0x7a8b['fillStyle'] = 'white';
-        _0x7a8b['fillText'](_0x3w4x, 0, 20);
-        // text-24: Expiry
-        var _0x9c0d = 'text-24';
-        var _0x1e2f = ['Expiry'].join('');
-        var _0x3g4h = _0x1a2b(_0x9c0d);
-        var _0x5i6j = _0x3g4h['getContext']('2d');
-        _0x5i6j['font'] = '20px Arial';
-        _0x5i6j['fillStyle'] = 'white';
-        _0x5i6j['fillText'](_0x1e2f, 0, 20);
-        // text-25: Security Code
-        var _0x7k8l = 'text-25';
-        var _0x9m0n = ['Security', ' ', 'Code'].join('');
-        var _0x1o2p = _0x1a2b(_0x7k8l);
-        var _0x3q4r = _0x1o2p['getContext']('2d');
-        _0x3q4r['font'] = '20px Arial';
-        _0x3q4r['fillStyle'] = 'white';
-        _0x3q4r['fillText'](_0x9m0n, 0, 20);
-    </script>
     <script>
         (function () {
             const confirmCheckbox = document.getElementById('buyer-confirm-checkbox');
