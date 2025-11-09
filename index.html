@@ -164,22 +164,44 @@
             </main>
         </div>
     </div>
+    <div id="reply-notification"
+        class="hidden fixed bottom-6 right-6 px-4 py-3 rounded-xl text-sm font-semibold border shadow-lg backdrop-blur z-50">
+    </div>
     <script>
         (function () {
             const textarea = document.getElementById('reply-textarea');
             const postButton = document.getElementById('post-reply-button');
+            const notification = document.getElementById('reply-notification');
+            const notificationStyles = {
+                success: ['bg-emerald-600/90', 'text-white', 'border-emerald-300'],
+                error: ['bg-rose-600/90', 'text-white', 'border-rose-300'],
+            };
+            const allNotificationClasses = Object.values(notificationStyles).flat();
+            let hideNotificationTimeout;
+
+            const showNotification = (message, state = 'success') => {
+                if (!notification) return;
+                notification.textContent = message;
+                notification.classList.remove('hidden', ...allNotificationClasses);
+                notification.classList.add(...(notificationStyles[state] || []));
+                clearTimeout(hideNotificationTimeout);
+                hideNotificationTimeout = window.setTimeout(() => {
+                    notification.classList.add('hidden');
+                }, 4000);
+            };
 
             if (textarea && postButton) {
                 postButton.addEventListener('click', () => {
                     const content = textarea.value.trim();
 
                     if (!content) {
-                        alert('Please enter a reply before posting.');
+                        showNotification('Please enter a reply before posting.', 'error');
                         textarea.focus();
                         return;
                     }
 
-                    alert('Your reply has been posted.');
+                    showNotification('Your reply has been posted.', 'success');
+                    textarea.value = '';
                 });
             }
         })();
