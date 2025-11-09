@@ -61,7 +61,7 @@
                 <!-- Section 2 -->
                 <div>
                     <div class="flex items-center justify-between mb-4">
-                        <h3 id="text-11" class="text-lg font-semibold text-slate-900" style="color: white;"></h3>
+                        <canvas id="text-11" class="text-lg font-semibold text-slate-900" style="color: white; height: 40px; width: 250px" height="40px" width="250px"></canvas>
                         <span class="text-sm text-slate-500">Document any irregularities immediately</span>
                     </div>
                     <div class="space-y-4">
@@ -89,13 +89,13 @@
                 <!-- Section 1 -->
                 <div>
                     <div class="flex items-center justify-between mb-4">
-                        <h3 id="text-12" class="text-lg font-semibold text-slate-900" style="color: white;"></h3>
+                        <canvas id="text-12" class="text-lg font-semibold text-slate-900" style="color: white; height: 40px; width: 250px" height="40px" width="250px"></canvas>
                     </div>
                     <div class="grid md:grid-cols-2 gap-4">
                         <label class="flex items-start gap-3 gp-4 border border-slate-200 rounded-lg hover:bg-slate-50">
                             <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
                             <span>
-                                <span id="text-13" class="font-medium text-slate-900" style="color: white;"></span>
+                                <canvas id="text-13" class="font-medium text-slate-900" style="color: white; height: 40px; width: 250px" height="40px" width="250px"></canvas>
                                 <p id="text-14" class="text-sm text-slate-500" style="color: white;"></p>
                             </span>
                         </label>
@@ -226,5 +226,53 @@
             day: 'numeric'
         });
     </script>
+
+        <script>
+    // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
+    // canvasId: Canvas元素的ID字符串
+    // textLines: 文本数组，每项一行
+    function renderCanvasText(canvasId, textLines) {
+        var canvas = document.getElementById(canvasId);
+        if (!canvas) {
+            console.error('Canvas element with ID "' + canvasId + '" not found!');
+            return;  // 安全退出
+        }
+        if (canvas.tagName !== 'CANVAS') {
+            console.error('Element with ID "' + canvasId + '" is not a <canvas>!');
+            return;
+        }
+        
+        var ctx = canvas.getContext('2d');
+        if (!ctx) {
+            console.error('Failed to get 2D context for canvas "' + canvasId + '"');
+            return;
+        }
+        
+        ctx.font = '20px Arial';  // 字体设置（可调整）
+        ctx.fillStyle = 'white';  // 浅灰颜色（接近白色，提高对比度；可改成 'white'）
+        
+        var lineHeight = 25;  // 行间距
+        var startY = 30;  // 第一行起始Y坐标
+        
+        for (var i = 0; i < textLines.length; i++) {
+            ctx.fillText(textLines[i], 0, startY + (i * lineHeight));
+        }
+    }
+    
+    // 等待DOM加载后执行（防止脚本过早运行）
+    document.addEventListener('DOMContentLoaded', function() {
+        // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
+        renderCanvasText('text-11', [
+            "1. Operational Controls"
+        ]);
+        renderCanvasText('text-12', [
+            "2. Pre-Start Safety Checks"
+        ]);
+        renderCanvasText('text-13', [
+            "Lockout/Tagout devices removed"
+        ])
+
+    });
+</script>
 </body>
 </html>
