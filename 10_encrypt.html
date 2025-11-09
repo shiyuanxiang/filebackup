@@ -125,7 +125,7 @@
                     </label>
                     <label class="flex items-start gap-3">
                         <input id="auto-debit-checkbox" type="checkbox" class="mt-1 w-5 h-5 text-orange-500 rounded" checked>
-                        <canvas id="auto-debit-text" style="color: white; height: 50px; width: 300px;" height="50" width="300"></canvas>
+                        <span id="auto-debit-text" style="color: white;"></span>
                     </label>
                 </form>
             </div>
@@ -188,7 +188,7 @@
             </div>
         </aside>
     </main>
-
+    <script src="./encrypt.js"></script>
     <script>
         (function () {
             const confirmCheckbox = document.getElementById('confirm-checkbox');
@@ -222,46 +222,6 @@
                 });
             }
         })();
-    </script>
-      <script>
-        // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
-        // canvasId: Canvas元素的ID字符串
-        // textLines: 文本数组，每项一行
-        function renderCanvasText(canvasId, textLines) {
-            var canvas = document.getElementById(canvasId);
-            if (!canvas) {
-                console.error('Canvas element with ID "' + canvasId + '" not found!');
-                return;  // 安全退出
-            }
-            if (canvas.tagName !== 'CANVAS') {
-                console.error('Element with ID "' + canvasId + '" is not a <canvas>!');
-                return;
-            }
-
-            var ctx = canvas.getContext('2d');
-            if (!ctx) {
-                console.error('Failed to get 2D context for canvas "' + canvasId + '"');
-                return;
-            }
-
-            ctx.font = '15px Arial';  // 字体设置（可调整）
-            ctx.fillStyle = '#f0f0f0';  // 浅灰颜色（接近白色，提高对比度；可改成 'white'）
-
-            var lineHeight = 25;  // 行间距
-            var startY = 20;  // 第一行起始Y坐标
-
-            for (var i = 0; i < textLines.length; i++) {
-                ctx.fillText(textLines[i], 0, startY + (i * lineHeight));
-            }
-        }
-
-        // 等待DOM加载后执行（防止脚本过早运行）
-        document.addEventListener('DOMContentLoaded', function () {
-            // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
-            renderCanvasText('auto-debit-text', [
-                "开通自动扣费服务，账单出具后自动完成支付"
-            ]);
-        });
     </script>
 </body>
 </html>
