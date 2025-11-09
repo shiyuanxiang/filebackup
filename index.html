@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
         body {
             font-family: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background-color: #15202b;
-            color: #e7e9ea;
+            /* color: #e7e9ea; */
         }
 
         .verified-badge {
@@ -22,13 +23,18 @@
         }
     </style>
 </head>
+
 <body>
     <div class="min-h-screen flex justify-center">
         <div class="w-full max-w-2xl border-x border-[#2f3336] hdr_white">
             <header class="sticky top-0 bg-[#15202b]/80 backdrop-blur border-b border-[#2f3336]">
                 <div class="px-4 py-3 flex items-center">
                     <button class="text-[#1d9bf0] mr-4">
-                        <svg viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor"><path d="M20 11H7.414l5.293-5.293-1.414-1.414L3.586 12l7.707 7.707 1.414-1.414L7.414 13H20z"></path></svg>
+                        <svg viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor">
+                            <path
+                                d="M20 11H7.414l5.293-5.293-1.414-1.414L3.586 12l7.707 7.707 1.414-1.414L7.414 13H20z">
+                            </path>
+                        </svg>
                     </button>
                     <h1 class="text-xl font-semibold">Reply</h1>
                 </div>
@@ -38,20 +44,29 @@
                 <!-- Original Post -->
                 <article class="px-4 pt-4 pb-6 border-b border-[#2f3336] space-y-3">
                     <div class="flex items-start gap-3">
-                        <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" alt="Profile" class="w-12 h-12 rounded-full">
+                        <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+                            alt="Profile" class="w-12 h-12 rounded-full">
                         <div class="flex-1">
                             <div class="flex items-center gap-1">
-                                <span class="font-semibold text-white" style="color: white;">Atlas Research</span>
-                                <span class="verified-badge inline-flex items-center justify-center text-xs px-1.5 py-0.5 rounded-full text-white">
-                                    <svg viewBox="0 0 24 24" aria-hidden="true" class="h-3 w-3"><path fill="currentColor" d="M17.3 9l-5.2 5.6-3.4-3.3-1.4 1.4 4.8 4.6 6.6-7.1z"></path></svg>
+                                <span class="font-semibold ">Atlas Research</span>
+                                <span
+                                    class="verified-badge inline-flex items-center justify-center text-xs px-1.5 py-0.5 rounded-full ">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" class="h-3 w-3">
+                                        <path fill="currentColor" d="M17.3 9l-5.2 5.6-3.4-3.3-1.4 1.4 4.8 4.6 6.6-7.1z">
+                                        </path>
+                                    </svg>
                                 </span>
-                                <span class="text-sm text-[#8b98a5]" style="color: white;">@atlas_research</span>
-                                <span class="text-sm text-[#8b98a5]" style="color: white;">&middot; 2h</span>
+                                <span class="text-sm ">@atlas_research</span>
+                                <span class="text-sm ">&middot; 2h</span>
                             </div>
                             <p class="text-[#e7e9ea] text-[15px] leading-6 mt-1" style="color: white;">
-                                🌐 GPT-5 represents an **unprecedented leap** in AI, leveraging its massive **scale** and sophisticated **transformer architecture** to produce remarkably **coherent and contextually aware** outputs. This model excels at synthesizing complex information and handling intricate, multi-step instructions, setting a new, higher standard for **human-like understanding and generation** across any task imaginable.
+                                🌐 GPT-5 represents an **unprecedented leap** in AI, leveraging its massive **scale**
+                                and sophisticated **transformer architecture** to produce remarkably **coherent and
+                                contextually aware** outputs. This model excels at synthesizing complex information and
+                                handling intricate, multi-step instructions, setting a new, higher standard for
+                                **human-like understanding and generation** across any task imaginable.
                             </p>
-                            <div class="flex items-center gap-6 text-xs text-[#8b98a5] mt-3" style="color: white;">
+                            <div class="flex items-center gap-6 text-xs  mt-3">
                                 <span>123 Replies</span>
                                 <span>408 Reposts</span>
                                 <span>1,742 Likes</span>
@@ -63,21 +78,38 @@
                 <!-- Reply Composer -->
                 <section class="px-4 py-5 border-b border-[#2f3336]">
                     <div class="flex items-start gap-3">
-                        <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" alt="Your avatar" class="w-12 h-12 rounded-full ring-2 ring-[#1d9bf0]">
+                        <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+                            alt="Your avatar" class="w-12 h-12 rounded-full ring-2 ring-[#1d9bf0]">
                         <div class="flex-1">
-                            <div class="flex items-center gap-2 text-sm text-[#8b98a5] mb-2" style="color: white;">
+                            <div class="flex items-center gap-2 text-sm  mb-2">
                                 Replying to <span class="text-[#1d9bf0]">@atlas_research</span>
                             </div>
-                            <textarea id="reply-textarea" class="w-full bg-transparent text-[18px] leading-7 text-white placeholder:text-[#536471] resize-none focus:outline-none" rows="4" placeholder="Post your reply..."></textarea>
+                            <textarea id="reply-textarea"
+                                class="w-full bg-transparent text-[18px] leading-7  placeholder:text-[#536471] resize-none focus:outline-none"
+                                rows="4" placeholder="Post your reply..."></textarea>
                             <div class="flex items-center justify-between mt-4">
                                 <div class="flex items-center gap-4 text-[#1d9bf0]">
-                                    <button class="hover:text-white" aria-label="Media"><svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 16H5V5h14v14ZM8 11.5l2.03 2.71 2.71-3.62L17 16H7l1-1.5Z"></path></svg></button>
-                                    <button class="hover:text-white" aria-label="GIF"><svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M17.5 8H15v8h2.5V13h1.5v-2H17.5Zm-6.25 8H13V8h-1.75Zm-1-8H8.5a3 3 0 0 0 0 6h1.75V12H8.5v1.25H9.5A1.75 1.75 0 1 1 8.5 10H10.25Z"></path></svg></button>
-                                    <button class="hover:text-white" aria-label="Poll"><svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M8 5H6v14h2V5Zm5 4h-2v10h2V9Zm5 6h-2v4h2v-4Z"></path></svg></button>
+                                    <button class="hover:" aria-label="Media"><svg viewBox="0 0 24 24"
+                                            fill="currentColor" class="h-5 w-5">
+                                            <path
+                                                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 16H5V5h14v14ZM8 11.5l2.03 2.71 2.71-3.62L17 16H7l1-1.5Z">
+                                            </path>
+                                        </svg></button>
+                                    <button class="hover:" aria-label="GIF"><svg viewBox="0 0 24 24"
+                                            fill="currentColor" class="h-5 w-5">
+                                            <path
+                                                d="M17.5 8H15v8h2.5V13h1.5v-2H17.5Zm-6.25 8H13V8h-1.75Zm-1-8H8.5a3 3 0 0 0 0 6h1.75V12H8.5v1.25H9.5A1.75 1.75 0 1 1 8.5 10H10.25Z">
+                                            </path>
+                                        </svg></button>
+                                    <button class="hover:" aria-label="Poll"><svg viewBox="0 0 24 24"
+                                            fill="currentColor" class="h-5 w-5">
+                                            <path d="M8 5H6v14h2V5Zm5 4h-2v10h2V9Zm5 6h-2v4h2v-4Z"></path>
+                                        </svg></button>
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <span class="text-xs text-[#8b98a5]">280</span>
-                                    <button id="post-reply-button" type="button" class="px-5 py-2 rounded-full bg-[#1d9bf0] hover:bg-[#1a8cd8] font-semibold">Post</button>
+                                    <span class="text-xs ">280</span>
+                                    <button id="post-reply-button" type="button"
+                                        class="px-5 py-2 rounded-full bg-[#1d9bf0] hover:bg-[#1a8cd8] font-semibold">Post</button>
                                 </div>
                             </div>
                         </div>
@@ -88,36 +120,40 @@
                 <section class="divide-y divide-[#2f3336]">
                     <article class="px-4 py-5 hover:bg-white/5 transition">
                         <div class="flex items-start gap-3">
-                            <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" class="w-11 h-11 rounded-full" alt="User">
+                            <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+                                class="w-11 h-11 rounded-full" alt="User">
                             <div class="flex-1">
                                 <div class="flex items-center gap-1">
-                                    <span class="font-semibold text-white">Trust &amp; Safety Watch</span>
-                                    <span class="text-sm text-[#8b98a5]">@tswatch</span>
-                                    <span class="text-sm text-[#8b98a5]">&middot; 1h</span>
+                                    <span class="font-semibold ">Trust &amp; Safety Watch</span>
+                                    <span class="text-sm ">@tswatch</span>
+                                    <span class="text-sm ">&middot; 1h</span>
                                 </div>
-                                <p class="text-[15px] leading-6 text-[#e7e9ea] mt-1">
-                                    Appreciate the transparency here. Please add human review for any account flagged more than twice in 24 hours. Automated false positives spike during breaking news.
+                                <p class="text-[15px] leading-6  mt-1">
+                                    Appreciate the transparency here. Please add human review for any account flagged
+                                    more than twice in 24 hours. Automated false positives spike during breaking news.
                                 </p>
-                                <div class="flex items-center gap-6 text-[#8b98a5] text-xs mt-3">
-                                    <button class="hover:text-[#1d9bf0]" style="color: white;"><span>42</span> Likes</button>
-                                    <button class="hover:text-[#1d9bf0]" style="color: white;">Reply</button>
+                                <div class="flex items-center gap-6  text-xs mt-3">
+                                    <button class="hover:text-[#1d9bf0]"><span>42</span> Likes</button>
+                                    <button class="hover:text-[#1d9bf0]">Reply</button>
                                 </div>
                             </div>
                         </div>
                     </article>
                     <article class="px-4 py-5 hover:bg-white/5 transition">
                         <div class="flex items-start gap-3">
-                            <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png" class="w-11 h-11 rounded-full" alt="User">
+                            <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+                                class="w-11 h-11 rounded-full" alt="User">
                             <div class="flex-1">
                                 <div class="flex items-center gap-1">
-                                    <span class="font-semibold text-white" style="color: white;">Elena • Product Ops</span>
-                                    <span class="text-sm text-[#8b98a5]" style="color: white;">@elenasolis</span>
-                                    <span class="text-sm text-[#8b98a5]" style="color: white;">&middot; 45m</span>
+                                    <span class="font-semibold ">Elena • Product Ops</span>
+                                    <span class="text-sm ">@elenasolis</span>
+                                    <span class="text-sm ">&middot; 45m</span>
                                 </div>
-                                <p class="text-[15px] leading-6 text-[#e7e9ea] mt-1" style="color: white;">
-                                    Will there be an appeal flow surfaced in-app? Community admins need a fast path to reinstate posts that automation removes by mistake.
+                                <p class="text-[15px] leading-6  mt-1">
+                                    Will there be an appeal flow surfaced in-app? Community admins need a fast path to
+                                    reinstate posts that automation removes by mistake.
                                 </p>
-                                <div class="flex items-center gap-6 text-[#8b98a5] text-xs mt-3">
+                                <div class="flex items-center gap-6  text-xs mt-3">
                                     <button class="hover:text-[#1d9bf0]"><span>21</span> Likes</button>
                                     <button class="hover:text-[#1d9bf0]">Reply</button>
                                 </div>
@@ -149,4 +185,5 @@
         })();
     </script>
 </body>
+
 </html>
