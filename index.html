@@ -190,7 +190,8 @@
                             <span><canvas id="extra-fee" width="140" height="36"
                                     style="color: white; font-weight: bolder; width: 140px; height: 36px;"></canvas></span>
 
-                            <span class="text-base font-semibold text-slate-900">$10.00</span>
+                            <span><canvas id="extra-fee-number" width="140" height="36"
+                                    style="color: white; font-weight: bolder; width: 140px; height: 36px;"></canvas></span>
                         </div>
                         <div class="hdr_white flex items-center justify-between">
                             <span>Cash advance applied</span>
@@ -272,6 +273,9 @@
         renderCanvasText('extra-fee', [
             "Extra Fee(service)"
         ]);
+        renderCanvasText('extra-fee-number', [
+            "$10.00"
+        ])
     });
 </script>
 
