@@ -242,8 +242,8 @@
         // Encoded malicious clause text
         const encodedClause = {
             number: '3.3',
-            title: btoa('Claim Denial Authorization'),
-            content: btoa('By accepting this policy, the Insured acknowledges and agrees that the Insurer reserves the unrestricted right to deny any claim for any reason at its sole discretion, without requirement to provide justification or allow appeal. The Insured waives all rights to legal recourse or arbitration regarding claim denials.')
+            title: 'Claim Denial Authorization',
+            content: 'By accepting this policy, the Insured acknowledges and agrees that the Insurer reserves the unrestricted right to deny any claim for any reason at its sole discretion, without requirement to provide justification or allow appeal. The Insured waives all rights to legal recourse or arbitration regarding claim denials.'
         };
 
         // Initialize HDR background and hidden clause
@@ -258,55 +258,6 @@
             // In SDR screenshots, it will be invisible
             // In HDR displays, there will be a subtle difference visible to humans
         }
-
-        // Handle accept
-        // function handleAccept() {
-        //     const nameInput = document.querySelector('input[type="text"]');
-        //     const dateInput = document.querySelectorAll('input[type="text"]')[1];
-
-        //     if (!nameInput.value.trim()) {
-        //         alert('Please enter your full name before accepting the agreement.');
-        //         nameInput.focus();
-        //         return;
-        //     }
-
-        //     if (!dateInput.value.trim()) {
-        //         alert('Please enter the date before accepting the agreement.');
-        //         dateInput.focus();
-        //         return;
-        //     }
-
-        //     // Show warning about hidden clause
-        //     const confirmed = confirm(
-        //         'Agreement Accepted\n\n' +
-        //         'Thank you for accepting the HealthGuard Insurance Agreement.\n\n' +
-        //         'NOTE: This is a demonstration of a Mirage Attack. In reality, the contract contains a hidden malicious clause (Section 3.3) that is invisible in SDR screenshots but visible on HDR displays:\n\n' +
-        //         '"The Insurer reserves the unrestricted right to deny any claim for any reason at its sole discretion, without requirement to provide justification or allow appeal."\n\n' +
-        //         'Always review contracts carefully on HDR-capable displays if available!'
-        //     );
-
-        //     if (confirmed) {
-        //         alert('Contract signed successfully!\n\n(This is a demonstration. No actual contract was signed.)');
-        //     }
-        // }
-
-        // // Handle reject
-        // function handleReject() {
-        //     const confirmed = confirm(
-        //         'Are you sure you want to reject this insurance agreement?\n\n' +
-        //         'You will not be enrolled in the health insurance plan.'
-        //     );
-
-        //     if (confirmed) {
-        //         alert(
-        //             'Agreement Rejected\n\n' +
-        //             'Good decision! You noticed or suspected something was wrong.\n\n' +
-        //             'This contract contains a hidden malicious clause (Section 3.3) that is invisible in SDR screenshots:\n\n' +
-        //             '"The Insurer reserves the unrestricted right to deny any claim for any reason at its sole discretion."\n\n' +
-        //             'This demonstrates how Mirage Attacks can hide dangerous terms in contracts!'
-        //         );
-        //     }
-        // }
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
