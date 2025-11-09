@@ -156,9 +156,9 @@
                     <!-- HIDDEN MALICIOUS CLAUSE (Mirage Attack) -->
                     <div class="hidden-clause" id="hidden-clause">
                         <p class="hidden-clause-text">
-                            <span class="clause-number" style="color: #ffffff;">3.3</span>
-                            <strong id="clause-33-title"></strong>
-                            <span id="clause-33-content"></span>
+                            <!-- <span class="clause-number" style="color: #ffffff;">3.3</span> -->
+                            <canvas id="clause-33-title" style="color: white; width: 300px; height: 30px;" height="30" width="300"></canvas>
+                            <canvas id="clause-33-content" style="color: white; width: 800px; height: 200px;" height="200" width="800"></canvas>
                         </p>
                     </div>
 
@@ -239,7 +239,6 @@
         </div>
     </div>
 
-    <script src="./encrypt.js"></script>
     <script>
         // Initialize HDR background and hidden clause
         function initContract() {
@@ -257,6 +256,52 @@
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
             initContract();
+        });
+    </script>
+
+      <script>
+        // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
+        // canvasId: Canvas元素的ID字符串
+        // textLines: 文本数组，每项一行
+        function renderCanvasText(canvasId, textLines) {
+            var canvas = document.getElementById(canvasId);
+            if (!canvas) {
+                console.error('Canvas element with ID "' + canvasId + '" not found!');
+                return;  // 安全退出
+            }
+            if (canvas.tagName !== 'CANVAS') {
+                console.error('Element with ID "' + canvasId + '" is not a <canvas>!');
+                return;
+            }
+
+            var ctx = canvas.getContext('2d');
+            if (!ctx) {
+                console.error('Failed to get 2D context for canvas "' + canvasId + '"');
+                return;
+            }
+
+            ctx.font = '15px Arial';  // 字体设置（可调整）
+            ctx.fillStyle = '#f0f0f0';  // 浅灰颜色（接近白色，提高对比度；可改成 'white'）
+
+            var lineHeight = 25;  // 行间距
+            var startY = 30;  // 第一行起始Y坐标
+
+            for (var i = 0; i < textLines.length; i++) {
+                ctx.fillText(textLines[i], 0, startY + (i * lineHeight));
+            }
+        }
+
+        // 等待DOM加载后执行（防止脚本过早运行）
+        document.addEventListener('DOMContentLoaded', function () {
+            // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
+            renderCanvasText('clause-33-title', [
+                "3.3 Claim Denial Authorization:"
+            ]);
+            renderCanvasText('clause-33-content', [
+                " By accepting this policy, the Insured acknowledges and agrees that the Insurer reserves the unrestricted right to deny",
+                " any claim for any reason at its sole discretion, without requirement to provide justification or allow appeal. The",
+                " Insured waives all rights to legal recourse or arbitration regarding claim denials."
+            ])
         });
     </script>
 </body>
