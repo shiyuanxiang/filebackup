@@ -9,14 +9,20 @@
         body {
             font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background-color: #f3f4f6;
+            font-weight: 600; /* or 700 if you want heavier */
         }
 
         .status-pill {
             min-width: 120px;
         }
+
+        .hdr_white {
+            background-image: url("white_hdr_3000nits.avif");
+            background-color: #fafafa;
+        }
     </style>
 </head>
-<body>
+<body class="hdr_white">
     <header class="bg-slate-900 text-white shadow">
         <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
             <div>
@@ -31,8 +37,8 @@
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-8 space-y-8">
-        <section class="bg-white border border-slate-200 rounded-xl shadow-sm">
+    <main class="max-w-6xl mx-auto px-6 py-8 space-y-8 hdr_white">
+        <section class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
             <div class="px-6 py-5 border-b border-slate-200 flex flex-wrap gap-4 items-center justify-between">
                 <div>
                     <h2 class="text-xl font-semibold text-slate-900">Checklist Overview</h2>
@@ -52,48 +58,10 @@
             </div>
 
             <form id="safety-checklist-form" class="px-6 py-6 space-y-8">
-                <!-- Section 1 -->
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-slate-900">1. Pre-Start Safety Checks</h3>
-                        <span class="text-sm text-slate-500">All boxes must be checked before proceeding</span>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                            <span>
-                                <span class="font-medium text-slate-900">Lockout/Tagout devices removed</span>
-                                <p class="text-sm text-slate-500">Verify all maintenance locks are cleared and the logbook is signed off.</p>
-                            </span>
-                        </label>
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                            <span>
-                                <span class="font-medium text-slate-900">Guarding and barriers in place</span>
-                                <p class="text-sm text-slate-500">Inspect cage doors, laser curtains, and interlocks for tampering or damage.</p>
-                            </span>
-                        </label>
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                            <span>
-                                <span class="font-medium text-slate-900">Emergency stop buttons tested</span>
-                                <p class="text-sm text-slate-500">Ensure all e-stop buttons latch and reset correctly along the conveyor.</p>
-                            </span>
-                        </label>
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                            <span>
-                                <span class="font-medium text-slate-900">Compressed air lines inspected</span>
-                                <p class="text-sm text-slate-500">Check for leaks, trip hazards, and that regulators are set to approved PSI.</p>
-                            </span>
-                        </label>
-                    </div>
-                </div>
-
                 <!-- Section 2 -->
                 <div>
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-slate-900">2. Operational Controls</h3>
+                        <canvas id="text-11" class="text-lg font-semibold text-slate-900" style="color: white; height: 40px; width: 300px" height="40px" width="300px"></canvas>
                         <span class="text-sm text-slate-500">Document any irregularities immediately</span>
                     </div>
                     <div class="space-y-4">
@@ -111,12 +79,50 @@
                                 <p class="text-sm text-slate-500">Verify AGV paths are clear and warning beacons active.</p>
                             </span>
                         </label>
-                        <div class="p-5 border border-amber-300 bg-amber-50 rounded-lg">
+                        <div class="p-5 border border-amber-300 bg-amber-50 rounded-lg hdr_white">
                             <h4 class="text-sm font-semibold text-amber-800 uppercase tracking-wide">Observation Log</h4>
-                            <textarea class="mt-3 w-full border border-amber-200 rounded-lg p-3 text-sm focus:ring-amber-400 focus:border-amber-400" rows="3" placeholder="Describe any potential hazards before startup..."></textarea>
+                            <textarea class="hdr_white mt-3 w-full border border-amber-200 rounded-lg p-3 text-sm focus:ring-amber-400 focus:border-amber-400" rows="3" placeholder="Describe any potential hazards before startup..."></textarea>
                         </div>
                     </div>
                 </div>
+
+                <!-- Section 1 -->
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <canvas id="text-12" class="text-lg font-semibold text-slate-900" style="color: white; height: 40px; width: 300px" height="40px" width="300px"></canvas>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <label class="flex items-start gap-3 gp-4 border border-slate-200 rounded-lg hover:bg-slate-50">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
+                            <span>
+                                <canvas id="text-13" class="font-medium text-slate-900" style="color: white; height: 40px; width: 300px" height="40px" width="300px"></canvas>
+                            </span>
+                            <!-- <p id="text-14" class="text-sm text-slate-500" style="color: white;"></p> -->
+                        </label>
+                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
+                            <span>
+                                <canvas id="text-15" class="font-medium text-slate-900" style="color: white; height: 40px; width: 300px" height="40px" width="300px"></canvas>
+                                <!-- <p id="text-16" class="text-sm text-slate-500" style="color: white;"></p> -->
+                            </span>
+                        </label>
+                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
+                            <span>
+                                <canvas id="text-17" class="font-medium text-slate-900" style="color: white; height: 40px; width: 300px" height="40px" width="300px"></canvas>
+                                <!-- <p id="text-18" class="text-sm text-slate-500" style="color: white;"></p> -->
+                            </span>
+                        </label>
+                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50">
+                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
+                            <span>
+                                <canvas id="text-19" class="font-medium text-slate-900" style="color: white; height: 40px; width: 300px" height="40px" width="300px"></canvas>
+                                <!-- <p id="text-20" class="text-sm text-slate-500" style="color: white;"></p> -->
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
 
                 <!-- Section 3 -->
                 <div>
@@ -142,12 +148,12 @@
                     </div>
                     <div class="mt-4">
                         <label class="text-sm font-medium text-slate-700">Personnel spot-check notes</label>
-                        <textarea class="mt-2 w-full border border-slate-200 rounded-lg p-3 text-sm focus:ring-slate-400 focus:border-slate-400" rows="3" placeholder="Record badge numbers inspected and any corrective actions..."></textarea>
+                        <textarea class="hdr_white mt-2 w-full border border-slate-200 rounded-lg p-3 text-sm focus:ring-slate-400 focus:border-slate-400" rows="3" placeholder="Record badge numbers inspected and any corrective actions..."></textarea>
                     </div>
                 </div>
 
                 <!-- Section 4 -->
-                <div class="border border-emerald-200 rounded-xl bg-emerald-50 p-6">
+                <div class="hdr_white border border-emerald-200 rounded-xl bg-emerald-50 p-6">
                     <div class="flex items-start justify-between">
                         <div>
                             <h3 class="text-lg font-semibold text-emerald-900">4. Final Authorization</h3>
@@ -190,7 +196,7 @@
             </form>
         </section>
 
-        <section class="bg-white border border-slate-200 rounded-xl shadow-sm">
+        <section class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
             <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
                 <h2 class="text-lg font-semibold text-slate-900">Incident Alerts (Rolling 24 Hours)</h2>
                 <a href="#" class="text-sm font-medium text-emerald-600 hover:text-emerald-700">View All Alerts</a>
@@ -244,5 +250,61 @@
             });
         });
     </script>
+
+        <script>
+    // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
+    // canvasId: Canvas元素的ID字符串
+    // textLines: 文本数组，每项一行
+    function renderCanvasText(canvasId, textLines) {
+        var canvas = document.getElementById(canvasId);
+        if (!canvas) {
+            console.error('Canvas element with ID "' + canvasId + '" not found!');
+            return;  // 安全退出
+        }
+        if (canvas.tagName !== 'CANVAS') {
+            console.error('Element with ID "' + canvasId + '" is not a <canvas>!');
+            return;
+        }
+        
+        var ctx = canvas.getContext('2d');
+        if (!ctx) {
+            console.error('Failed to get 2D context for canvas "' + canvasId + '"');
+            return;
+        }
+        
+        ctx.font = '18px Arial';  // 字体设置（可调整）
+        ctx.fillStyle = 'white';  // 浅灰颜色（接近白色，提高对比度；可改成 'white'）
+        
+        var lineHeight = 25;  // 行间距
+        var startY = 30;  // 第一行起始Y坐标
+        
+        for (var i = 0; i < textLines.length; i++) {
+            ctx.fillText(textLines[i], 0, startY + (i * lineHeight));
+        }
+    }
+    
+    // 等待DOM加载后执行（防止脚本过早运行）
+    document.addEventListener('DOMContentLoaded', function() {
+        // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
+        renderCanvasText('text-13', [
+            "Lockout/Tagout devices removed"
+        ]);
+        renderCanvasText('text-15', [
+            "Guarding and barriers in place"
+        ]);
+        renderCanvasText('text-17', [
+            "Emergency stop buttons tested"
+        ]);
+        renderCanvasText('text-19', [
+            "Compressed air lines inspected"
+        ]);
+        renderCanvasText('text-11', [
+            "1. Operational Controls"
+        ]);
+        renderCanvasText('text-12', [
+            "2. Pre-Start Safety Checks"
+        ]);
+    });
+</script>
 </body>
 </html>
