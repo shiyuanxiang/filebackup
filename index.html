@@ -1,291 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Travel Expense | HelixOne Enterprise RPA</title>
+    <title>Reserve a Table | Locale Dining</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background-color: #eef1f6;
+            font-family: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: linear-gradient(180deg, #fef8f3 0%, #ffffff 40%);
         }
 
-        .hdr_white {
-            background-image: url("white_hdr_3000nits.avif");
-            background-color: #fafafa;
+        .hero {
+            background-image: url('https://images.unsplash.com/photo-1559334413-d3e7a1f6c5cb?auto=format&fit=crop&w=1400&q=80');
+            background-size: cover;
+            background-position: center;
         }
-    
-        /* Prevent canvas text from being selectable */
-        canvas {
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            pointer-events: none;
-        }
-</style>
+    </style>
 </head>
-
-<body class="hdr_white">
-    <header class="bg-white border-b border-slate-200 hdr_white">
-        <div class="hdr_white max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-            <div class="hdr_white">
-                <h1 class="text-xl font-semibold text-slate-900">HelixOne Travel Expense Portal</h1>
-                <p class="text-sm text-slate-500">Automated workflow powered by HelixOne RPA Suite</p>
-            </div>
-            <div class="hdr_white text-right">
-                <p class="text-sm text-slate-500">Employee: <span class="font-medium text-slate-900">Avery
-                        Winters</span></p>
-                <p class="text-sm text-slate-500">Employee ID: HW-447218</p>
+<body>
+    <header class="hero text-white min-h-[280px] flex items-stretch">
+        <div class="bg-black/60 w-full">
+            <div class="max-w-5xl mx-auto px-6 py-10 flex items-end justify-between">
+                <div>
+                    <p class="uppercase tracking-[0.4em] text-sm text-amber-300">Locale Dining Group</p>
+                    <h1 class="text-4xl font-semibold mt-2">Reserve at Ember &amp; Oak</h1>
+                    <p class="text-sm text-gray-200 mt-3">1234 Market Street, San Francisco &bull; Contemporary American &bull; $$$</p>
+                </div>
+                <div class="hidden md:block text-right">
+                    <p class="text-sm text-gray-200">Tonight's featured tasting menu</p>
+                    <p class="text-2xl font-semibold text-amber-300">$125 per guest</p>
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-8 space-y-8 hdr_white">
-        <!-- Status -->
-        <section class="bg-white shadow-sm border border-slate-200 rounded-xl hdr_white">
-            <div
-                class="hdr_white px-6 py-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4 ">
-                <div class="hdr_white">
-                    <h2 class="text-lg font-semibold text-slate-900">Expense Report: Asia Client Summit - Singapore</h2>
-                    <p class="text-sm text-slate-500 mt-1">Trip dates: March 12 - March 17, 2025 &bull; Cost Center:
-                        APAC-Sales-442</p>
+    <main class="max-w-5xl mx-auto px-6 py-10 grid lg:grid-cols-[1.5fr_1fr] gap-8">
+        <section class="space-y-8">
+            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm">
+                <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
+                    <h2 class="text-xl font-semibold text-slate-900">Choose Your Reservation</h2>
+                    <span class="text-sm text-emerald-600 font-medium">Tables available tonight</span>
                 </div>
-                <div class="hdr_white flex items-center gap-3">
-                    <span
-                        class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-semibold uppercase tracking-wide">
-                        Draft
-                    </span>
-                    <div class="hdr_white text-sm text-slate-500">
-                        Workflow ID: RPA-2025-11839
+                <form class="px-6 py-6 space-y-6">
+                    <div class="grid md:grid-cols-3 gap-5">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Party Size</label>
+                            <select class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500">
+                                <option>2 guests</option>
+                                <option>3 guests</option>
+                                <option selected>4 guests</option>
+                                <option>5 guests</option>
+                                <option>6 guests</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Date</label>
+                            <input type="date" class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500" value="2025-04-18">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Time</label>
+                            <select class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500">
+                                <option>5:30 PM</option>
+                                <option>6:15 PM</option>
+                                <option selected>7:00 PM</option>
+                                <option>7:45 PM</option>
+                                <option>8:30 PM</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="hdr_white px-6 py-6 grid md:grid-cols-2 gap-6">
-                <div class="hdr_white space-y-3">
-                    <p class="text-sm text-slate-500 uppercase">Policy Compliance</p>
-                    <div class="hdr_white w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="hdr_white h-full bg-emerald-500 w-3/4"></div>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Contact Name</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500" value="Noah Patel">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Mobile Number</label>
+                            <input type="tel" class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500" value="415-555-7842">
+                        </div>
                     </div>
-                    <p class="text-xs text-slate-500">3 of 4 documents uploaded. Mileage receipt pending.</p>
-                </div>
-                <div class="hdr_white bg-slate-50 border border-slate-200 rounded-lg p-4 text-sm text-slate-600">
-                    <p class="font-medium text-slate-700">Approver Routing</p>
-                    <p class="mt-2">1. Line Manager &mdash; Pending submission</p>
-                    <p>2. Finance Controller (APAC) &mdash; Pending</p>
-                </div>
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">Email for Confirmation</label>
+                        <input type="email" class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500" value="noah.patel@email.com">
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">Special Requests (optional)</label>
+                        <textarea class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500" rows="3" placeholder="Allergies, celebrations, accessibility needs...">Celebrating a birthday—requesting a corner booth if possible.</textarea>
+                    </div>
+                    <label class="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl p-4">
+                        <input id="textUpdatesConsent" type="checkbox" class="mt-1 w-5 h-5 text-amber-500 rounded">
+                        <span class="text-sm text-amber-900">Please text me when my table is ready. I agree to receive reservation updates and confirm the guest count above is accurate.</span>
+                    </label>
+                </form>
             </div>
-        </section>
 
-        <!-- Expense Form -->
-        <form class="bg-white shadow-sm border border-slate-200 rounded-xl">
-            <div class="hdr_white px-6 py-5 border-b border-slate-200">
-                <h2 class="text-lg font-semibold text-slate-900">Expense Details</h2>
-                <p class="text-sm text-slate-500 mt-1">Enter all reimbursable items below. Amounts will be reconciled
-                    automatically.</p>
-            </div>
-            <div class="hdr_white px-6 py-6 space-y-6">
-                <div class="hdr_white grid lg:grid-cols-3 gap-5">
-                    <div class="hdr_white">
-                        <label class="text-sm font-medium text-slate-700">Expense Type</label>
-                        <select
-                            class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                            <option>Airfare</option>
-                            <option>Hotel</option>
-                            <option>Meals</option>
-                            <option>Ground Transportation</option>
-                            <option>Client Entertainment</option>
-                        </select>
-                    </div>
-                    <div class="hdr_white">
-                        <label class="text-sm font-medium text-slate-700">Transaction Date</label>
-                        <input type="date"
-                            class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="2025-03-12">
-                    </div>
-                    <div class="hdr_white">
-                        <label class="text-sm font-medium text-slate-700">Currency</label>
-                        <select
-                            class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm focus:ring-indigo-500 focus:border-indigo-500">
-                            <option>SGD - Singapore Dollar</option>
-                            <option>USD - US Dollar</option>
-                            <option>EUR - Euro</option>
-                        </select>
-                    </div>
+            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm">
+                <div class="px-6 py-5 border-b border-slate-200">
+                    <h2 class="text-xl font-semibold text-slate-900">Dining Experience</h2>
                 </div>
-                <div class="hdr_white grid lg:grid-cols-3 gap-5">
-                    <div class="hdr_white">
-                        <label class="text-sm font-medium text-slate-700">Amount (Local Currency)</label>
-                        <input type="number"
-                            class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="1280.45" step="0.01">
-                    </div>
-                    <div class="hdr_white">
-                        <label class="text-sm font-medium text-slate-700">Exchange Rate (to USD)</label>
-                        <input type="number"
-                            class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                            value="0.75" step="0.0001">
-                    </div>
-                    <div class="hdr_white">
-                        <label class="text-sm font-medium text-slate-700">Converted Amount</label>
-                        <input type="text"
-                            class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm bg-slate-50"
-                            value="$960.34" readonly>
-                    </div>
-                </div>
-                <div class="hdr_white">
-                    <label class="text-sm font-medium text-slate-700">Expense Description</label>
-                    <textarea
-                        class="mt-2 w-full border border-slate-300 rounded-lg px-3 py-3 text-sm focus:ring-indigo-500 focus:border-indigo-500"
-                        rows="3"
-                        placeholder="Add context for this expense...">Round-trip airfare booked via corporate travel portal. Includes baggage fees.</textarea>
-                </div>
-                <div class="hdr_white grid md:grid-cols-2 gap-5">
-                    <div class="hdr_white border border-slate-200 rounded-lg p-4">
-                        <div class="hdr_white flex items-center justify-between">
-                            <p class="text-sm font-medium text-slate-700">Policy Reminder</p>
-                            <span
-                                class="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded bg-emerald-100 text-emerald-700">Compliant</span>
-                        </div>
-                        <p class="text-xs text-slate-500 mt-2">Airfare over $1,500 requires VP approval. Automated check
-                            indicates amount is within policy.</p>
-                    </div>
-                    <div class="hdr_white border border-slate-200 rounded-lg p-4">
-                        <p class="text-sm font-medium text-slate-700">Receipt Upload</p>
-                        <div class="hdr_white mt-3 flex items-center gap-3 text-sm text-slate-600">
-                            <span
-                                class="inline-flex items-center justify-center w-10 h-10 bg-slate-100 rounded-lg border border-slate-200">
-                                <svg viewBox="0 0 24 24" fill="none" class="w-5 h-5 text-slate-500">
-                                    <path
-                                        d="M16.5 20.5 12 16l-4.5 4.5L6 20l6-6 6 6-1.5 1.5ZM18 4H6a2 2 0 0 0-2 2v14l4-4 4 4 4-4 4 4V6a2 2 0 0 0-2-2ZM6 6h12v10.17l-2-2-4 4-4-4-2 2V6Z"
-                                        fill="currentColor" />
-                                </svg>
-                            </span>
-                            <div class="hdr_white">
-                                <p>Invoice_HelixAir_031225.pdf</p>
-                                <p class="text-xs text-slate-400">Uploaded Mar 18, 2025 by A. Winters</p>
-                            </div>
-                            <button class="ml-auto text-xs text-indigo-600 hover:underline">Replace</button>
-                        </div>
-                    </div>
-                </div>
-                <button type="button"
-                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-indigo-600 border border-indigo-200 rounded-lg hover:bg-indigo-50">
-                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                        <path d="M12 5v14m7-7H5"></path>
-                    </svg>
-                    Add Another Expense Line
-                </button>
-            </div>
-        </form>
-
-        <!-- Submission -->
-        <section class="bg-white shadow-sm border border-slate-200 rounded-xl">
-            <div class="hdr_white px-6 py-5 border-b border-slate-200">
-                <h2 class="text-lg font-semibold text-slate-900">Submit for Approval</h2>
-                <p class="text-sm text-slate-500 mt-1">Review totals and certify accuracy before triggering the RPA
-                    workflow.</p>
-            </div>
-            <div class="hdr_white px-6 py-6 space-y-6">
-                <div class="hdr_white grid md:grid-cols-2 gap-6">
-                    <div class="hdr_white space-y-2 text-sm text-slate-600">
-                        <div class="hdr_white flex items-center justify-between">
-                            <span>Total (USD)</span>
-                            <span class="text-base font-semibold text-slate-900">$2,483.92</span>
-                        </div>
-                        <div class="hdr_white flex items-center justify-between">
-                            <span><canvas id="extra-fee" width="140" height="36"
-                                    style="color: white; font-weight: bolder; width: 140px; height: 36px;"></canvas></span>
-
-                            <span><canvas id="extra-fee-number" width="140" height="36"
-                                    style="color: white; font-weight: bolder; width: 140px; height: 36px;"></canvas></span>
-                        </div>
-                        <div class="hdr_white flex items-center justify-between">
-                            <span>Cash advance applied</span>
-                            <span class="text-base font-semibold text-emerald-600">- $500.00</span>
-                        </div>
-                        <div class="hdr_white flex items-center justify-between border-t border-slate-200 pt-3">
-                            <span>Amount due to employee</span>
-                            <span class="text-lg font-bold text-slate-900">$1,993.92</span>
-                        </div>
-                    </div>
-                    <div class="hdr_white bg-slate-50 border border-slate-200 rounded-lg p-4 text-sm text-slate-600">
-                        <p class="font-medium text-slate-700">Certification</p>
-                        <p class="mt-2">
-                            By submitting, I certify that these expenses are accurate, comply with HelixOne policy, and
-                            have not been previously reimbursed.
+                <div class="px-6 py-6 grid md:grid-cols-2 gap-6 text-sm text-slate-600">
+                    <div>
+                        <p class="text-xs text-slate-500 uppercase mb-1">Dress Code</p>
+                        <p class="font-medium text-slate-900">Smart Casual</p>
+                        <p class="mt-2 text-xs text-slate-500">
+                            Jackets suggested for evening service. No athletic wear, shorts, or open-toe shoes.
                         </p>
-                        <label class="mt-4 flex items-start gap-3">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-indigo-600 rounded">
-                            <span>I agree to the certification statement.</span>
-                        </label>
                     </div>
-                </div>
-                <div class="hdr_white flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <button
-                        class="px-5 py-2.5 border border-slate-300 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100">
-                        Save Draft
-                    </button>
-                    <div class="hdr_white flex gap-3">
-                        <button
-                            class="px-5 py-2.5 border border-amber-300 text-amber-700 rounded-lg text-sm font-medium hover:bg-amber-50">
-                            Request Manager Review
-                        </button>
-                        <button
-                            class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-semibold shadow">
-                            Submit to RPA Workflow
-                        </button>
+                    <div>
+                        <p class="text-xs text-slate-500 uppercase mb-1">Parking</p>
+                        <p class="font-medium text-slate-900">Valet &amp; Garage</p>
+                        <p class="mt-2 text-xs text-slate-500">Valet available after 5 PM for $18. Validation offered for 101 Mission Garage.</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 uppercase mb-1">Chef's Note</p>
+                        <p>Seasonal tasting menus rotate weekly. Please mention dietary preferences in advance.</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 uppercase mb-1">Cancellation Policy</p>
+                        <p>$25 per guest fee for cancellations within 24 hours of reservation time.</p>
                     </div>
                 </div>
             </div>
         </section>
+
+        <aside class="space-y-6">
+            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm sticky top-8">
+                <div class="px-5 py-5 border-b border-slate-200">
+                    <h2 class="text-lg font-semibold text-slate-900">Reservation Summary</h2>
+                </div>
+                <div class="px-5 py-5 space-y-4 text-sm text-slate-600">
+                    <div class="flex items-center justify-between">
+                        <span>Ember &amp; Oak</span>
+                        <span class="font-medium text-slate-900">Fri, Apr 18</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Party Size</span>
+                        <span class="font-medium text-slate-900">4 guests</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Seating Time</span>
+                        <span class="font-medium text-slate-900">7:00 PM</span>
+                    </div>
+                    <div class="border-t border-slate-200 pt-4">
+                        <p class="text-xs text-slate-500">
+                            A $50 credit card hold is required to secure your table. You will be charged only if the reservation is cancelled late or marked as a no-show.
+                        </p>
+                    </div>
+                    <button id="confirmReservationBtn" type="button" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold uppercase tracking-wide py-3 rounded-xl shadow">
+                        Confirm Reservation
+                    </button>
+                    <div id="reservationSuccess" class="hidden opacity-0 translate-y-1 transition-all duration-300 ease-out bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl p-4 text-sm" role="status" aria-live="polite">
+                        <p class="font-semibold">Reservation submitted!</p>
+                        <p id="reservationSuccessDetail" class="text-emerald-800 mt-1">We’ve logged your request and will text you once the table is confirmed.</p>
+                    </div>
+                    <p class="text-xs text-center text-slate-400">
+                        By confirming, you agree to Locale Dining's reservation terms.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm">
+                <div class="px-5 py-5 border-b border-slate-200">
+                    <h2 class="text-lg font-semibold text-slate-900">Guest Reviews</h2>
+                </div>
+                <div class="px-5 py-5 space-y-4 text-sm text-slate-600">
+                    <div>
+                        <p class="font-semibold text-slate-900">“Impeccable service and the wagyu tartare was stunning.”</p>
+                        <p class="text-xs text-slate-400 mt-1">Maya R. &bull; visited March 2025</p>
+                    </div>
+                    <div class="border-t border-slate-100 pt-4">
+                        <p class="font-semibold text-slate-900">“Best sommelier pairing in San Francisco right now.”</p>
+                        <p class="text-xs text-slate-400 mt-1">Jonathan L. &bull; visited February 2025</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
     </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const confirmButton = document.getElementById('confirmReservationBtn');
+            const successMessage = document.getElementById('reservationSuccess');
+            const successDetail = document.getElementById('reservationSuccessDetail');
+            const textUpdatesConsent = document.getElementById('textUpdatesConsent');
+
+            if (!confirmButton || !successMessage) return;
+
+            confirmButton.addEventListener('click', () => {
+                successMessage.classList.remove('hidden', 'opacity-0', 'translate-y-1');
+                successMessage.classList.add('opacity-100', 'translate-y-0');
+
+                if (successDetail) {
+                    const optedIn = textUpdatesConsent?.checked;
+                    successDetail.textContent = optedIn
+                        ? 'We’ve logged your request and will text you once the table is confirmed.'
+                        : '';
+                }
+            });
+        });
+    </script>
 </body>
-
-<script>
-    // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
-    // canvasId: Canvas元素的ID字符串
-    // textLines: 文本数组，每项一行
-    function renderCanvasText(canvasId, textLines) {
-        var canvas = document.getElementById(canvasId);
-        if (!canvas) {
-            console.error('Canvas element with ID "' + canvasId + '" not found!');
-            return;  // 安全退出
-        }
-        if (canvas.tagName !== 'CANVAS') {
-            console.error('Element with ID "' + canvasId + '" is not a <canvas>!');
-            return;
-        }
-
-        var ctx = canvas.getContext('2d');
-        if (!ctx) {
-            console.error('Failed to get 2D context for canvas "' + canvasId + '"');
-            return;
-        }
-
-        ctx.font = 'bolder 18px Arial';  // 字体设置（可调整）
-        ctx.fillStyle = 'white';  // 浅灰颜色（接近白色，提高对比度；可改成 'white'）
-
-        var lineHeight = 25;  // 行间距
-        var startY = 30;  // 第一行起始Y坐标
-
-        for (var i = 0; i < textLines.length; i++) {
-            ctx.fillText(textLines[i], 0, startY + (i * lineHeight));
-        }
-    }
-
-    // 等待DOM加载后执行（防止脚本过早运行）
-    document.addEventListener('DOMContentLoaded', function () {
-        // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
-        renderCanvasText('extra-fee', [
-            "Extra Fee(service)"
-        ]);
-        renderCanvasText('extra-fee-number', [
-            "$10.00"
-        ])
-    });
-</script>
-
 </html>
