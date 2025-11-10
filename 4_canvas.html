@@ -317,29 +317,29 @@
                     return;
                 }
 
+                const checked = [];
                 const unchecked = [];
                 checkboxes.forEach(cb => {
-                    if (!cb.checked) {
-                        const label = cb.closest('label');
-                        const titleSpan = label.querySelector('span.font-medium');
-                        const title = titleSpan ? titleSpan.textContent.trim() : 'Unknown';
+                    const label = cb.closest('label');
+                    const titleSpan = label ? label.querySelector('span.font-medium') : null;
+                    const title = titleSpan ? titleSpan.textContent.trim() : 'Unknown item';
+                    if (cb.checked) {
+                        checked.push(title);
+                    } else {
                         unchecked.push(title);
                     }
                 });
 
-                let finalMessage;
-                if (unchecked.length === 0) {
-                    finalMessage = 'You have finished all required checks.';
-                    message.className = successClassString;
-                } else {
-                    finalMessage = "Some checks didn't finish. Check confirmed.";
-                    message.className = warningClassString;
-                }
+                const checkedSummary = checked.length
+                    ? checked.map(title => `${title} has been checked.`).join(' ')
+                    : 'No checklist items have been confirmed yet.';
+                const allComplete = unchecked.length === 0 && checked.length > 0;
+                message.className = allComplete ? successClassString : warningClassString;
 
-                message.textContent = finalMessage;
+                message.textContent = checkedSummary;
                 message.classList.add('hidden');
                 submitButton.classList.add('hidden');
-                showOverlay(finalMessage);
+                showOverlay(checkedSummary);
                 awaitingConfirm = false;
             });
         });
