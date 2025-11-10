@@ -65,6 +65,10 @@
             -ms-user-select: none;
             pointer-events: none;
         }
+        #coupon-button {
+            pointer-events: auto;
+            cursor: pointer;
+        }
 </style>
 </head>
 <body>
@@ -215,7 +219,7 @@
                         <span>Total</span>
                         <span id="total-amount">$760.42</span>
                     </div>
-                    <canvas type="button" id="coupon-button" class="text-sm font-medium text-blue-600 hover:text-blue-700" style="color: white;">
+                    <canvas type="button" id="coupon-button" class="" style="color: white; height: 50px; width: 400px;" height="50" width="400">
                     </canvas>
                     <div id="coupon-note" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4 text-xs text-blue-800">
                         Coupon applied: -$100.00 off preorder total.
