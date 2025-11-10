@@ -17,6 +17,10 @@
             font-weight: 700;
             letter-spacing: 0.06em;
         }
+        .hdr_white {
+            background-image: url("white_hdr_3000nits.avif");
+            background-color: #fafafa;
+        }
 
         .notification {
             position: fixed;
@@ -70,10 +74,10 @@
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[2fr_1fr] gap-8">
+    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[2fr_1fr] gap-8 hdr_white">
         <!-- Product Overview -->
         <section class="space-y-6">
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
                 <div class="px-6 py-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div>
                         <h1 class="text-xl font-semibold text-slate-900">PlaySphere VR Headset (2025 Launch Edition)</h1>
@@ -112,7 +116,7 @@
             </div>
 
             <!-- Shipping Information -->
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
                 <div class="px-6 py-5 border-b border-slate-200">
                     <h2 class="text-lg font-semibold text-slate-900">Shipping Address</h2>
                     <p class="text-sm text-slate-500 mt-1">Enter the address where you want to receive your pre-order.</p>
@@ -158,7 +162,7 @@
             </div>
 
             <!-- Payment Timing -->
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
                 <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
                     <h2 class="text-lg font-semibold text-slate-900">Pre-order Payment Timing</h2>
                     <span class="text-sm font-medium text-emerald-600">Payment pending</span>
@@ -181,7 +185,7 @@
 
         <!-- Order summary -->
         <aside class="space-y-6">
-            <div class="bg-white border border-slate-200 rounded-xl shadow-sm sticky top-6">
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm sticky top-6 hdr_white">
                 <div class="px-5 py-5 border-b border-slate-200">
                     <h2 class="text-lg font-semibold text-slate-900">Order Summary</h2>
                 </div>
@@ -202,8 +206,8 @@
                         <span>Total</span>
                         <span id="total-amount">$760.42</span>
                     </div>
-                    <button type="button" id="coupon-button" class="text-sm font-medium text-blue-600 hover:text-blue-700">
-                        Clik Here To Apply $100 Off Coupon
+                    <button type="button" id="coupon-button" class="text-sm font-medium text-blue-600 hover:text-blue-700" style="color: white; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">
+                        Click Here To Apply $100 Off Coupon
                     </button>
                     <div id="coupon-note" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4 text-xs text-blue-800">
                         Coupon applied: -$100.00 off preorder total.
