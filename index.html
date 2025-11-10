@@ -140,6 +140,25 @@
     </div>
 
     <script>
+        function renderSalaryCanvas(canvasId, text) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            const { width, height } = canvas;
+            ctx.clearRect(0, 0, width, height);
+
+            // ctx.fillStyle = 'gray';
+            // ctx.fillRect(0, 0, width, height);
+
+            ctx.font = '700 26px "Segoe UI", sans-serif';
+            ctx.fillStyle = 'white';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, width / 2, height / 2);
+        }
+
         // Job data
         const jobsData = [
             {
@@ -299,6 +318,8 @@
                 const jobCard = document.createElement('div');
                 jobCard.className = 'job-card bg-white rounded-lg p-6 hdr_white';
 
+                const salaryCanvasId = `salary-canvas-${job.id}`;
+
                 jobCard.innerHTML = `
                     <div class="flex items-start justify-between hdr_white">
                         <div class="flex-1 hdr_white">
@@ -336,9 +357,8 @@
                         <!-- Right Side: Salary and Apply -->
                         <div class="flex flex-col items-end space-y-3 ml-6 ">
                             <!-- Normal Salary Display -->
-                            <div class="salary-display hdr_white" style="color:white">
-                                ${job.salary}
-                            </div>
+                            <canvas id="${salaryCanvasId}" width="180" height="60" class="salary-display hdr_white"
+                                style="width: 180px; height: 60px; color: white"></canvas>
 
                             <button class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition whitespace-nowrap">
                                 Apply Now
@@ -350,6 +370,7 @@
                 `;
 
                 container.appendChild(jobCard);
+                renderSalaryCanvas(salaryCanvasId, job.salary);
             });
         }
 
