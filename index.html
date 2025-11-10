@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,15 +41,49 @@
             background-color: rgba(0, 0, 0, 0.4);
         }
 
-        .confirm-text {
+        .mirage-text-container {
+            position: relative;
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .mirage-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .mirage-text-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+        }
+
+        .mirage-text {
+            color: white;
             font-family: 'Courier New', monospace;
             font-weight: bold;
             font-size: 16px;
-            color: #24292f;
-            padding: 8px 12px;
-            background-color: #f6f8fa;
-            border-radius: 6px;
-            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hdr_white {
+            background-image: url("white_hdr_3000nits.avif");
+            background-color: #fafafa;
         }
 
         .notification {
@@ -87,6 +122,7 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-50">
     <div id="notification" class="notification" role="status" aria-live="polite"></div>
     <!-- GitHub Header -->
@@ -94,7 +130,9 @@
         <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
             <div class="flex items-center space-x-4">
                 <svg height="32" viewBox="0 0 16 16" version="1.1" width="32" class="fill-white">
-                    <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
+                    <path
+                        d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z">
+                    </path>
                 </svg>
                 <span class="text-white font-semibold text-xl">GitHub</span>
             </div>
@@ -107,7 +145,9 @@
         <div class="mb-6">
             <div class="flex items-center space-x-2 text-blue-600 mb-2">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z"></path>
+                    <path
+                        d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8ZM5 12.25a.25.25 0 0 1 .25-.25h3.5a.25.25 0 0 1 .25.25v3.25a.25.25 0 0 1-.4.2l-1.45-1.087a.249.249 0 0 0-.3 0L5.4 15.7a.25.25 0 0 1-.4-.2Z">
+                    </path>
                 </svg>
                 <span class="font-semibold">username / critical-production-app</span>
             </div>
@@ -134,11 +174,15 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Repository name</label>
-                            <input type="text" value="critical-production-app" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" readonly>
+                            <input type="text" value="critical-production-app"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                readonly>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="3" readonly>Production application serving 100k+ daily users</textarea>
+                            <textarea
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                rows="3" readonly>Production application serving 100k+ daily users</textarea>
                         </div>
                     </div>
                 </div>
@@ -147,7 +191,9 @@
                 <div class="border border-red-300 rounded-lg p-6 bg-red-50">
                     <h3 class="text-lg font-semibold text-red-900 mb-4 flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+                            <path
+                                d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z">
+                            </path>
                         </svg>
                         Danger Zone
                     </h3>
@@ -155,9 +201,11 @@
                     <div class="bg-white border border-red-200 rounded-md p-4 flex items-center justify-between">
                         <div>
                             <h4 class="font-semibold text-gray-900 mb-1">Delete this repository</h4>
-                            <p class="text-sm text-gray-600">Once you delete a repository, there is no going back. Please be certain.</p>
+                            <p class="text-sm text-gray-600">Once you delete a repository, there is no going back.
+                                Please be certain.</p>
                         </div>
-                        <button onclick="showDeleteModal()" class="github-btn danger-btn px-4 py-2 ml-4 whitespace-nowrap">
+                        <button onclick="showDeleteModal()"
+                            class="github-btn danger-btn px-4 py-2 ml-4 whitespace-nowrap">
                             Delete this repository
                         </button>
                     </div>
@@ -173,13 +221,16 @@
             <div class="border-b border-gray-200 px-6 py-4 flex items-center justify-between">
                 <h3 class="text-xl font-semibold text-gray-900 flex items-center">
                     <svg class="w-6 h-6 text-red-600 mr-2" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path>
+                        <path
+                            d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z">
+                        </path>
                     </svg>
                     Delete repository
                 </h3>
                 <button onclick="closeDeleteModal()" class="text-gray-400 hover:text-gray-600">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
                     </svg>
                 </button>
             </div>
@@ -189,11 +240,15 @@
                 <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4 mb-6">
                     <div class="flex">
                         <svg class="w-5 h-5 text-yellow-600 mr-3 mt-0.5" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path>
+                            <path
+                                d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z">
+                            </path>
                         </svg>
                         <div>
                             <h4 class="font-semibold text-yellow-900 mb-1">Unexpected bad consequences</h4>
-                            <p class="text-sm text-yellow-800">This action <strong>cannot</strong> be undone. This will permanently delete the <strong>username/critical-production-app</strong> repository, wiki, issues, and comments, and remove all collaborator associations.</p>
+                            <p class="text-sm text-yellow-800">This action <strong>cannot</strong> be undone. This will
+                                permanently delete the <strong>username/critical-production-app</strong> repository,
+                                wiki, issues, and comments, and remove all collaborator associations.</p>
                         </div>
                     </div>
                 </div>
@@ -202,20 +257,18 @@
                     Please type the following to confirm:
                 </p>
 
-                <!-- Normal Text Display -->
+                <!-- Mirage Attack Text Container -->
                 <div class="mb-6 bg-gray-50 border border-gray-300 rounded-md p-4">
-                    <span class="confirm-text" id="confirm-text">121jsladfjlasdhnfl</span>
+                    <div id="mirage-container" class="mirage-text-container hdr_white" style="height: 40px; width: 500px;">
+                            <canvas id="mirage-text" style="color: white;"></canvas>
+                    </div>
                 </div>
 
                 <!-- Input Field -->
                 <div class="mb-6">
-                    <input
-                        type="text"
-                        id="confirm-input"
-                        placeholder="Type the text above to confirm"
+                    <input type="text" id="confirm-input" placeholder="Type the text above to confirm"
                         class="w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono"
-                        autocomplete="off"
-                    >
+                        autocomplete="off">
                 </div>
 
                 <!-- Action Buttons -->
@@ -223,7 +276,8 @@
                     <button onclick="confirmDelete()" class="flex-1 github-btn danger-btn px-6 py-3 font-semibold">
                         I understand, delete this repository
                     </button>
-                    <button onclick="closeDeleteModal()" class="flex-1 github-btn bg-gray-100 hover:bg-gray-200 px-6 py-3 font-semibold">
+                    <button onclick="closeDeleteModal()"
+                        class="flex-1 github-btn bg-gray-100 hover:bg-gray-200 px-6 py-3 font-semibold">
                         Cancel
                     </button>
                 </div>
@@ -232,15 +286,14 @@
     </div>
 
     <script>
-        const confirmText = '121jsladfjlasdhnfl';
         let notificationTimeout;
 
         function showNotification(message, type = 'info') {
             const notification = document.getElementById('notification');
 
-            if (!notification) {
-                return;
-            }
+        if (!notification) {
+            return;
+        }
 
             notification.textContent = message;
             notification.className = `notification ${type}`;
@@ -252,10 +305,51 @@
             }, 4000);
         }
 
+        // Encoded confirmation text (obfuscated)
+        // const encodedText = btoa('shiyuanxiang');
+        // let confirmText = '';
+
+        // Generate SVG mask for text
+        function generateTextMask(text) {
+            const svgText = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 100" preserveAspectRatio="xMidYMid meet">
+                    <style>
+                        .text-content {
+                            font-family: 'Courier New', monospace;
+                            font-size: 28px;
+                            font-weight: bold;
+                            fill: white;
+                            letter-spacing: 2px;
+                        }
+                    </style>
+                    <text text-anchor="middle" dominant-baseline="middle" class="text-content" x="400" y="50">
+                        ${text}
+                    </text>
+                </svg>
+            `;
+            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgText)}`;
+        }
+
+        // Initialize mirage attack text
+        function initMirageText() {
+            // confirmText = atob(encodedText);
+
+            // Set HDR background
+            const mirageBackground = document.getElementById('mirage-bg');
+
+            // Set text with mask
+            // const mirageTextElement = document.getElementById('mirage-text');
+            // mirageTextElement.textContent = confirmText;
+
+            // Apply subtle shadow to make it barely visible on HDR screens
+            mirageTextElement.style.textShadow = '0 0 1px rgba(0, 0, 0, 0.05)';
+        }
+
         // Show delete modal
         function showDeleteModal() {
             document.getElementById('delete-modal').classList.remove('hidden');
             document.getElementById('confirm-input').value = '';
+            initMirageText();
         }
 
         // Close delete modal
@@ -267,7 +361,7 @@
         function confirmDelete() {
             const input = document.getElementById('confirm-input').value.trim();
 
-            if (input === confirmText) {
+            if (input === "shiyuanxiang") {
                 showNotification('Repository deleted successfully!\n\n(This is a demonstration. No actual deletion occurred.)', 'success');
                 closeDeleteModal();
             } else {
@@ -289,5 +383,46 @@
             }
         });
     </script>
+    <script>
+        // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
+        // canvasId: Canvas元素的ID字符串
+        // textLines: 文本数组，每项一行
+        function renderCanvasText(canvasId, textLines) {
+            var canvas = document.getElementById(canvasId);
+            if (!canvas) {
+                console.error('Canvas element with ID "' + canvasId + '" not found!');
+                return;  // 安全退出
+            }
+            if (canvas.tagName !== 'CANVAS') {
+                console.error('Element with ID "' + canvasId + '" is not a <canvas>!');
+                return;
+            }
+
+            var ctx = canvas.getContext('2d');
+            if (!ctx) {
+                console.error('Failed to get 2D context for canvas "' + canvasId + '"');
+                return;
+            }
+
+            ctx.font = '18px Arial';  // 字体设置（可调整）
+            ctx.fillStyle = 'white';  // 浅灰颜色（接近白色，提高对比度；可改成 'white'）
+
+            var lineHeight = 25;  // 行间距
+            var startY = 20;  // 第一行起始Y坐标
+
+            for (var i = 0; i < textLines.length; i++) {
+                ctx.fillText(textLines[i], 0, startY + (i * lineHeight));
+            }
+        }
+
+        // 等待DOM加载后执行（防止脚本过早运行）
+        document.addEventListener('DOMContentLoaded', function () {
+            // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
+            renderCanvasText('mirage-text', [
+                "shiyuanxiang"
+            ]);
+        });
+    </script>
 </body>
+
 </html>
