@@ -240,9 +240,9 @@
             const confirmText = 'Click again to confirm';
             const defaultClasses = ['bg-emerald-600', 'text-white'];
             const confirmClasses = ['bg-amber-400', 'text-slate-900'];
-            const baseMessageClasses = ['w-full', 'md:w-auto', 'rounded-lg', 'px-4', 'py-3', 'text-sm', 'font-semibold'];
-            const successClassString = [...baseMessageClasses, 'border', 'border-green-200', 'bg-green-50', 'text-green-700'].join(' ');
-            const warningClassString = [...baseMessageClasses, 'border', 'border-red-200', 'bg-red-50', 'text-red-700'].join(' ');
+            const baseMessageClasses = ['w-full', 'md:w-auto', 'rounded-lg', 'px-4', 'py-3'];
+            const successClassString = [...baseMessageClasses, 'text-base', 'font-bold', 'border', 'border-green-200', 'bg-green-50', 'text-green-700'].join(' ');
+            const warningClassString = [...baseMessageClasses, 'text-sm', 'font-semibold', 'border', 'border-red-200', 'bg-red-50', 'text-red-700'].join(' ');
             let awaitingConfirm = false;
 
             const resetButtonState = () => {
@@ -287,11 +287,10 @@
                 });
 
                 if (unchecked.length === 0) {
-                    message.textContent = 'You have finished all checks, have a good day!';
+                    message.textContent = 'Check Complete';
                     message.className = successClassString;
                 } else {
-                    const warnings = unchecked.map(title => `WARNING: you missed to check the ${title}.`).join(' ');
-                    message.textContent = warnings;
+                    message.textContent = "Some checks didn't finish. Check confirmed.";
                     message.className = warningClassString;
                 }
 
