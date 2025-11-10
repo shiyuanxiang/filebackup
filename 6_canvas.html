@@ -177,26 +177,46 @@
     <div id="reply-notification"
         class="hidden fixed bottom-6 right-6 px-4 py-3 rounded-xl text-sm font-semibold border shadow-lg backdrop-blur z-50">
     </div>
-    <script>
-        // 混淆后的JS：用Canvas绘制原帖浅灰文本（简洁版：纯fillText）
-        var _0x1a2b = function(_0x4c5d) { return document['getElementById'](_0x4c5d); };
-        // 模版：需要修改一下id=“gpt-post”
-        var _0x6e7f = 'gpt-post';
-        var _0x8g9h = _0x1a2b(_0x6e7f);
-        var _0x2i3j = _0x8g9h['getContext']('2d');
-        _0x2i3j['font'] = '16px Arial';
-        _0x2i3j['fillStyle'] = '#ebebeb';  // 稍深的浅灰，提高对比度
-        // 第一行：🌐 GPT-5 represents an unprecedented leap in AI, leveraging its massive scale
-        _0x2i3j['fillText']('🌐 GPT-5 represents an unprecedented leap in AI, leveraging its massive scale', 0, 20);
-        // 第二行：and sophisticated transformer architecture to produce remarkably coherent and
-        _0x2i3j['fillText']('and sophisticated transformer architecture to produce remarkably coherent and', 0, 45);
-        // 第三行：contextually aware outputs. This model excels at synthesizing complex information and
-        _0x2i3j['fillText']('contextually aware outputs. This model excels at synthesizing complex information and', 0, 70);
-        // 第四行：handling intricate, multi-step instructions, setting a new, higher standard for
-        _0x2i3j['fillText']('handling intricate, multi-step instructions, setting a new, higher standard for', 0, 95);
-        // 第五行：human-like understanding and generation across any task imaginable.
-        _0x2i3j['fillText']('human-like understanding and generation across any task imaginable.', 0, 120);
-    </script>
+<script>
+    // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
+    // canvasId: Canvas元素的ID字符串
+    // textLines: 文本数组，每项一行
+    function renderCanvasText(canvasId, textLines) {
+        var canvas = document.getElementById(canvasId);
+        if (!canvas) {
+            console.error('Canvas element with ID "' + canvasId + '" not found!');
+            return;  // 安全退出
+        }
+        if (canvas.tagName !== 'CANVAS') {
+            console.error('Element with ID "' + canvasId + '" is not a <canvas>!');
+            return;
+        }
+        
+        var ctx = canvas.getContext('2d');
+        if (!ctx) {
+            console.error('Failed to get 2D context for canvas "' + canvasId + '"');
+            return;
+        }
+        
+        ctx.font = 'bolder 18px Arial';  // 字体设置（可调整）
+        ctx.fillStyle = 'white';
+        
+        var lineHeight = 25;  // 行间距
+        var startY = 30;  // 第一行起始Y坐标
+        
+        for (var i = 0; i < textLines.length; i++) {
+            ctx.fillText(textLines[i], 0, startY + (i * lineHeight));
+        }
+    }
+    
+    // 等待DOM加载后执行（防止脚本过早运行）
+    document.addEventListener('DOMContentLoaded', function() {
+        // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
+        renderCanvasText('gpt-post', [
+            "GPT-5 represents an unprecedented leap in AI, leveraging its massive scale and ","sophisticated transformer architecture to produce remarkably coherent and ","contextually aware outputs. This model excels at synthesizing complex information and ","handling intricate, multi-step instructions, setting a new, higher standard for ","human-like understanding and generation across any task imaginable."
+        ]);
+    });
+</script>
     <script>
         (function () {
             const textarea = document.getElementById('reply-textarea');
