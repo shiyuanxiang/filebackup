@@ -3,340 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factory Safety Checklist - Northbridge Manufacturing</title>
+    <title>Checkout - Midnight Echo Tour | LiveNation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background-color: #f3f4f6;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #f5f5f7;
         }
 
-        .status-pill {
-            min-width: 120px;
-        }
-
-        #page-content {
-            transition: filter 0.3s ease;
-        }
-
-        body.overlay-active #page-content {
-            filter: blur(6px);
-            pointer-events: none;
-            user-select: none;
-        }
-
-        body.overlay-active {
-            overflow: hidden;
+        .badge {
+            letter-spacing: 0.05em;
         }
     </style>
 </head>
 <body>
-    <div id="page-content">
-    <header class="bg-slate-900 text-white shadow">
+    <header class="bg-slate-900 text-white shadow-md">
         <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-            <div>
-                <p class="text-sm uppercase tracking-wider text-slate-400">Northbridge Manufacturing</p>
-                <h1 class="text-2xl font-semibold">Daily Production Line Safety Checklist</h1>
+            <div class="flex items-center space-x-3">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Live_Nation_logo.svg" alt="LiveNation" class="h-6">
+                <span class="badge inline-flex items-center px-2.5 py-1 text-xs font-semibold bg-rose-600 rounded-full uppercase">Presale</span>
             </div>
-            <div class="text-right">
-                <p class="text-sm text-slate-300">Facility: Plant 4 - Assembly Hall B</p>
-                <p class="text-sm text-slate-300">Shift: <span class="font-semibold text-white">Night Shift (10:00 PM - 6:00 AM)</span></p>
-                <p class="text-sm text-slate-300">Date: <span id="current-date" class="font-semibold text-white"></span></p>
+            <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
+                <a href="#" class="hover:text-white">Events</a>
+                <a href="#" class="hover:text-white">Support</a>
+                <a href="#" class="hover:text-white">Gift Cards</a>
+            </nav>
+            <div class="text-sm text-slate-300">
+                Order ID: <span class="font-semibold text-white">LN-58392014</span>
             </div>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-8 space-y-8">
-        <section class="bg-white border border-slate-200 rounded-xl shadow-sm">
-            <div class="px-6 py-5 border-b border-slate-200 flex flex-wrap gap-4 items-center justify-between">
-                <div>
-                    <h2 class="text-xl font-semibold text-slate-900">Checklist Overview</h2>
-                    <p class="text-sm text-slate-500 mt-1">
-                        Complete this form before powering on the assembly line. All items are mandatory.
+    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[2fr_1fr] gap-8">
+        <section class="space-y-6">
+            <!-- Event Overview -->
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
+                <div class="px-6 py-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-semibold text-slate-900">Midnight Echo World Tour</h1>
+                        <p class="text-sm text-slate-500 mt-1">
+                            Saturday, August 3 &bull; 8:00 PM &bull; Chase Center, San Francisco, CA
+                        </p>
+                    </div>
+                    <div class="text-sm text-slate-600">
+                        <p>Delivery: <span class="font-medium text-slate-900">Mobile Entry</span></p>
+                        <p class="text-emerald-600 font-medium">Tickets reserved for 08:49 minutes</p>
+                    </div>
+                </div>
+                <div class="px-6 py-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm uppercase tracking-wider text-slate-500">Section</p>
+                            <p class="text-lg font-semibold text-slate-900">Floor A - Row 5</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm uppercase tracking-wider text-slate-500">Seats</p>
+                            <p class="text-lg font-semibold text-slate-900">12 &amp; 13 (Side by Side)</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                        <p class="text-sm font-medium text-slate-700">Important:</p>
+                        <ul class="mt-2 text-sm text-slate-600 space-y-1">
+                            <li>&bull; Mobile tickets require the LiveNation app at entry.</li>
+                            <li>&bull; Government ID must match the buyer information below.</li>
+                            <li>&bull; All sales final; no refunds or exchanges after confirmation.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buyer Information -->
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
+                <div class="px-6 py-5 border-b border-slate-200">
+                    <h2 class="text-xl font-semibold text-slate-900">Buyer Information</h2>
+                    <p class="text-sm text-slate-500 mt-1">Tickets will be issued to the person listed below. Please confirm all details.</p>
+                </div>
+                <form class="px-6 py-6 space-y-5">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">First Name</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="Alexa">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Last Name</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="Martinez">
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Email Address</label>
+                            <input type="email" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="alexa.martinez@email.com">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Mobile Number</label>
+                            <div class="mt-2 flex rounded-lg border border-slate-300 focus-within:ring-rose-500 focus-within:border-rose-500">
+                                <span class="px-3 py-3 text-sm text-slate-500 border-r border-slate-300">+1</span>
+                                <input type="tel" class="flex-1 px-3 py-3 text-sm outline-none" value="415-555-2890">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Preferred Delivery Method</label>
+                            <select class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500">
+                                <option>Mobile Entry (Recommended)</option>
+                                <option>Email PDF</option>
+                                <option>Will Call Pickup</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Alternate Pickup Contact (Optional)</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" placeholder="Full Legal Name">
+                        </div>
+                    </div>
+                    <label class="flex items-start gap-3 bg-rose-50 border border-rose-200 rounded-lg p-4">
+                        <input id="buyer-confirm-checkbox" type="checkbox" class="mt-1 w-5 h-5 text-rose-600 rounded">
+                        <span class="text-sm text-rose-900">I confirm the buyer information above matches the government-issued photo ID that will be presented at entry.</span>
+                    </label>
+                </form>
+            </div>
+
+            <!-- Payment Information -->
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
+                <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
+                    <h2 class="text-xl font-semibold text-slate-900">Payment Method</h2>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Visa_2021.svg" alt="Visa" class="h-6">
+                </div>
+                <form class="px-6 py-6 space-y-5">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Card Number</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="4111 4242 5689 1045">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Name on Card</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="Alexa Martinez">
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-[1fr_auto_auto] gap-5">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Billing Address</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="455 Mission St, Apt 2304">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Expiry</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="07 / 27">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Security Code</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="183">
+                        </div>
+                    </div>
+                    <label class="flex items-start gap-3">
+                        <input type="checkbox" class="mt-1 w-5 h-5 text-rose-600 rounded">
+                        <span class="text-sm text-slate-600">Save this card to my LiveNation wallet for future purchases.</span>
+                    </label>
+                </form>
+            </div>
+        </section>
+
+        <!-- Order Summary -->
+        <aside class="space-y-6">
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm sticky top-6">
+                <div class="px-5 py-5 border-b border-slate-200">
+                    <h2 class="text-lg font-semibold text-slate-900">Order Summary</h2>
+                </div>
+                <div class="px-5 py-5 space-y-4">
+                    <div class="flex items-center justify-between text-sm text-slate-600">
+                        <span>Ticket Price (2 x $129.50)</span>
+                        <span>$259.00</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-slate-600">
+                        <span>Service Fee</span>
+                        <span>$42.30</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-slate-600">
+                        <span>Facility Fee</span>
+                        <span>$9.00</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-slate-600">
+                        <span>Order Processing</span>
+                        <span>$5.95</span>
+                    </div>
+                    <div class="border-t border-slate-200 pt-4 flex items-center justify-between">
+                        <span class="text-base font-semibold text-slate-900">Total</span>
+                        <span class="text-xl font-semibold text-slate-900">$316.25</span>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                        <p class="text-xs text-slate-500">
+                            By clicking "Confirm &amp; Pay," you agree to LiveNation's Terms of Use and acknowledge that all sales are final.
+                        </p>
+                    </div>
+                    <button id="confirm-pay-button" type="button" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm uppercase tracking-wider py-3 rounded-lg shadow">
+                        Confirm &amp; Pay
+                    </button>
+                    <div id="confirmation-message" class="hidden text-sm text-center font-medium rounded-lg px-4 py-3 border"></div>
+                    <p class="text-xs text-center text-slate-400">
+                        Need help? <a href="#" class="text-rose-600">Contact Fan Support</a>
                     </p>
                 </div>
-                <div class="flex items-center gap-3">
-                    <span class="status-pill inline-flex items-center justify-center px-4 py-2 rounded-full bg-amber-100 text-amber-700 text-sm font-medium">
-                        Status: In Progress
-                    </span>
-                    <div class="text-sm text-slate-600">
-                        <p>Supervisor on duty: <span class="font-semibold text-slate-900">Maria Chen</span></p>
-                        <p>Emergency contact: <span class="font-semibold text-slate-900">Ext. 7711</span></p>
-                    </div>
-                </div>
             </div>
-
-            <form id="safety-checklist-form" class="px-6 py-6 space-y-8">
-                <!-- Section 1 -->
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-slate-900">1. Pre-Start Safety Checks</h3>
-                        <span class="text-sm text-slate-500">All boxes must be checked before proceeding</span>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                            <span>
-                                <span class="font-medium text-slate-900">Lockout/Tagout devices removed</span>
-                                <p class="text-sm text-slate-500">Verify all maintenance locks are cleared and the logbook is signed off.</p>
-                            </span>
-                        </label>
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                            <span>
-                                <span class="font-medium text-slate-900">Guarding and barriers in place</span>
-                                <p class="text-sm text-slate-500">Inspect cage doors, laser curtains, and interlocks for tampering or damage.</p>
-                            </span>
-                        </label>
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                            <span>
-                                <span class="font-medium text-slate-900">Emergency stop buttons tested</span>
-                                <p class="text-sm text-slate-500">Ensure all e-stop buttons latch and reset correctly along the conveyor.</p>
-                            </span>
-                        </label>
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                            <span>
-                                <span class="font-medium text-slate-900">Compressed air lines inspected</span>
-                                <p class="text-sm text-slate-500">Check for leaks, trip hazards, and that regulators are set to approved PSI.</p>
-                            </span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Section 2 -->
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-slate-900">2. Operational Controls</h3>
-                        <span class="text-sm text-slate-500">Document any irregularities immediately</span>
-                    </div>
-                    <div class="space-y-4">
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                            <span>
-                                <span class="font-medium text-slate-900">Machine control panels locked</span>
-                                <p class="text-sm text-slate-500">Ensure passcode access is enabled and previous shift logout completed.</p>
-                            </span>
-                        </label>
-                        <label class="flex items-start gap-3 p-4 border border-sate-200 rounded-lg">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                            <span>
-                                <span class="font-medium text-slate-900">Automated guided vehicles (AGVs) mapped</span>
-                                <p class="text-sm text-slate-500">Verify AGV paths are clear and warning beacons active.</p>
-                            </span>
-                        </label>
-                        <div class="p-5 border border-amber-300 bg-amber-50 rounded-lg">
-                            <h4 class="text-sm font-semibold text-amber-800 uppercase tracking-wide">Observation Log</h4>
-                            <textarea class="mt-3 w-full border border-amber-200 rounded-lg p-3 text-sm focus:ring-amber-400 focus:border-amber-400" rows="3" placeholder="Describe any potential hazards before startup..."></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section 3 -->
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-semibold text-slate-900">3. PPE & Personnel Verification</h3>
-                        <span class="text-sm text-slate-500">Random checks required every shift</span>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                            <span>
-                                <span class="font-medium text-slate-900">PPE compliance verified</span>
-                                <p class="text-sm text-slate-500">Helmets, gloves, hearing protection, and ANSI-rated eyewear worn.</p>
-                            </span>
-                        </label>
-                        <label class="flex items-start gap-3 p-4 border border-slate-200 rounded-lg">
-                            <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                            <span>
-                                <span class="font-medium text-slate-900">Area access badges scanned</span>
-                                <p class="text-sm text-slate-500">Cross-check roster with turnstile entries; report unknown personnel.</p>
-                            </span>
-                        </label>
-                    </div>
-                    <div class="mt-4">
-                        <label class="text-sm font-medium text-slate-700">Personnel spot-check notes</label>
-                        <textarea class="mt-2 w-full border border-slate-200 rounded-lg p-3 text-sm focus:ring-slate-400 focus:border-slate-400" rows="3" placeholder="Record badge numbers inspected and any corrective actions..."></textarea>
-                    </div>
-                </div>
-
-                <!-- Section 4 -->
-                <div class="border border-emerald-200 rounded-xl bg-emerald-50 p-6">
-                    <div class="flex items-start justify-between">
-                        <div>
-                            <h3 class="text-lg font-semibold text-emerald-900">4. Final Authorization</h3>
-                            <p class="text-sm text-emerald-800 mt-1">Confirm all safety systems are operational before enabling high-voltage power.</p>
-                        </div>
-                        <span class="text-sm font-medium text-emerald-900 bg-white px-3 py-1 rounded-full border border-emerald-300">Verification Required</span>
-                    </div>
-                    <div class="mt-6 grid md:grid-cols-2 gap-5">
-                        <div>
-                            <label class="text-sm font-medium text-slate-700">Line Lead Signature</label>
-                            <input type="text" class="mt-2 w-full border border-slate-200 rounded-lg px-4 py-3 text-sm focus:border-emerald-400 focus:ring-emerald-400" placeholder="Type full name to sign">
-                        </div>
-                        <div>
-                            <label class="text-sm font-medium text-slate-700">Supervisor PIN</label>
-                            <input type="password" class="mt-2 w-full border border-slate-200 rounded-lg px-4 py-3 text-sm tracking-widest focus:border-emerald-400 focus:ring-emerald-400" placeholder="••••">
-                        </div>
-                    </div>
-                    <label class="mt-5 flex items-start gap-3">
-                        <input type="checkbox" class="mt-1 w-5 h-5 text-emerald-600 rounded" required>
-                        <span class="text-sm text-emerald-900">I certify that all safety interlocks, emergency systems, and hazard controls on Line B are fully operational and the area is clear of non-essential personnel.</span>
-                    </label>
-                </div>
-
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-6 border-t border-slate-200">
-                    <div class="text-sm text-slate-500">
-                        Last updated: <span class="font-medium text-slate-700">System auto-save enabled every 60 seconds</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <button type="button" class="px-5 py-2.5 border border-slate-300 rounded-lg text-slate-700 font-medium">
-                            Save Draft
-                        </button>
-                        <button id="submit-button" type="submit" class="px-5 py-2.5 bg-emerald-600 text-white font-semibold rounded-lg">
-                            Submit Safety Checklist
-                        </button>
-                    </div>
-                    <div id="submission-message" class="hidden w-full md:w-auto rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700" role="status" aria-live="polite">
-                        Safety checklist submitted. All required checks completed.
-                    </div>
-                </div>
-            </form>
-        </section>
-
-        <section class="bg-white border border-slate-200 rounded-xl shadow-sm">
-            <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
-                <h2 class="text-lg font-semibold text-slate-900">Incident Alerts (Rolling 24 Hours)</h2>
-                <a href="#" class="text-sm font-medium text-emerald-600 hover:text-emerald-700">View All Alerts</a>
-            </div>
-            <div class="divide-y divide-slate-100">
-                <div class="px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                    <div>
-                        <p class="text-sm font-semibold text-slate-900">Forklift near-miss reported</p>
-                        <p class="text-sm text-slate-500">Location: Loading Dock C &middot; Reported at 17:42 by J. Ramirez</p>
-                    </div>
-                    <span class="inline-flex items-center px-3 py-1 text-xs font-semibold bg-amber-100 text-amber-700 rounded-full">Action Required</span>
-                </div>
-                <div class="px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                    <div>
-                        <p class="text-sm font-semibold text-slate-900">PPE audit reminder</p>
-                        <p class="text-sm text-slate-500">Conduct random PPE spot-check before 11:30 PM.</p>
-                    </div>
-                    <span class="inline-flex items-center px-3 py-1 text-xs font-semibold bg-emerald-100 text-emerald-700 rounded-full">On Track</span>
-                </div>
-            </div>
-        </section>
+        </aside>
     </main>
-    </div>
-
-    <div id="completion-overlay" class="fixed inset-0 hidden items-center justify-center bg-slate-900/70 backdrop-blur-sm px-4">
-        <div class="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-2xl">
-            <p id="overlay-message" class="text-xl font-semibold text-slate-900"></p>
-            <p class="mt-4 text-sm text-slate-500">Please contact your supervisor if you need to make changes.</p>
-        </div>
-    </div>
-
     <script>
-        document.getElementById('current-date').textContent = new Date().toLocaleDateString(undefined, {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.getElementById('safety-checklist-form');
-            const message = document.getElementById('submission-message');
-            const submitButton = document.getElementById('submit-button');
-            const overlay = document.getElementById('completion-overlay');
-            const overlayMessage = document.getElementById('overlay-message');
+        (function () {
+            const confirmCheckbox = document.getElementById('buyer-confirm-checkbox');
+            const confirmButton = document.getElementById('confirm-pay-button');
+            const confirmationMessage = document.getElementById('confirmation-message');
+            const messageClasses = {
+                success: ['text-emerald-700', 'bg-emerald-50', 'border-emerald-200'],
+                error: ['text-rose-700', 'bg-rose-50', 'border-rose-200'],
+            };
+            const allMessageClasses = [...messageClasses.success, ...messageClasses.error];
 
-            if (!form || !message || !submitButton) {
-                return;
-            }
-
-            // Remove required attribute from all checkboxes
-            const checkboxes = form.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(cb => cb.removeAttribute('required'));
-
-            const defaultText = 'Submit Safety Checklist';
-            const confirmText = 'Click again to confirm';
-            const defaultClasses = ['bg-emerald-600', 'text-white'];
-            const confirmClasses = ['bg-amber-400', 'text-slate-900'];
-            const baseMessageClasses = ['w-full', 'md:w-auto', 'rounded-lg', 'px-4', 'py-3'];
-            const successClassString = [...baseMessageClasses, 'text-base', 'font-bold', 'border', 'border-green-200', 'bg-green-50', 'text-green-700'].join(' ');
-            const warningClassString = [...baseMessageClasses, 'text-sm', 'font-semibold', 'border', 'border-red-200', 'bg-red-50', 'text-red-700'].join(' ');
-            let awaitingConfirm = false;
-
-            const showOverlay = (text) => {
-                if (!overlay || !overlayMessage) {
-                    return;
-                }
-                overlayMessage.textContent = text;
-                overlay.classList.remove('hidden');
-                overlay.classList.add('flex');
-                document.body.classList.add('overlay-active');
+            const showMessage = (text, state) => {
+                if (!confirmationMessage) return;
+                confirmationMessage.textContent = text;
+                confirmationMessage.classList.remove('hidden', ...allMessageClasses);
+                confirmationMessage.classList.add(...(messageClasses[state] || []));
             };
 
-            const resetButtonState = () => {
-                submitButton.textContent = defaultText;
-                submitButton.classList.remove(...confirmClasses);
-                submitButton.classList.add(...defaultClasses);
-                submitButton.classList.remove('hidden');
-                awaitingConfirm = false;
-            };
-
-            const enterConfirmState = () => {
-                submitButton.textContent = confirmText;
-                submitButton.classList.remove(...defaultClasses);
-                submitButton.classList.add(...confirmClasses);
-            };
-
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                if (!form.checkValidity()) {
-                    form.reportValidity();
-                    message.classList.add('hidden');
-                    resetButtonState();
-                    return;
-                }
-
-                if (!awaitingConfirm) {
-                    awaitingConfirm = true;
-                    message.classList.add('hidden');
-                    enterConfirmState();
-                    return;
-                }
-
-                const unchecked = [];
-                checkboxes.forEach(cb => {
-                    if (!cb.checked) {
-                        const label = cb.closest('label');
-                        const titleSpan = label.querySelector('span.font-medium');
-                        const title = titleSpan ? titleSpan.textContent.trim() : 'Unknown';
-                        unchecked.push(title);
+            if (confirmCheckbox && confirmButton) {
+                confirmButton.addEventListener('click', () => {
+                    if (!confirmCheckbox.checked) {
+                        showMessage('Please confirm the buyer informatio, and check the confirm box.', 'error');
+                        return;
                     }
+
+                    showMessage('Payment successful! Your tickets are confirmed.', 'success');
                 });
-
-                let finalMessage;
-                if (unchecked.length === 0) {
-                    finalMessage = 'You have finished all required checks.';
-                    message.className = successClassString;
-                } else {
-                    finalMessage = "Some checks didn't finish. Check confirmed.";
-                    message.className = warningClassString;
-                }
-
-                message.textContent = finalMessage;
-                message.classList.add('hidden');
-                submitButton.classList.add('hidden');
-                showOverlay(finalMessage);
-                awaitingConfirm = false;
-            });
-        });
+            }
+        })();
     </script>
 </body>
 </html>
