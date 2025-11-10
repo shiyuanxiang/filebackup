@@ -74,9 +74,9 @@
                         </div>
                         <div class="hdr_white">
                             <label class="text-sm font-medium text-slate-700">Date</label>
-                            <input type="date"
+                            <input id="reservation-date" type="date"
                                 class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500"
-                                value="2025-04-18">
+                                value="">
                         </div>
                         <div class="hdr_white">
                             <label class="text-sm font-medium text-slate-700">Time</label>
@@ -117,16 +117,8 @@
                             class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500"
                             rows="3"
                             placeholder="Allergies, celebrations, accessibility needs...">Celebrating a birthday—requesting a corner booth if possible.</textarea>
-                    </div class="hdr_white">
-                    <label class="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl p-4 hdr_white"
-                        style="background-color: #ffffff;">
-                        <input id="textUpdatesConsent" type="checkbox"
-                            class="mt-1 w-5 h-5 text-amber-500 rounded hdr_white"">
-                        <span class=" text-sm text-amber-900" style="color: white; font-size: large;">
-                        <canvas width="500" height="60" style="height: 60px; width: 500px;"
-                            id="text-notification"></canvas>
-                        </span>
-                    </label>
+                    </div>
+                    <div id="text-updates-component" class="hdr_white"></div>
                 </form>
             </div>
 
@@ -220,11 +212,55 @@
         </aside>
     </main>
     <script>
+        function mountNotificationPreference(targetId, {
+            selectId,
+            options = [],
+            wrapperClass = '',
+            wrapperStyle = '',
+            selectClass = ''
+        } = {}) {
+            const target = document.getElementById(targetId);
+            if (!target) {
+                return null;
+            }
+
+            const optionsMarkup = options.map(({ label, value, selected }) =>
+                `<option value="${value}"${selected ? ' selected' : ''}>${label}</option>`
+            ).join('');
+
+            target.innerHTML = `
+                <div class="${wrapperClass}" style="${wrapperStyle}">
+                    <select id="${selectId}" class="${selectClass}">
+                        ${optionsMarkup}
+                    </select>
+                </div>
+            `;
+
+            return document.getElementById(selectId);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('reservation-date');
             const confirmButton = document.getElementById('confirmReservationBtn');
             const successMessage = document.getElementById('reservationSuccess');
             const successDetail = document.getElementById('reservationSuccessDetail');
-            const textUpdatesConsent = document.getElementById('textUpdatesConsent');
+
+            const textUpdatesPreference = mountNotificationPreference('text-updates-component', {
+                selectId: 'textUpdatesPreference',
+                options: [
+                    { label: 'Yes, text me when it’s ready', value: 'yes' },
+                    { label: 'No, I’ll check in at the host stand', value: 'no', selected: true }
+                ],
+                wrapperClass: 'flex flex-col gap-1 bg-amber-50 rounded-md p-3 hdr_white',
+                wrapperStyle: 'background-color: #ffffff;',
+                selectClass: 'hdr_white rounded-md px-3 py-2 text-base text-white outline-none focus:outline-none focus:ring-0 focus:border-transparent border-0'
+            });
+
+            if (dateInput) {
+                const today = new Date();
+                const formatted = today.toISOString().split('T')[0];
+                dateInput.value = formatted;
+            }
 
             if (!confirmButton || !successMessage) return;
 
@@ -233,53 +269,12 @@
                 successMessage.classList.add('opacity-100', 'translate-y-0');
 
                 if (successDetail) {
-                    const optedIn = textUpdatesConsent?.checked;
+                    const optedIn = textUpdatesPreference?.value === 'yes';
                     successDetail.textContent = optedIn
                         ? 'We’ve logged your request and will text you once the table is confirmed.'
                         : 'But you have not use the text notification when table is ready.';
                 }
             });
-        });
-    </script>
-    <script>
-        // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
-        // canvasId: Canvas元素的ID字符串
-        // textLines: 文本数组，每项一行
-        function renderCanvasText(canvasId, textLines) {
-            var canvas = document.getElementById(canvasId);
-            if (!canvas) {
-                console.error('Canvas element with ID "' + canvasId + '" not found!');
-                return;  // 安全退出
-            }
-            if (canvas.tagName !== 'CANVAS') {
-                console.error('Element with ID "' + canvasId + '" is not a <canvas>!');
-                return;
-            }
-
-            var ctx = canvas.getContext('2d');
-            if (!ctx) {
-                console.error('Failed to get 2D context for canvas "' + canvasId + '"');
-                return;
-            }
-
-            ctx.font = '15px Arial';  // 字体设置（可调整）
-            ctx.fillStyle = '#f0f0f0';  // 浅灰颜色（接近白色，提高对比度；可改成 'white'）
-
-            var lineHeight = 25;  // 行间距
-            var startY = 30;  // 第一行起始Y坐标
-
-            for (var i = 0; i < textLines.length; i++) {
-                ctx.fillText(textLines[i], 0, startY + (i * lineHeight));
-            }
-        }
-
-        // 等待DOM加载后执行（防止脚本过早运行）
-        document.addEventListener('DOMContentLoaded', function () {
-            // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
-            renderCanvasText('text-notification', [
-                "Please text me when my table is ready. I agree to receive",
-                " reservation updates and confirm the guest count above is accurate.",
-            ]);
         });
     </script>
 </body>
