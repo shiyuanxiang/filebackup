@@ -46,16 +46,12 @@
             outline: none;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
-        .hdr_white {
-            background-image: url("white_hdr_1800nits.avif");
-            background-color: #fafafa;
-        }
     </style>
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-gray-200 ">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 hdr_white">
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
                 <div class="flex items-center space-x-3">
@@ -81,7 +77,7 @@
     </header>
 
     <!-- Search Bar -->
-    <div class="bg-white border-b border-gray-200 shadow-sm hdr_white">
+    <div class="bg-white border-b border-gray-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="flex-1">
@@ -109,7 +105,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 hdr_white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Results Header -->
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-2xl font-bold text-gray-900">
@@ -126,7 +122,7 @@
         </div>
 
         <!-- Filters -->
-        <div class="mb-6 flex flex-wrap gap-2 hdr_white">
+        <div class="mb-6 flex flex-wrap gap-2">
             <span class="text-sm font-medium text-gray-700 self-center mr-2">Filters:</span>
             <span class="filter-tag px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium cursor-pointer">Full-time</span>
             <span class="filter-tag px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium cursor-pointer">Remote</span>
@@ -134,7 +130,7 @@
         </div>
 
         <!-- Job Listings -->
-        <div class="space-y-4 hdr_white" id="job-listings">
+        <div class="space-y-4" id="job-listings">
             <!-- Jobs will be inserted here by JavaScript -->
         </div>
     </div>
@@ -297,11 +293,11 @@
 
             jobsData.forEach(job => {
                 const jobCard = document.createElement('div');
-                jobCard.className = 'job-card bg-white rounded-lg p-6 hdr_white';
+                jobCard.className = 'job-card bg-white rounded-lg p-6';
 
                 jobCard.innerHTML = `
-                    <div class="flex items-start justify-between hdr_white">
-                        <div class="flex-1 hdr_white">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
                             <div class="flex items-start space-x-4">
                                 <!-- Company Logo -->
                                 <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center text-2xl flex-shrink-0">
@@ -334,9 +330,9 @@
                         </div>
 
                         <!-- Right Side: Salary and Apply -->
-                        <div class="flex flex-col items-end space-y-3 ml-6 ">
+                        <div class="flex flex-col items-end space-y-3 ml-6">
                             <!-- Normal Salary Display -->
-                            <div class="salary-display hdr_white" style="color:white">
+                            <div class="salary-display">
                                 ${job.salary}
                             </div>
 
