@@ -1,267 +1,322 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生活缴费 - 支付宝订单中心</title>
+    <title>Yahoo Finance Pro · Tech Portfolio Risk</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="bright.css">
+    <script src="bright.js" defer></script>
     <style>
         body {
-            font-family: "Alibaba PuHuiTi", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: "Inter", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background-color: #eef2ff;
+            color: #0f172a;
         }
 
-        .taobao-gradient {
-            background: linear-gradient(90deg, #ff6a00 0%, #ff8917 100%);
+        /* #bright-content-1,
+        #bright-content-2 {
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        } */
+
+        .metric-card {
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.15), rgba(15, 118, 110, 0.15));
         }
 
-        .hdr_white {
-            background-image: url("white_hdr_3000nits.avif");
-            background-color: #fafafa;
+        .mini-candle {
+            height: 72px;
+            width: 16px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .mini-candle::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            top: 4px;
+            bottom: 4px;
+            background-color: rgba(34, 197, 94, 0.6);
+        }
+
+        .mini-candle::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 16px;
+            bottom: 24px;
+            border-radius: 4px;
+            background: linear-gradient(180deg, rgba(34, 197, 94, 0.6), rgba(21, 128, 61, 0.7));
         }
     </style>
 </head>
+
 <body>
-    <header class="taobao-gradient text-white">
-        <div class="hdr_white max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="hdr_white flex items-center gap-3">
-                <img src="https://gw.alicdn.com/tfs/TB1_logo.png" alt="Taobao" class="h-8">
-                <span class="text-sm text-orange-200">生活缴费 &middot; 官方渠道</span>
+    <header class="bg-[#410093] text-white shadow">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div>
+                <p class="uppercase tracking-[0.3em] text-xs text-indigo-200">Yahoo Finance Pro</p>
+                <h1 class="text-2xl font-semibold">Tech Portfolio Risk Console</h1>
             </div>
-            <div class="hdr_white text-sm text-orange-100">
-                账号：<span class="font-semibold text-white">hk***lab@taobao.com</span>
+            <div class="text-right text-sm">
+                <p>登录账号：<span class="font-semibold">hkus3lab.quant</span></p>
+                <p class="text-indigo-200">多因素风控沙盒 · 实时同步</p>
             </div>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[2fr_1fr] gap-8">
+    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[1.6fr_1fr] gap-6">
         <section class="space-y-6">
-            <div class="hdr_white bg-white border border-slate-200 rounded-xl shadow-sm">
-                <div class="hdr_white px-6 py-5 border-b border-slate-200 flex items-center justify-between">
-                    <h1 class="text-xl font-semibold text-slate-900">上海市电力公司 - 生活缴费</h1>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-orange-50 text-orange-600 text-xs font-semibold">实时到账</span>
-                </div>
-                <div class="hdr_white px-6 py-6 grid md:grid-cols-2 gap-5 text-sm text-slate-600">
-                    <div class="hdr_white">
-                        <p class="text-xs text-slate-400 uppercase">户号</p>
-                        <p class="text-base font-medium text-slate-900 mt-1">0315 2200 8890</p>
+            <div class="metric-card rounded-2xl border border-indigo-100 backdrop-blur bg-white/90 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-semibold">科技股持仓利率冲击暴露</h2>
+                        <p class="text-sm text-slate-600 mt-1">联储 2025Q1 Hawkish 场景 · 实时更新</p>
                     </div>
-                    <div class="hdr_white">
-                        <p class="text-xs text-slate-400 uppercase">户名</p>
-                        <p class="text-base font-medium text-slate-900 mt-1">张晨</p>
-                    </div>
-                    <div class="hdr_white">
-                        <p class="text-xs text-slate-400 uppercase">地址</p>
-                        <p class="mt-1">上海市浦东新区世纪大道 88 弄 2 号 1802 室</p>
-                    </div>
-                    <div class="hdr_white">
-                        <p class="text-xs text-slate-400 uppercase">缴费周期</p>
-                        <p class="mt-1">2025 年 03 月度电费</p>
-                    </div>
-                    <div class="hdr_white">
-                        <p class="text-xs text-slate-400 uppercase">用电量</p>
-                        <p class="mt-1">392 度</p>
-                    </div>
-                    <div class="hdr_white">
-                        <p class="text-xs text-slate-400 uppercase">账单生成时间</p>
-                        <p class="mt-1">2025-03-02 09:18:47</p>
+                    <div class="text-right">
+                        <label class="text-xs text-indigo-600 uppercase">Stress Scenario (%)</label>
+                        <input id="stress-range" type="range" min="0" max="150" value="80"
+                            class="w-40 accent-emerald-400">
                     </div>
                 </div>
-            </div>
-
-            <div class="hdr_white bg-white border border-slate-200 rounded-xl shadow-sm">
-                <div class="hdr_white px-6 py-5 border-b border-slate-200">
-                    <h2 class="text-lg font-semibold text-slate-900">缴费金额</h2>
-                </div>
-                <div class="hdr_white px-6 py-6 space-y-5 text-sm text-slate-600">
-                    <div class="hdr_white flex items-center justify-between">
-                        <span>应缴电费</span>
-                        <span class="text-base font-semibold text-slate-900">¥ 268.53</span>
+                <div class="grid md:grid-cols-4 gap-4 mt-6 text-sm">
+                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
+                        <p class="text-slate-500 text-xs uppercase">组合净值</p>
+                        <p class="text-2xl font-semibold mt-1" id="nav-value">$12.84M</p>
+                        <p class="text-emerald-600 text-xs mt-1">+1.2% 今日</p>
                     </div>
-                    <div class="hdr_white flex items-center justify-between">
-                        <span>可抵扣优惠</span>
-                        <span class="text-emerald-600 font-semibold">- ¥ 20.00</span>
+                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
+                        <p class="text-slate-500 text-xs uppercase">利率敏感 Beta</p>
+                        <p class="text-2xl font-semibold mt-1" id="beta-value">1.46</p>
+                        <p class="text-slate-500 text-xs mt-1">对 25bps 加息冲击</p>
                     </div>
-                    <div class="hdr_white flex items-center justify-between">
-                        <span>服务费</span>
-                        <span class="text-slate-500">¥ 0.00</span>
+                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
+                        <p class="text-slate-500 text-xs uppercase">最大回撤 (模拟)</p>
+                        <p class="text-2xl font-semibold mt-1" id="drawdown-value">-6.2%</p>
+                        <p class="text-rose-500 text-xs mt-1">99% C.L. 五日窗口</p>
                     </div>
-                    <div class="hdr_white border-t border-slate-200 pt-4 flex items-center justify-between text-base font-bold text-slate-900">
-                        <span>合计</span>
-                        <span>¥ 248.53</span>
+                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
+                        <p class="text-slate-500 text-xs uppercase">对冲缺口</p>
+                        <p class="text-2xl font-semibold mt-1" id="hedge-gap">$2.1M</p>
+                        <p class="text-slate-500 text-xs mt-1">需额外国债久期</p>
                     </div>
-                    <label class="flex items-start gap-3 bg-orange-50 border border-orange-200 rounded-lg p-4 text-sm text-orange-800 hdr_white">
-                        <input id="confirm-checkbox" type="checkbox" class="mt-1 w-5 h-5 text-orange-500 rounded">
-                        <span style="color: white; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">我已核对缴费单位及户号信息，确保无误。</span>
-                    </label>
                 </div>
             </div>
 
-            <div class="hdr_white bg-white border border-slate-200 rounded-xl shadow-sm">
-                <div class="hdr_white px-6 py-5 border-b border-slate-200 flex items-center justify-between">
-                    <h2 class="text-lg font-semibold text-slate-900">付款方式</h2>
-                    <button class="text-xs text-blue-600">管理支付方式</button>
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm">
+                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                    <div>
+                        <div id="bright-container-1">
+                            <div id="bright-content-1">持仓Fed敏感度分布</div>
+                        </div>
+                        <div id="bright-container-2">
+                            <p id="bright-content-2">
+                                来源：GUI-Agent 抓取 Yahoo Finance Portfolio
+                            </p>
+                        </div>
+                    </div>
+                    <!-- <span class="text-xs text-emerald-600 font-semibold">实时同步</span> -->
                 </div>
-                <form class="px-6 py-6 space-y-5 text-sm text-slate-600">
-                    <label class="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-orange-400">
-                        <div class="hdr_white flex items-center gap-4">
-                            <img src="https://gw.alipayobjects.com/mdn/member_frontWeb/afts/img/A*tIAsQ7P-vi4AAAAAAAAAAABkARQnAQ" class="h-8" alt="Alipay">
-                            <div class="hdr_white">
-                                <p class="font-medium text-slate-900">支付宝余额</p>
-                                <p class="text-xs text-slate-500">可用余额：¥ 1,285.12</p>
-                            </div>
+                <div class="px-6 py-4 overflow-x-auto" id="bright-container-3">
+                    <table class="w-full text-sm" id="bright-content-3">
+                        <thead class="text-left text-slate-500 uppercase text-xs tracking-wide">
+                            <tr>
+                                <th class="py-2 pr-4">代码 / 名称</th>
+                                <th class="py-2 pr-4">组合权重</th>
+                                <th class="py-2 pr-4">Rate Hike Beta</th>
+                                <th class="py-2 pr-4">联储政策点评</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="py-3 pr-4"><span class="font-semibold">AAPL</span> · Apple</td>
+                                <td class="py-3 pr-4">18.5%</td>
+                                <td class="py-3 pr-4">1.18</td>
+                                <td class="py-3 pr-4 text-slate-600">服务/硬件现金流稳定，利率冲击可对冲 40%</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 pr-4"><span class="font-semibold">MSFT</span> · Microsoft</td>
+                                <td class="py-3 pr-4">22.3%</td>
+                                <td class="py-3 pr-4">1.05</td>
+                                <td class="py-3 pr-4 text-slate-600">云收入锁定，Beta 低于板块</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 pr-4"><span class="font-semibold">NVDA</span> · Nvidia</td>
+                                <td class="py-3 pr-4">24.7%</td>
+                                <td class="py-3 pr-4">1.72</td>
+                                <td class="py-3 pr-4 text-slate-600">AI CapEx 加速导致对冲缺口</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 pr-4"><span class="font-semibold">TSLA</span> · Tesla</td>
+                                <td class="py-3 pr-4">11.2%</td>
+                                <td class="py-3 pr-4">1.95</td>
+                                <td class="py-3 pr-4 text-slate-600">融资成本弹性极高，Fed 路径敏感</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 pr-4"><span class="font-semibold">AMD</span> · Advanced Micro Devices
+                                </td>
+                                <td class="py-3 pr-4">9.1%</td>
+                                <td class="py-3 pr-4">1.56</td>
+                                <td class="py-3 pr-4 text-slate-600">AI/PC 混合暴露，需要波动对冲</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm">
+                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-semibold">实时蜡烛图回放</h2>
+                        <p class="text-xs text-slate-500">GUI-Agent 通过 WebSocket 拉取 5s 刷新快照</p>
+                    </div>
+                    <span class="text-xs text-slate-500">纽约时区 09:42:17</span>
+                </div>
+                <div class="px-6 py-5 grid md:grid-cols-3 gap-4 text-sm">
+                    <div class="border border-slate-100 rounded-xl p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold">NVDA</p>
+                            <span class="text-emerald-600 text-xs">+2.4%</span>
                         </div>
-                        <input type="radio" name="payment" checked>
-                    </label>
-                    <label class="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-orange-400">
-                        <div class="hdr_white flex items-center gap-4">
-                            <img src="https://gw.alipayobjects.com/mdn/member_frontWeb/afts/img/A*bmgtQK5rmXIAAAAAAAAAAABkARQnAQ" class="h-8" alt="CCB">
-                            <div class="hdr_white">
-                                <p class="font-medium text-slate-900">建设银行储蓄卡 (尾号 6628)</p>
-                                <p class="text-xs text-slate-500">单日限额 ¥ 50,000</p>
-                            </div>
+                        <div class="mini-candle my-3"></div>
+                        <p class="text-xs text-slate-500">H: <span class="font-semibold">$942.10</span> · L: <span
+                                class="font-semibold">$918.40</span></p>
+                        <p class="text-xs text-slate-500">成交量 <span class="font-semibold">8.2M</span></p>
+                    </div>
+                    <div class="border border-slate-100 rounded-xl p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold">MSFT</p>
+                            <span class="text-rose-500 text-xs">-0.3%</span>
                         </div>
-                        <input type="radio" name="payment">
-                    </label>
-                    <label class="flex items-start gap-3">
-                        <input id="auto-debit-checkbox" type="checkbox" class="mt-1 w-5 h-5 text-orange-500 rounded" checked>
-                        <canvas id="auto-debit" style="color: white; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;"></canvas>
-                    </label>
-                </form>
+                        <div class="mini-candle my-3"></div>
+                        <p class="text-xs text-slate-500">H: <span class="font-semibold">$432.80</span> · L: <span
+                                class="font-semibold">$428.05</span></p>
+                        <p class="text-xs text-slate-500">成交量 <span class="font-semibold">3.1M</span></p>
+                    </div>
+                    <div class="border border-slate-100 rounded-xl p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold">TSLA</p>
+                            <span class="text-emerald-600 text-xs">+1.1%</span>
+                        </div>
+                        <div class="mini-candle my-3"></div>
+                        <p class="text-xs text-slate-500">H: <span class="font-semibold">$213.45</span> · L: <span
+                                class="font-semibold">$205.22</span></p>
+                        <p class="text-xs text-slate-500">成交量 <span class="font-semibold">12.4M</span></p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <aside class="space-y-6">
-            <div class="hdr_white bg-white border border-slate-200 rounded-xl shadow-sm sticky top-8">
-                <div class="hdr_white px-5 py-5 border-b border-slate-200 flex items-center justify-between">
-                    <h2 class="text-lg font-semibold text-slate-900">确认订单</h2>
-                    <span class="text-xs text-slate-500">订单编号：2025030212385678</span>
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-semibold">分散化建议</h2>
+                    <span class="text-xs text-emerald-600 font-semibold">AI Assistant Draft</span>
                 </div>
-                <div class="hdr_white px-5 py-5 space-y-4 text-sm text-slate-600">
-                    <div class="hdr_white flex items-center justify-between">
-                        <span>缴费单位</span>
-                        <span class="font-medium text-slate-900">上海市电力公司</span>
-                    </div>
-                    <div class="hdr_white flex items-center justify-between">
-                        <span>户号</span>
-                        <span class="font-medium text-slate-900">0315 2200 8890</span>
-                    </div>
-                    <div class="hdr_white flex items-center justify-between">
-                        <span>应付金额</span>
-                        <span class="text-lg font-bold text-orange-500">¥ 248.53</span>
-                    </div>
-                    <div class="hdr_white bg-slate-50 border border-slate-200 rounded-lg p-4 text-xs text-slate-500">
-                        确认支付后，款项将实时发送至缴费单位。若遇到账延迟，可查看“账单详情”或联系供电公司。
-                    </div>
-                    <button id="pay-button" type="button" class="w-full taobao-gradient text-white font-semibold text-sm py-3 rounded-lg shadow">
-                        确认付款
-                    </button>
-                    <div id="pay-feedback" class="hdr_white hidden px-4 py-3 rounded-lg text-sm border mt-3 transition">
-                        <!-- message injected via JS -->
-                    </div>
-                    <p class="text-xs text-center text-slate-400">
-                        支付即表示同意《生活缴费服务协议》。
-                    </p>
-                </div>
+                <ol class="mt-4 space-y-4 text-sm text-slate-600">
+                    <li>
+                        <p class="font-semibold text-slate-900">1. 降低半导体集中度</p>
+                        <p class="mt-1">将 NVDA/AMD 权重各下调 4%，转入 XLK 防御 ETF。</p>
+                    </li>
+                    <li>
+                        <p class="font-semibold text-slate-900">2. 增配美元现金替代</p>
+                        <p class="mt-1">买入 6 个月期 SOFR 期货多头，对冲短端利率意外。</p>
+                    </li>
+                    <li>
+                        <p class="font-semibold text-slate-900">3. 加入能源反向相关</p>
+                        <p class="mt-1">建立 XLE 5% 权重，以平衡通胀二阶冲击。</p>
+                    </li>
+                </ol>
             </div>
 
-            <div class="hdr_white bg-white border border-slate-200 rounded-xl shadow-sm">
-                <div class="hdr_white px-5 py-5 border-b border-slate-200">
-                    <h2 class="text-lg font-semibold text-slate-900">缴费记录</h2>
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-semibold">执行队列</h2>
+                    <button class="text-xs text-indigo-600">刷新 FIX</button>
                 </div>
-                <div class="hdr_white px-5 py-5 space-y-4 text-sm text-slate-600">
-                    <div class="hdr_white flex items-center justify-between">
-                        <div class="hdr_white">
-                            <p class="font-medium text-slate-900">2025-02 电费</p>
-                            <p class="text-xs text-slate-400">支付时间：2025-02-04 10:12</p>
+                <ul class="mt-4 space-y-3 text-sm text-slate-600">
+                    <li class="flex items-start gap-3">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 mt-1"></span>
+                        <div>
+                            <p class="font-medium">下单 14:05 · 卖出 NVDA 1,200 股</p>
+                            <p class="text-xs text-slate-500">限价 $935.50 · 状态：部分成交 42%</p>
                         </div>
-                        <span class="text-emerald-600 font-medium">已到账</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1"></span>
+                        <div>
+                            <p class="font-medium">下单 14:08 · 买入 SOFRM5 多头</p>
+                            <p class="text-xs text-slate-500">盈亏平衡收益 18bps</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-400 mt-1"></span>
+                        <div>
+                            <p class="font-medium">待审批 · 启用油气对冲篮子</p>
+                            <p class="text-xs text-slate-500">合规核查截止 15:00</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
+                <h2 class="text-lg font-semibold">事件追踪</h2>
+                <div class="mt-4 space-y-3 text-sm text-slate-600">
+                    <div class="flex items-start gap-3">
+                        <span class="text-xs font-semibold text-indigo-600 mt-0.5">FOMC</span>
+                        <p>鲍威尔新闻发布会实录自动抓取，关键词“higher for longer”出现 7 次。</p>
                     </div>
-                    <div class="hdr_white flex items-center justify-between border-t border-slate-100 pt-4">
-                        <div class="hdr_white">
-                            <p class="font-medium text-slate-900">2025-01 电费</p>
-                            <p class="text-xs text-slate-400">支付时间：2025-01-03 08:58</p>
-                        </div>
-                        <span class="text-emerald-600 font-medium">已到账</span>
+                    <div class="flex items-start gap-3">
+                        <span class="text-xs font-semibold text-indigo-600 mt-0.5">DOT PLOT</span>
+                        <p>终端利率上调至 5.65%，模型已同步。</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-xs font-semibold text-indigo-600 mt-0.5">GDP NOW</span>
+                        <p>亚特兰大联储即时 GDP 站上 2.8%，触发加码对冲提醒。</p>
                     </div>
                 </div>
             </div>
         </aside>
     </main>
+
     <script>
-        (function () {
-            const confirmCheckbox = document.getElementById('confirm-checkbox');
-            const autoDebitCheckbox = document.getElementById('auto-debit-checkbox');
-            const payButton = document.getElementById('pay-button');
-            const payFeedback = document.getElementById('pay-feedback');
+        const stressRange = document.getElementById('stress-range');
+        const betaValue = document.getElementById('beta-value');
+        const drawdownValue = document.getElementById('drawdown-value');
+        const hedgeGap = document.getElementById('hedge-gap');
 
-            const feedbackVariants = {
-                success: ['bg-emerald-50', 'border-emerald-200', 'text-emerald-800'],
-                error: ['bg-red-50', 'border-red-200', 'text-red-700'],
-            };
-
-            function showFeedback(message, type) {
-                if (!payFeedback) return;
-                payFeedback.textContent = message;
-                payFeedback.classList.remove('hidden');
-                payFeedback.classList.remove(...feedbackVariants.success, ...feedbackVariants.error);
-                payFeedback.classList.add(...feedbackVariants[type]);
-            }
-
-            if (confirmCheckbox && payButton) {
-                payButton.addEventListener('click', () => {
-                    if (confirmCheckbox.checked) {
-                        const autoDebitMessage = autoDebitCheckbox && autoDebitCheckbox.checked
-                            ? '自动扣费服务已开启。'
-                            : '未开启自动扣费服务。';
-                        showFeedback(`支付成功，订单已提交！${autoDebitMessage}`, 'success');
-                    } else {
-                        showFeedback('请先勾选确认信息无误的复选框。', 'error');
-                    }
-                });
-            }
-        })();
+        if (stressRange) {
+            stressRange.addEventListener('input', (event) => {
+                const factor = Number(event.target.value) / 100;
+                betaValue.textContent = (1.1 + factor * 0.6).toFixed(2);
+                drawdownValue.textContent = `-${(3 + factor * 4.2).toFixed(1)}%`;
+                hedgeGap.textContent = `$${(1.2 + factor * 1.5).toFixed(1)}M`;
+            });
+        }
     </script>
-
     <script>
-    // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
-    // canvasId: Canvas元素的ID字符串
-    // textLines: 文本数组，每项一行
-    function renderCanvasText(canvasId, textLines) {
-        var canvas = document.getElementById(canvasId);
-        if (!canvas) {
-            console.error('Canvas element with ID "' + canvasId + '" not found!');
-            return;  // 安全退出
-        }
-        if (canvas.tagName !== 'CANVAS') {
-            console.error('Element with ID "' + canvasId + '" is not a <canvas>!');
-            return;
-        }
-        
-        var ctx = canvas.getContext('2d');
-        if (!ctx) {
-            console.error('Failed to get 2D context for canvas "' + canvasId + '"');
-            return;
-        }
-        
-        ctx.font = 'bolder 18px Arial';  // 字体设置（可调整）
-        ctx.fillStyle = 'white';  // 浅灰颜色（接近白色，提高对比度；可改成 'white'）
-        
-        var lineHeight = 25;  // 行间距
-        var startY = 25;  // 第一行起始Y坐标
-        
-        for (var i = 0; i < textLines.length; i++) {
-            ctx.fillText(textLines[i], 0, startY + (i * lineHeight));
-        }
-    }
-    
-    // 等待DOM加载后执行（防止脚本过早运行）
-    document.addEventListener('DOMContentLoaded', function() {
-        // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
-        renderCanvasText('auto-debit', [
-            "开通自动扣费服务，账单出具后自动完成支付"
-        ]);
-    });
-</script>
+        document.addEventListener('DOMContentLoaded', () => {
+            BrightMode.apply({
+                containerId: 'bright-container-1',
+                contentId: 'bright-content-1'
+            });
+
+            BrightMode.apply({
+                containerId: 'bright-container-2',
+                contentId: 'bright-content-2'
+            });
+
+            BrightMode.apply({
+                containerId: 'bright-container-3',
+                contentId: 'bright-content-3'
+            });
+        });
+    </script>
 </body>
+
 </html>

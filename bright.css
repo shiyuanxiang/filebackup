@@ -18,3 +18,25 @@
     color: transparent;
     -webkit-text-fill-color: transparent;
 }
+
+.bright-mask-text {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.bright-wrapper {
+    position: relative;
+}
+
+.bright-wrapper .bright-placeholder {
+    visibility: hidden;
+}
+
+.bright-wrapper .bright-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+}

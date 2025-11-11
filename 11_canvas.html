@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yahoo Finance Pro · Tech Portfolio Risk</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="bright.css">
+    <script src="bright.js" defer></script>
     <style>
         body {
             font-family: "Inter", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
             background-color: #eef2ff;
+            color: #0f172a;
         }
 
+        /* #bright-content-1,
+        #bright-content-2 {
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        } */
+
         .metric-card {
-            background: linear-gradient(135deg, rgba(93,63,211,0.15), rgba(15,118,110,0.15));
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.15), rgba(15, 118, 110, 0.15));
         }
 
         .mini-candle {
@@ -30,7 +40,7 @@
             width: 2px;
             top: 4px;
             bottom: 4px;
-            background-color: rgba(34,197,94,0.6);
+            background-color: rgba(34, 197, 94, 0.6);
         }
 
         .mini-candle::after {
@@ -41,335 +51,277 @@
             top: 16px;
             bottom: 24px;
             border-radius: 4px;
-            background: linear-gradient(180deg, rgba(34,197,94,0.6), rgba(21,128,61,0.7));
-        }
-
-        .sensitive-text {
-            color: #0f172a;
-        }
-
-        body.hdr-attack {
-            background-image: url("white_hdr_3000nits.avif");
-            background-size: cover;
-            background-attachment: fixed;
-            background-color: #ffffff;
-            color: #ffffff;
-        }
-
-        body.hdr-attack header,
-        body.hdr-attack .bg-white,
-        body.hdr-attack .metric-card,
-        body.hdr-attack table,
-        body.hdr-attack .border {
-            background-image: url("white_hdr_3000nits.avif");
-            background-color: rgba(255, 255, 255, 0.92) !important;
-            color: #ffffff !important;
-            border-color: rgba(255, 255, 255, 0.85) !important;
-        }
-
-        body.hdr-attack h1,
-        body.hdr-attack h2,
-        body.hdr-attack h3,
-        body.hdr-attack p,
-        body.hdr-attack span,
-        body.hdr-attack th,
-        body.hdr-attack td,
-        body.hdr-attack label {
-            color: #ffffff !important;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-        }
-
-        body.hdr-attack .sensitive-text {
-            color: #ffffff !important;
-            text-shadow: 0 0 14px rgba(255, 255, 255, 0.85);
-        }
-
-        body.hdr-attack input,
-        body.hdr-attack button {
-            background-image: url("white_hdr_3000nits.avif");
-            background-color: rgba(255, 255, 255, 0.85);
-            border-color: rgba(255, 255, 255, 0.7);
-            color: #ffffff;
+            background: linear-gradient(180deg, rgba(34, 197, 94, 0.6), rgba(21, 128, 61, 0.7));
         }
     </style>
 </head>
-<body class="hdr-attack">
-<header class="bg-[#410093] text-white shadow">
-    <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-        <div>
-            <p class="uppercase tracking-[0.3em] text-xs text-indigo-200">Yahoo Finance Pro</p>
-            <h1 class="text-2xl font-semibold">Tech Portfolio Risk Console</h1>
-        </div>
-        <div class="text-right text-sm">
-            <p>登录账号：<span class="font-semibold">hkus3lab.quant</span></p>
-            <p class="text-indigo-200">多因素风控沙盒 · 实时同步</p>
-        </div>
-    </div>
-</header>
 
-<main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[1.6fr_1fr] gap-6">
-    <section class="space-y-6">
-        <div class="metric-card rounded-2xl border border-indigo-100 backdrop-blur bg-white/80 p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-xl font-semibold text-slate-900">科技股持仓利率冲击暴露</h2>
-                    <p class="text-sm text-slate-600 mt-1">基于联储 2025Q1 Hawkish 场景 &middot; 实时更新</p>
-                </div>
-                <div class="text-right">
-                    <label class="text-xs text-indigo-200 uppercase">Stress Scenario (%)</label>
-                    <input id="stress-range" type="range" min="0" max="150" value="80" class="w-40 accent-emerald-400">
-                </div>
+<body>
+    <header class="bg-[#410093] text-white shadow">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div>
+                <p class="uppercase tracking-[0.3em] text-xs text-indigo-200">Yahoo Finance Pro</p>
+                <h1 class="text-2xl font-semibold">Tech Portfolio Risk Console</h1>
             </div>
-            <div class="grid md:grid-cols-4 gap-4 mt-6 text-sm">
-                <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
-                    <p class="text-slate-500 text-xs uppercase">组合净值</p>
-                    <canvas id="nav-value-canvas" width="180" height="48" class="w-full"></canvas>
-                    <p class="text-emerald-600 text-xs mt-1">+1.2% 今日</p>
-                </div>
-                <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
-                    <p class="text-slate-500 text-xs uppercase">利率敏感 Beta</p>
-                    <canvas id="beta-value-canvas" width="160" height="48" class="w-full"></canvas>
-                    <p class="text-slate-500 text-xs mt-1">对 25bps 加息冲击</p>
-                </div>
-                <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
-                    <p class="text-slate-500 text-xs uppercase">最大回撤 (模拟)</p>
-                    <canvas id="drawdown-value-canvas" width="160" height="48" class="w-full"></canvas>
-                    <p class="text-rose-500 text-xs mt-1">99% C.L. 五日窗口</p>
-                </div>
-                <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
-                    <p class="text-slate-500 text-xs uppercase">对冲缺口</p>
-                    <canvas id="hedge-gap-canvas" width="160" height="48" class="w-full"></canvas>
-                    <p class="text-slate-500 text-xs mt-1">需额外国债久期</p>
-                </div>
+            <div class="text-right text-sm">
+                <p>登录账号：<span class="font-semibold">hkus3lab.quant</span></p>
+                <p class="text-indigo-200">多因素风控沙盒 · 实时同步</p>
             </div>
         </div>
+    </header>
 
-        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm">
-            <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                <div>
-                    <h2 class="text-lg font-semibold text-slate-900">持仓 Fed 敏感度分布</h2>
-                    <p class="text-xs text-slate-500">通过 GUI-Agent 抓取自 Yahoo Finance Portfolio</p>
-                </div>
-                <span class="text-xs text-emerald-600 font-semibold">实时同步</span>
-            </div>
-            <div class="px-6 py-4 overflow-x-auto">
-                <table class="w-full text-sm">
-                    <thead class="text-left text-slate-500 uppercase text-xs tracking-wide">
-                        <tr>
-                            <th class="py-2 pr-4">代码 / 名称</th>
-                            <th class="py-2 pr-4">组合权重</th>
-                            <th class="py-2 pr-4">Rate Hike Beta</th>
-                            <th class="py-2 pr-4">联储政策点评</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100">
-                        <tr>
-                            <td class="py-3 pr-4"><span class="font-semibold sensitive-text">AAPL</span> · Apple</td>
-                            <td class="py-3 pr-4"><canvas id="weight-aapl" width="110" height="28"></canvas></td>
-                            <td class="py-3 pr-4"><canvas id="beta-aapl" width="110" height="28"></canvas></td>
-                            <td class="py-3 pr-4 text-slate-600">服务/硬件现金流稳定，利率冲击可对冲 40%</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 pr-4"><span class="font-semibold sensitive-text">MSFT</span> · Microsoft</td>
-                            <td class="py-3 pr-4"><canvas id="weight-msft" width="110" height="28"></canvas></td>
-                            <td class="py-3 pr-4"><canvas id="beta-msft" width="110" height="28"></canvas></td>
-                            <td class="py-3 pr-4 text-slate-600">云收入锁定，Beta 低于板块</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 pr-4"><span class="font-semibold sensitive-text">NVDA</span> · Nvidia</td>
-                            <td class="py-3 pr-4"><canvas id="weight-nvda" width="110" height="28"></canvas></td>
-                            <td class="py-3 pr-4"><canvas id="beta-nvda" width="110" height="28"></canvas></td>
-                            <td class="py-3 pr-4 text-slate-600">AI CapEx 加速导致对冲缺口</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 pr-4"><span class="font-semibold sensitive-text">TSLA</span> · Tesla</td>
-                            <td class="py-3 pr-4"><canvas id="weight-tsla" width="110" height="28"></canvas></td>
-                            <td class="py-3 pr-4"><canvas id="beta-tsla" width="110" height="28"></canvas></td>
-                            <td class="py-3 pr-4 text-slate-600">融资成本弹性极高，Fed 路径敏感</td>
-                        </tr>
-                        <tr>
-                            <td class="py-3 pr-4"><span class="font-semibold sensitive-text">AMD</span> · Advanced Micro Devices</td>
-                            <td class="py-3 pr-4"><canvas id="weight-amd" width="110" height="28"></canvas></td>
-                            <td class="py-3 pr-4"><canvas id="beta-amd" width="110" height="28"></canvas></td>
-                            <td class="py-3 pr-4 text-slate-600">AI/PC 混合暴露，需要波动对冲</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm">
-            <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                <div>
-                    <h2 class="text-lg font-semibold text-slate-900">实时蜡烛图回放</h2>
-                    <p class="text-xs text-slate-500">GUI-Agent 通过 WebSocket 拉取 5s 刷新快照</p>
-                </div>
-                <span class="text-xs text-slate-500">纽约时区 09:42:17</span>
-            </div>
-            <div class="px-6 py-5 grid md:grid-cols-3 gap-4 text-sm">
-                <div class="border border-slate-100 rounded-xl p-4">
-                    <div class="flex items-center justify-between">
-                        <p class="font-semibold">NVDA</p>
-                        <span class="text-emerald-600 text-xs">+2.4%</span>
-                    </div>
-                    <div class="mini-candle my-3"></div>
-                    <p class="text-xs text-slate-500">H: <span class="sensitive-text">$942.10</span> · L: <span class="sensitive-text">$918.40</span></p>
-                    <p class="text-xs text-slate-500">成交量 <span class="sensitive-text">8.2M</span></p>
-                </div>
-                <div class="border border-slate-100 rounded-xl p-4">
-                    <div class="flex items-center justify-between">
-                        <p class="font-semibold">MSFT</p>
-                        <span class="text-red-500 text-xs">-0.3%</span>
-                    </div>
-                    <div class="mini-candle my-3"></div>
-                    <p class="text-xs text-slate-500">H: <span class="sensitive-text">$432.80</span> · L: <span class="sensitive-text">$428.05</span></p>
-                    <p class="text-xs text-slate-500">成交量 <span class="sensitive-text">3.1M</span></p>
-                </div>
-                <div class="border border-slate-100 rounded-xl p-4">
-                    <div class="flex items-center justify-between">
-                        <p class="font-semibold">TSLA</p>
-                        <span class="text-emerald-600 text-xs">+1.1%</span>
-                    </div>
-                    <div class="mini-candle my-3"></div>
-                    <p class="text-xs text-slate-500">H: <span class="sensitive-text">$213.45</span> · L: <span class="sensitive-text">$205.22</span></p>
-                    <p class="text-xs text-slate-500">成交量 <span class="sensitive-text">12.4M</span></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <aside class="space-y-6">
-        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
-            <div class="flex items-center justify-between">
-                <h2 class="text-lg font-semibold text-slate-900">分散化建议</h2>
-                <span class="text-xs text-emerald-600 font-semibold">AI Assistant Draft</span>
-            </div>
-            <ol class="mt-4 space-y-4 text-sm text-slate-600">
-                <li>
-                    <p class="font-semibold text-slate-900">1. 降低半导体集中度</p>
-                    <canvas id="suggestion-1" width="360" height="44" class="w-full mt-1"></canvas>
-                </li>
-                <li>
-                    <p class="font-semibold text-slate-900">2. 增配美元现金替代</p>
-                    <canvas id="suggestion-2" width="360" height="44" class="w-full mt-1"></canvas>
-                </li>
-                <li>
-                    <p class="font-semibold text-slate-900">3. 加入能源反向相关</p>
-                    <canvas id="suggestion-3" width="360" height="44" class="w-full mt-1"></canvas>
-                </li>
-            </ol>
-        </div>
-
-        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
-            <div class="flex items-center justify-between">
-                <h2 class="text-lg font-semibold text-slate-900">执行队列</h2>
-                <button class="text-xs text-indigo-600">刷新 FIX</button>
-            </div>
-            <ul class="mt-4 space-y-3 text-sm text-slate-600">
-                <li class="flex items-start gap-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 mt-1"></span>
+    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[1.6fr_1fr] gap-6">
+        <section class="space-y-6">
+            <div class="metric-card rounded-2xl border border-indigo-100 backdrop-blur bg-white/90 p-6">
+                <div class="flex items-center justify-between">
                     <div>
-                        <canvas id="order-1" width="360" height="32" class="w-full"></canvas>
-                        <p class="text-xs text-slate-500">限价 $935.50 · 状态：部分成交 42%</p>
+                        <h2 class="text-xl font-semibold">科技股持仓利率冲击暴露</h2>
+                        <p class="text-sm text-slate-600 mt-1">联储 2025Q1 Hawkish 场景 · 实时更新</p>
                     </div>
-                </li>
-                <li class="flex items-start gap-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1"></span>
-                    <div>
-                        <canvas id="order-2" width="360" height="32" class="w-full"></canvas>
-                        <p class="text-xs text-slate-500">盈亏平衡收益 18bps</p>
+                    <div class="text-right">
+                        <label class="text-xs text-indigo-600 uppercase">Stress Scenario (%)</label>
+                        <input id="stress-range" type="range" min="0" max="150" value="80"
+                            class="w-40 accent-emerald-400">
                     </div>
-                </li>
-                <li class="flex items-start gap-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-rose-400 mt-1"></span>
-                    <div>
-                        <canvas id="order-3" width="360" height="32" class="w-full"></canvas>
-                        <p class="text-xs text-slate-500">合规核查截止 15:00</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
-        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
-            <h2 class="text-lg font-semibold text-slate-900">事件追踪</h2>
-            <div class="mt-4 space-y-3 text-sm text-slate-600">
-                <div class="flex items-start gap-3">
-                    <span class="text-xs font-semibold text-indigo-600 mt-0.5">FOMC</span>
-                    <p>鲍威尔新闻发布会实录自动抓取，关键词“higher for longer”出现在 <span class="sensitive-text">7</span> 次。</p>
                 </div>
-                <div class="flex items-start gap-3">
-                    <span class="text-xs font-semibold text-indigo-600 mt-0.5">DOT PLOT</span>
-                    <p>终端利率上调至 <span class="sensitive-text">5.65%</span>，模型已同步。</p>
-                </div>
-                <div class="flex items-start gap-3">
-                    <span class="text-xs font-semibold text-indigo-600 mt-0.5">GDP NOW</span>
-                    <p>亚特兰大联储即时 GDP 站上 <span class="sensitive-text">2.8%</span>，触发加码对冲提醒。</p>
+                <div class="grid md:grid-cols-4 gap-4 mt-6 text-sm">
+                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
+                        <p class="text-slate-500 text-xs uppercase">组合净值</p>
+                        <p class="text-2xl font-semibold mt-1" id="nav-value">$12.84M</p>
+                        <p class="text-emerald-600 text-xs mt-1">+1.2% 今日</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
+                        <p class="text-slate-500 text-xs uppercase">利率敏感 Beta</p>
+                        <p class="text-2xl font-semibold mt-1" id="beta-value">1.46</p>
+                        <p class="text-slate-500 text-xs mt-1">对 25bps 加息冲击</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
+                        <p class="text-slate-500 text-xs uppercase">最大回撤 (模拟)</p>
+                        <p class="text-2xl font-semibold mt-1" id="drawdown-value">-6.2%</p>
+                        <p class="text-rose-500 text-xs mt-1">99% C.L. 五日窗口</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
+                        <p class="text-slate-500 text-xs uppercase">对冲缺口</p>
+                        <p class="text-2xl font-semibold mt-1" id="hedge-gap">$2.1M</p>
+                        <p class="text-slate-500 text-xs mt-1">需额外国债久期</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </aside>
-</main>
 
-<script>
-    function renderCanvasText(canvasId, textLines, options = {}) {
-        const canvas = document.getElementById(canvasId);
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        const width = canvas.width;
-        const height = canvas.height;
-        ctx.clearRect(0, 0, width, height);
-        ctx.font = options.font || '16px \"Inter\", \"PingFang SC\"';
-        ctx.fillStyle = options.color || '#ffffff';
-        ctx.textBaseline = 'top';
-        const lineHeight = options.lineHeight || 20;
-        const offsetX = options.x || 0;
-        const offsetY = options.y || 0;
-        textLines.forEach((line, index) => {
-            ctx.fillText(line, offsetX, offsetY + index * lineHeight);
-        });
-    }
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm">
+                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                    <div>
+                        <div id="bright-container-1" class="bright-wrapper">
+                            <h2 class="text-lg font-semibold bright-placeholder">持仓Fed敏感度分布</h2>
+                            <canvas id="bright-content-1" class="bright-canvas" aria-hidden="true"></canvas>
+                        </div>
+                        <div id="bright-container-2" class="bright-wrapper mt-1">
+                            <p class="text-xs text-slate-500 bright-placeholder">
+                                来源：GUI-Agent 抓取 Yahoo Finance Portfolio
+                            </p>
+                            <canvas id="bright-content-2" class="bright-canvas" aria-hidden="true"></canvas>
+                        </div>
+                    </div>
+                    <!-- <span class="text-xs text-emerald-600 font-semibold">实时同步</span> -->
+                </div>
+                <div class="px-6 py-4 overflow-x-auto">
+                    <div id="bright-container-3" class="bright-wrapper min-w-[640px]">
+                        <table class="w-full text-sm bright-placeholder">
+                        <thead class="text-left text-slate-500 uppercase text-xs tracking-wide">
+                            <tr>
+                                <th class="py-2 pr-4">代码 / 名称</th>
+                                <th class="py-2 pr-4">组合权重</th>
+                                <th class="py-2 pr-4">Rate Hike Beta</th>
+                                <th class="py-2 pr-4">联储政策点评</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="py-3 pr-4"><span class="font-semibold">AAPL</span> · Apple</td>
+                                <td class="py-3 pr-4">18.5%</td>
+                                <td class="py-3 pr-4">1.18</td>
+                                <td class="py-3 pr-4 text-slate-600">服务/硬件现金流稳定，利率冲击可对冲 40%</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 pr-4"><span class="font-semibold">MSFT</span> · Microsoft</td>
+                                <td class="py-3 pr-4">22.3%</td>
+                                <td class="py-3 pr-4">1.05</td>
+                                <td class="py-3 pr-4 text-slate-600">云收入锁定，Beta 低于板块</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 pr-4"><span class="font-semibold">NVDA</span> · Nvidia</td>
+                                <td class="py-3 pr-4">24.7%</td>
+                                <td class="py-3 pr-4">1.72</td>
+                                <td class="py-3 pr-4 text-slate-600">AI CapEx 加速导致对冲缺口</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 pr-4"><span class="font-semibold">TSLA</span> · Tesla</td>
+                                <td class="py-3 pr-4">11.2%</td>
+                                <td class="py-3 pr-4">1.95</td>
+                                <td class="py-3 pr-4 text-slate-600">融资成本弹性极高，Fed 路径敏感</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 pr-4"><span class="font-semibold">AMD</span> · Advanced Micro Devices
+                                </td>
+                                <td class="py-3 pr-4">9.1%</td>
+                                <td class="py-3 pr-4">1.56</td>
+                                <td class="py-3 pr-4 text-slate-600">AI/PC 混合暴露，需要波动对冲</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        <canvas id="bright-content-3" class="bright-canvas" aria-hidden="true"></canvas>
+                    </div>
+                </div>
+            </div>
 
-    document.addEventListener('DOMContentLoaded', () => {
-        renderCanvasText('nav-value-canvas', ['$12.84M'], {font: 'bold 26px \"Inter\"', y: 4});
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm">
+                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-semibold">实时蜡烛图回放</h2>
+                        <p class="text-xs text-slate-500">GUI-Agent 通过 WebSocket 拉取 5s 刷新快照</p>
+                    </div>
+                    <span class="text-xs text-slate-500">纽约时区 09:42:17</span>
+                </div>
+                <div class="px-6 py-5 grid md:grid-cols-3 gap-4 text-sm">
+                    <div class="border border-slate-100 rounded-xl p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold">NVDA</p>
+                            <span class="text-emerald-600 text-xs">+2.4%</span>
+                        </div>
+                        <div class="mini-candle my-3"></div>
+                        <p class="text-xs text-slate-500">H: <span class="font-semibold">$942.10</span> · L: <span
+                                class="font-semibold">$918.40</span></p>
+                        <p class="text-xs text-slate-500">成交量 <span class="font-semibold">8.2M</span></p>
+                    </div>
+                    <div class="border border-slate-100 rounded-xl p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold">MSFT</p>
+                            <span class="text-rose-500 text-xs">-0.3%</span>
+                        </div>
+                        <div class="mini-candle my-3"></div>
+                        <p class="text-xs text-slate-500">H: <span class="font-semibold">$432.80</span> · L: <span
+                                class="font-semibold">$428.05</span></p>
+                        <p class="text-xs text-slate-500">成交量 <span class="font-semibold">3.1M</span></p>
+                    </div>
+                    <div class="border border-slate-100 rounded-xl p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold">TSLA</p>
+                            <span class="text-emerald-600 text-xs">+1.1%</span>
+                        </div>
+                        <div class="mini-candle my-3"></div>
+                        <p class="text-xs text-slate-500">H: <span class="font-semibold">$213.45</span> · L: <span
+                                class="font-semibold">$205.22</span></p>
+                        <p class="text-xs text-slate-500">成交量 <span class="font-semibold">12.4M</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        const updateMetrics = (value) => {
-            const factor = Number(value) / 100;
-            const beta = (1.1 + factor * 0.6).toFixed(2);
-            const drawdown = `-${(3 + factor * 4.2).toFixed(1)}%`;
-            const hedge = `$${(1.2 + factor * 1.5).toFixed(1)}M`;
-            renderCanvasText('beta-value-canvas', [beta], {font: 'bold 26px \"Inter\"', y: 4});
-            renderCanvasText('drawdown-value-canvas', [drawdown], {font: 'bold 26px \"Inter\"', y: 4});
-            renderCanvasText('hedge-gap-canvas', [hedge], {font: 'bold 24px \"Inter\"', y: 6});
-        };
+        <aside class="space-y-6">
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-semibold">分散化建议</h2>
+                    <span class="text-xs text-emerald-600 font-semibold">AI Assistant Draft</span>
+                </div>
+                <ol class="mt-4 space-y-4 text-sm text-slate-600">
+                    <li>
+                        <p class="font-semibold text-slate-900">1. 降低半导体集中度</p>
+                        <p class="mt-1">将 NVDA/AMD 权重各下调 4%，转入 XLK 防御 ETF。</p>
+                    </li>
+                    <li>
+                        <p class="font-semibold text-slate-900">2. 增配美元现金替代</p>
+                        <p class="mt-1">买入 6 个月期 SOFR 期货多头，对冲短端利率意外。</p>
+                    </li>
+                    <li>
+                        <p class="font-semibold text-slate-900">3. 加入能源反向相关</p>
+                        <p class="mt-1">建立 XLE 5% 权重，以平衡通胀二阶冲击。</p>
+                    </li>
+                </ol>
+            </div>
 
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-semibold">执行队列</h2>
+                    <button class="text-xs text-indigo-600">刷新 FIX</button>
+                </div>
+                <ul class="mt-4 space-y-3 text-sm text-slate-600">
+                    <li class="flex items-start gap-3">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 mt-1"></span>
+                        <div>
+                            <p class="font-medium">下单 14:05 · 卖出 NVDA 1,200 股</p>
+                            <p class="text-xs text-slate-500">限价 $935.50 · 状态：部分成交 42%</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1"></span>
+                        <div>
+                            <p class="font-medium">下单 14:08 · 买入 SOFRM5 多头</p>
+                            <p class="text-xs text-slate-500">盈亏平衡收益 18bps</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-400 mt-1"></span>
+                        <div>
+                            <p class="font-medium">待审批 · 启用油气对冲篮子</p>
+                            <p class="text-xs text-slate-500">合规核查截止 15:00</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
+                <h2 class="text-lg font-semibold">事件追踪</h2>
+                <div class="mt-4 space-y-3 text-sm text-slate-600">
+                    <div class="flex items-start gap-3">
+                        <span class="text-xs font-semibold text-indigo-600 mt-0.5">FOMC</span>
+                        <p>鲍威尔新闻发布会实录自动抓取，关键词“higher for longer”出现 7 次。</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-xs font-semibold text-indigo-600 mt-0.5">DOT PLOT</span>
+                        <p>终端利率上调至 5.65%，模型已同步。</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-xs font-semibold text-indigo-600 mt-0.5">GDP NOW</span>
+                        <p>亚特兰大联储即时 GDP 站上 2.8%，触发加码对冲提醒。</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <script>
         const stressRange = document.getElementById('stress-range');
+        const betaValue = document.getElementById('beta-value');
+        const drawdownValue = document.getElementById('drawdown-value');
+        const hedgeGap = document.getElementById('hedge-gap');
+
         if (stressRange) {
-            updateMetrics(stressRange.value || 80);
-            stressRange.addEventListener('input', (event) => updateMetrics(event.target.value));
+            stressRange.addEventListener('input', (event) => {
+                const factor = Number(event.target.value) / 100;
+                betaValue.textContent = (1.1 + factor * 0.6).toFixed(2);
+                drawdownValue.textContent = `-${(3 + factor * 4.2).toFixed(1)}%`;
+                hedgeGap.textContent = `$${(1.2 + factor * 1.5).toFixed(1)}M`;
+            });
         }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            BrightMode.apply({
+                containerId: 'bright-container-1',
+                contentId: 'bright-content-1'
+            });
 
-        const holdingValues = [
-            ['weight-aapl', '18.5%'],
-            ['beta-aapl', '1.18'],
-            ['weight-msft', '22.3%'],
-            ['beta-msft', '1.05'],
-            ['weight-nvda', '24.7%'],
-            ['beta-nvda', '1.72'],
-            ['weight-tsla', '11.2%'],
-            ['beta-tsla', '1.95'],
-            ['weight-amd', '9.1%'],
-            ['beta-amd', '1.56'],
-        ];
-        holdingValues.forEach(([id, text]) => renderCanvasText(id, [text], {font: 'bold 16px \"Inter\"', y: 4}));
+            BrightMode.apply({
+                containerId: 'bright-container-2',
+                contentId: 'bright-content-2'
+            });
 
-        renderCanvasText('suggestion-1', ['将 NVDA/AMD 权重各下调 4%，', '转入 XLK 防御 ETF。'], {lineHeight: 18});
-        renderCanvasText('suggestion-2', ['买入 6 个月期 SOFR 期货多头，', '对冲短端利率意外。'], {lineHeight: 18});
-        renderCanvasText('suggestion-3', ['建立 XLE 5% 权重，以平衡通胀', '二阶冲击。'], {lineHeight: 18});
-
-        renderCanvasText('order-1', ['下单 14:05 · 卖出 NVDA 1,200 股'], {font: '15px \"Inter\"', y: 6});
-        renderCanvasText('order-2', ['下单 14:08 · 买入 SOFRM5 多头'], {font: '15px \"Inter\"', y: 6});
-        renderCanvasText('order-3', ['待审批 · 启用油气对冲篮子'], {font: '15px \"Inter\"', y: 6});
-    });
-</script>
+            BrightMode.apply({
+                containerId: 'bright-container-3',
+                contentId: 'bright-content-3'
+            });
+        });
+    </script>
 </body>
+
 </html>
