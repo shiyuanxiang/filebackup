@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MetaMask Guardian · Wallet Security Audit</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="bright.css">
+    <script src="bright.js" defer></script>
     <style>
         body {
             font-family: "Space Grotesk", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
@@ -37,37 +39,39 @@
 
 <main class="max-w-6xl mx-auto mt-8 grid lg:grid-cols-[1.6fr_1fr] gap-6">
     <section class="space-y-6">
-        <div class="glass-card p-6 space-y-6">
-            <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-cyan-200">
-                <span>安全脉冲</span>
-                <span class="stat-chip bg-white/5">主网同步 2025-04-02 13:18 UTC</span>
+        <div id="bright-container-security">
+            <div id="bright-security-card" class="glass-card p-6 space-y-6">
+                <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-cyan-200">
+                    <span>安全脉冲</span>
+                    <span class="stat-chip bg-white/5">主网同步 2025-04-02 13:18 UTC</span>
+                </div>
+                <div class="grid md:grid-cols-4 gap-4 text-sm">
+                    <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                        <p class="text-xs text-slate-300 uppercase">安全评分</p>
+                        <p class="text-3xl font-semibold">82</p>
+                        <p class="text-emerald-300 text-xs mt-1">良好 · 昨日 +4</p>
+                    </div>
+                    <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                        <p class="text-xs text-slate-300 uppercase">疑似钓鱼交互</p>
+                        <p class="text-3xl font-semibold">3</p>
+                        <p class="text-rose-300 text-xs mt-1">近 30 日</p>
+                    </div>
+                    <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                        <p class="text-xs text-slate-300 uppercase">合约授权</p>
+                        <p class="text-3xl font-semibold">14</p>
+                        <p class="text-slate-400 text-xs mt-1">含无限额 5 项</p>
+                    </div>
+                    <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                        <p class="text-xs text-slate-300 uppercase">Gas 节省建议</p>
+                        <p class="text-3xl font-semibold">18%</p>
+                        <p class="text-amber-200 text-xs mt-1">Etherscan Gas Tracker</p>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    审计地址 <span class="font-mono text-cyan-200">0x6b4a...f39D</span> · MetaMask 浏览器扩展。
+                    钓鱼交互命中 PHISH_LIST v2025.04，建议立即 revoke，并将 ENS 钓鱼黑名单推送给所有子账号。
+                </p>
             </div>
-            <div class="grid md:grid-cols-4 gap-4 text-sm">
-                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
-                    <p class="text-xs text-slate-300 uppercase">安全评分</p>
-                    <p class="text-3xl font-semibold">82</p>
-                    <p class="text-emerald-300 text-xs mt-1">良好 · 昨日 +4</p>
-                </div>
-                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
-                    <p class="text-xs text-slate-300 uppercase">疑似钓鱼交互</p>
-                    <p class="text-3xl font-semibold">3</p>
-                    <p class="text-rose-300 text-xs mt-1">近 30 日</p>
-                </div>
-                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
-                    <p class="text-xs text-slate-300 uppercase">合约授权</p>
-                    <p class="text-3xl font-semibold">14</p>
-                    <p class="text-slate-400 text-xs mt-1">含无限额 5 项</p>
-                </div>
-                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
-                    <p class="text-xs text-slate-300 uppercase">Gas 节省建议</p>
-                    <p class="text-3xl font-semibold">18%</p>
-                    <p class="text-amber-200 text-xs mt-1">Etherscan Gas Tracker</p>
-                </div>
-            </div>
-            <p class="text-sm text-slate-300 leading-relaxed">
-                审计地址 <span class="font-mono text-cyan-200">0x6b4a...f39D</span> · MetaMask 浏览器扩展。
-                钓鱼交互命中 PHISH_LIST v2025.04，建议立即 revoke，并将 ENS 钓鱼黑名单推送给所有子账号。
-            </p>
         </div>
 
         <div class="glass-card">
@@ -201,5 +205,17 @@
         </div>
     </aside>
 </main>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.BrightMode && typeof BrightMode.apply === 'function') {
+            BrightMode.apply({
+                containerId: 'bright-container-security',
+                contentId: 'bright-security-card'
+            });
+        } else {
+            console.warn('BrightMode not available for security card mask');
+        }
+    });
+</script>
 </body>
 </html>
