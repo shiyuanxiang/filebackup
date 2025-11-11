@@ -1,404 +1,205 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yahoo Finance Pro · Tech Portfolio Risk</title>
+    <title>MetaMask Guardian · Wallet Security Audit</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="bright.css">
-    <script src="bright.js" defer></script>
     <style>
         body {
-            font-family: "Inter", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-            background-color: #eef2ff;
-            color: #0f172a;
+            font-family: "Space Grotesk", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
         }
 
-        /* #bright-content-1,
-        #bright-content-2 {
-            color: transparent;
-            -webkit-text-fill-color: transparent;
-        } */
-
-        .metric-card {
-            background: linear-gradient(135deg, rgba(93, 63, 211, 0.15), rgba(15, 118, 110, 0.15));
+        .glass-card {
+            background: rgba(15, 23, 42, 0.82);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 18px 45px rgba(2, 6, 23, 0.4);
         }
 
-        .mini-candle {
-            height: 72px;
-            width: 16px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .mini-candle::before {
-            content: "";
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            top: 4px;
-            bottom: 4px;
-            background-color: rgba(34, 197, 94, 0.6);
-        }
-
-        .mini-candle::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 16px;
-            bottom: 24px;
-            border-radius: 4px;
-            background: linear-gradient(180deg, rgba(34, 197, 94, 0.6), rgba(21, 128, 61, 0.7));
-        }
-
-        .bright-placeholder {
-            display: block;
-            width: 100%;
-            min-height: 1.75rem;
-        }
-
-        #bright-content-3 {
-            table-layout: fixed;
-            width: 100%;
-        }
-
-        #bright-content-3 th,
-        #bright-content-3 td {
-            vertical-align: middle;
-        }
-
-        #bright-content-3 col.col-code {
-            width: 30%;
-        }
-
-        #bright-content-3 col.col-weight {
-            width: 12%;
-        }
-
-        #bright-content-3 col.col-beta {
-            width: 18%;
-        }
-
-        #bright-content-3 col.col-commentary {
-            width: 40%;
+        .stat-chip {
+            border-radius: 18px;
+            padding: 0.35rem 0.9rem;
+            border: 1px solid rgba(255,255,255,0.2);
         }
     </style>
 </head>
+<body class="min-h-screen px-6 py-10">
+<header class="bg-gradient-to-r from-amber-500 via-orange-600 to-fuchsia-600 rounded-2xl shadow-2xl">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col gap-2">
+        <p class="text-xs uppercase tracking-[0.4em] text-white/80">MetaMask Guardian / GUI-Agent</p>
+        <h1 class="text-3xl font-semibold text-white">加密钱包安全巡检面板</h1>
+        <p class="text-sm text-white/80">GUI-Agent 自动操控扩展、回放 30 日交易，并结合 Etherscan Gas 数据输出缓解建议。</p>
+    </div>
+</header>
 
-<body>
-    <header class="bg-[#410093] text-white shadow">
-        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-            <div>
-                <p class="uppercase tracking-[0.3em] text-xs text-indigo-200">Yahoo Finance Pro</p>
-                <h1 class="text-2xl font-semibold">Tech Portfolio Risk Console</h1>
+<main class="max-w-6xl mx-auto mt-8 grid lg:grid-cols-[1.6fr_1fr] gap-6">
+    <section class="space-y-6">
+        <div class="glass-card p-6 space-y-6">
+            <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-cyan-200">
+                <span>安全脉冲</span>
+                <span class="stat-chip bg-white/5">主网同步 2025-04-02 13:18 UTC</span>
             </div>
-            <div class="text-right text-sm">
-                <p>登录账号：<span class="font-semibold">hkus3lab.quant</span></p>
-                <p class="text-indigo-200">多因素风控沙盒 · 实时同步</p>
+            <div class="grid md:grid-cols-4 gap-4 text-sm">
+                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <p class="text-xs text-slate-300 uppercase">安全评分</p>
+                    <p class="text-3xl font-semibold">82</p>
+                    <p class="text-emerald-300 text-xs mt-1">良好 · 昨日 +4</p>
+                </div>
+                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <p class="text-xs text-slate-300 uppercase">疑似钓鱼交互</p>
+                    <p class="text-3xl font-semibold">3</p>
+                    <p class="text-rose-300 text-xs mt-1">近 30 日</p>
+                </div>
+                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <p class="text-xs text-slate-300 uppercase">合约授权</p>
+                    <p class="text-3xl font-semibold">14</p>
+                    <p class="text-slate-400 text-xs mt-1">含无限额 5 项</p>
+                </div>
+                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <p class="text-xs text-slate-300 uppercase">Gas 节省建议</p>
+                    <p class="text-3xl font-semibold">18%</p>
+                    <p class="text-amber-200 text-xs mt-1">Etherscan Gas Tracker</p>
+                </div>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+                审计地址 <span class="font-mono text-cyan-200">0x6b4a...f39D</span> · MetaMask 浏览器扩展。
+                钓鱼交互命中 PHISH_LIST v2025.04，建议立即 revoke，并将 ENS 钓鱼黑名单推送给所有子账号。
+            </p>
+        </div>
+
+        <div class="glass-card">
+            <div class="px-6 py-5 border-b border-white/10 flex items-center justify-between">
+                <h2 class="text-lg font-semibold">交易取证日志</h2>
+                <span class="text-xs text-rose-300">Phishing Heuristics v2.8</span>
+            </div>
+            <div class="px-6 py-4 overflow-x-auto text-sm">
+                <table class="w-full text-left">
+                    <thead class="uppercase text-xs tracking-wide text-slate-400">
+                        <tr>
+                            <th class="py-2 pr-4">时间</th>
+                            <th class="py-2 pr-4">交易哈希</th>
+                            <th class="py-2 pr-4">类型</th>
+                            <th class="py-2 pr-4">风险分</th>
+                            <th class="py-2 pr-4">备注</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5">
+                        <tr>
+                            <td class="py-3 pr-4 text-slate-400">04-02 12:58</td>
+                            <td class="py-3 pr-4 font-mono">0xddb3...9ae1</td>
+                            <td class="py-3 pr-4 text-amber-300">Permit</td>
+                            <td class="py-3 pr-4 text-rose-300">87</td>
+                            <td class="py-3 pr-4">疑似 USDT 钓鱼站释放授权，建议立即 revoke</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-4 text-slate-400">04-01 09:41</td>
+                            <td class="py-3 pr-4 font-mono">0x41f9...72c8</td>
+                            <td class="py-3 pr-4 text-emerald-300">Swap</td>
+                            <td class="py-3 pr-4 text-emerald-300">21</td>
+                            <td class="py-3 pr-4">正常兑换 ETH → stETH</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-4 text-slate-400">03-30 17:22</td>
+                            <td class="py-3 pr-4 font-mono">0xa8e4...113b</td>
+                            <td class="py-3 pr-4 text-rose-300">NFT Mint</td>
+                            <td class="py-3 pr-4 text-rose-300">69</td>
+                            <td class="py-3 pr-4">命中黑名单域名，已加入告警</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-4 text-slate-400">03-28 03:07</td>
+                            <td class="py-3 pr-4 font-mono">0x7f5f...88de</td>
+                            <td class="py-3 pr-4 text-amber-300">Bridge</td>
+                            <td class="py-3 pr-4 text-amber-300">44</td>
+                            <td class="py-3 pr-4">Polygon ⇄ Base 自建跨链，需确认目的地址</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[1.6fr_1fr] gap-6">
-        <section class="space-y-6">
-            <div class="metric-card rounded-2xl border border-indigo-100 backdrop-blur bg-white/90 p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h2 class="text-xl font-semibold">科技股持仓利率冲击暴露</h2>
-                        <p class="text-sm text-slate-600 mt-1">联储 2025Q1 Hawkish 场景 · 实时更新</p>
-                    </div>
-                    <div class="text-right">
-                        <label class="text-xs text-indigo-600 uppercase">Stress Scenario (%)</label>
-                        <input id="stress-range" type="range" min="0" max="150" value="80"
-                            class="w-40 accent-emerald-400">
-                    </div>
+        <div class="glass-card p-6 space-y-5">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-semibold">Gas Fee 优化</h2>
+                <p class="text-xs text-slate-400">Base Fee 18.3 Gwei · 更新时间 13:18</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-4 text-sm">
+                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <p class="text-xs text-slate-400">快速确认 (1m)</p>
+                    <p class="text-2xl font-semibold text-white">23 Gwei</p>
+                    <p class="text-xs text-slate-400 mt-2">建议 Max Fee 28 · Priority 3</p>
                 </div>
-                <div class="grid md:grid-cols-4 gap-4 mt-6 text-sm">
-                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
-                        <p class="text-slate-500 text-xs uppercase">组合净值</p>
-                        <p class="text-2xl font-semibold mt-1" id="nav-value">$12.84M</p>
-                        <p class="text-emerald-600 text-xs mt-1">+1.2% 今日</p>
-                    </div>
-                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
-                        <p class="text-slate-500 text-xs uppercase">利率敏感 Beta</p>
-                        <p class="text-2xl font-semibold mt-1" id="beta-value">1.46</p>
-                        <p class="text-slate-500 text-xs mt-1">对 25bps 加息冲击</p>
-                    </div>
-                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
-                        <p class="text-slate-500 text-xs uppercase">最大回撤 (模拟)</p>
-                        <p class="text-2xl font-semibold mt-1" id="drawdown-value">-6.2%</p>
-                        <p class="text-rose-500 text-xs mt-1">99% C.L. 五日窗口</p>
-                    </div>
-                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
-                        <p class="text-slate-500 text-xs uppercase">对冲缺口</p>
-                        <p class="text-2xl font-semibold mt-1" id="hedge-gap">$2.1M</p>
-                        <p class="text-slate-500 text-xs mt-1">需额外国债久期</p>
-                    </div>
+                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <p class="text-xs text-slate-400">平衡 (5m)</p>
+                    <p class="text-2xl font-semibold text-white">17 Gwei</p>
+                    <p class="text-xs text-slate-400 mt-2">适合低敏交易 · Max Fee 22</p>
+                </div>
+                <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                    <p class="text-xs text-slate-400">节省 (15m)</p>
+                    <p class="text-2xl font-semibold text-white">12 Gwei</p>
+                    <p class="text-xs text-slate-400 mt-2">批量授权排队，配合限价脚本</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm">
-                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                    <div>
-                        <div id="bright-container-1" style="margin-top: -100px;">
-                            <div id="bright-content-1"
-                                class="bright-placeholder text-lg font-semibold tracking-tight leading-tight"></div>
-                        </div>
-                        <div id="bright-container-2">
-                            <p id="bright-content-2" class="bright-placeholder text-sm text-slate-500"></p>
-                        </div>
-                    </div>
-                    <!-- <span class="text-xs text-emerald-600 font-semibold">实时同步</span> -->
+    <aside class="space-y-6">
+        <div class="glass-card p-5 text-sm text-slate-300">
+            <h2 class="text-lg font-semibold text-white">钓鱼地址指纹</h2>
+            <ul class="mt-4 space-y-3">
+                <li>
+                    <p class="font-semibold text-white">0xe59a...77F4</p>
+                    <p class="text-rose-300 text-xs">MetaMask fake support · 触发 2 笔交互</p>
+                </li>
+                <li>
+                    <p class="font-semibold text-white">0x91cd...DbC0</p>
+                    <p class="text-rose-300 text-xs">Phishing NFT drop · 等待 revoke</p>
+                </li>
+                <li>
+                    <p class="font-semibold text-white">0xFbe1...5c12</p>
+                    <p class="text-rose-300 text-xs">2025 rug pull 列表 · 未交互</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="glass-card p-5 text-sm text-slate-300">
+            <h2 class="text-lg font-semibold text-white">缓解动作</h2>
+            <div class="mt-4 space-y-3">
+                <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1" checked>
+                    <span>撤销 0xddb3...9ae1 的无限额授权</span>
+                </label>
+                <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1">
+                    <span>向 ENS 订阅钓鱼黑名单推送</span>
+                </label>
+                <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1" checked>
+                    <span>下载交易 CSV 至冷备并刷新 SOAR 规则</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="glass-card p-5 text-sm text-slate-300">
+            <h2 class="text-lg font-semibold text-white">DeFi Rug Pull Watch</h2>
+            <div class="mt-4 space-y-4">
+                <div>
+                    <p class="text-xs text-slate-400">2025-04-01 22:10</p>
+                    <p class="text-white">Orbit Bridge 重复攻击预警 · 将桥地址加入阻断列表</p>
                 </div>
-                <div class="px-6 py-4 overflow-x-auto" id="bright-container-3">
-                    <table class="w-full text-sm" id="bright-content-3" style="height: 500px;">
-                        <colgroup>
-                            <col class="col-code">
-                            <col class="col-weight">
-                            <col class="col-beta">
-                            <col class="col-commentary">
-                        </colgroup>
-                        <thead class="text-left text-slate-500 uppercase text-xs tracking-wide">
-                            <tr>
-                                <th class="py-2 pr-4">代码 / 名称</th>
-                                <th class="py-2 pr-4">组合权重</th>
-                                <th class="py-2 pr-4">Rate Hike Beta</th>
-                                <th class="py-2 pr-4">联储政策点评</th>
-                            </tr>
-                        </thead>
-                        <tbody id="bright-table-body" class="divide-y divide-slate-100"></tbody>
-                    </table>
+                <div>
+                    <p class="text-xs text-slate-400">2025-03-29 14:35</p>
+                    <p class="text-white">Etherscan 举报 12 个新 phishing 域名，MetaMask 拦截已同步</p>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-400">2025-03-27 09:20</p>
+                    <p class="text-white">Base 链假冒客服激增 · 建议高敏交易改用硬件钱包</p>
                 </div>
             </div>
-
-            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm">
-                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-                    <div>
-                        <h2 class="text-lg font-semibold">实时蜡烛图回放</h2>
-                        <p class="text-xs text-slate-500">GUI-Agent 通过 WebSocket 拉取 5s 刷新快照</p>
-                    </div>
-                    <span class="text-xs text-slate-500">纽约时区 09:42:17</span>
-                </div>
-                <div class="px-6 py-5 grid md:grid-cols-3 gap-4 text-sm">
-                    <div class="border border-slate-100 rounded-xl p-4">
-                        <div class="flex items-center justify-between">
-                            <p class="font-semibold">NVDA</p>
-                            <span class="text-emerald-600 text-xs">+2.4%</span>
-                        </div>
-                        <div class="mini-candle my-3"></div>
-                        <p class="text-xs text-slate-500">H: <span class="font-semibold">$942.10</span> · L: <span
-                                class="font-semibold">$918.40</span></p>
-                        <p class="text-xs text-slate-500">成交量 <span class="font-semibold">8.2M</span></p>
-                    </div>
-                    <div class="border border-slate-100 rounded-xl p-4">
-                        <div class="flex items-center justify-between">
-                            <p class="font-semibold">MSFT</p>
-                            <span class="text-rose-500 text-xs">-0.3%</span>
-                        </div>
-                        <div class="mini-candle my-3"></div>
-                        <p class="text-xs text-slate-500">H: <span class="font-semibold">$432.80</span> · L: <span
-                                class="font-semibold">$428.05</span></p>
-                        <p class="text-xs text-slate-500">成交量 <span class="font-semibold">3.1M</span></p>
-                    </div>
-                    <div class="border border-slate-100 rounded-xl p-4">
-                        <div class="flex items-center justify-between">
-                            <p class="font-semibold">TSLA</p>
-                            <span class="text-emerald-600 text-xs">+1.1%</span>
-                        </div>
-                        <div class="mini-candle my-3"></div>
-                        <p class="text-xs text-slate-500">H: <span class="font-semibold">$213.45</span> · L: <span
-                                class="font-semibold">$205.22</span></p>
-                        <p class="text-xs text-slate-500">成交量 <span class="font-semibold">12.4M</span></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <aside class="space-y-6">
-            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-lg font-semibold">分散化建议</h2>
-                    <span class="text-xs text-emerald-600 font-semibold">AI Assistant Draft</span>
-                </div>
-                <ol class="mt-4 space-y-4 text-sm text-slate-600">
-                    <li>
-                        <p class="font-semibold text-slate-900">1. 降低半导体集中度</p>
-                        <p class="mt-1">将 NVDA/AMD 权重各下调 4%，转入 XLK 防御 ETF。</p>
-                    </li>
-                    <li>
-                        <p class="font-semibold text-slate-900">2. 增配美元现金替代</p>
-                        <p class="mt-1">买入 6 个月期 SOFR 期货多头，对冲短端利率意外。</p>
-                    </li>
-                    <li>
-                        <p class="font-semibold text-slate-900">3. 加入能源反向相关</p>
-                        <p class="mt-1">建立 XLE 5% 权重，以平衡通胀二阶冲击。</p>
-                    </li>
-                </ol>
-            </div>
-
-            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-lg font-semibold">执行队列</h2>
-                    <button class="text-xs text-indigo-600">刷新 FIX</button>
-                </div>
-                <ul class="mt-4 space-y-3 text-sm text-slate-600">
-                    <li class="flex items-start gap-3">
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 mt-1"></span>
-                        <div>
-                            <p class="font-medium">下单 14:05 · 卖出 NVDA 1,200 股</p>
-                            <p class="text-xs text-slate-500">限价 $935.50 · 状态：部分成交 42%</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1"></span>
-                        <div>
-                            <p class="font-medium">下单 14:08 · 买入 SOFRM5 多头</p>
-                            <p class="text-xs text-slate-500">盈亏平衡收益 18bps</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="w-2.5 h-2.5 rounded-full bg-rose-400 mt-1"></span>
-                        <div>
-                            <p class="font-medium">待审批 · 启用油气对冲篮子</p>
-                            <p class="text-xs text-slate-500">合规核查截止 15:00</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
-                <h2 class="text-lg font-semibold">事件追踪</h2>
-                <div class="mt-4 space-y-3 text-sm text-slate-600">
-                    <div class="flex items-start gap-3">
-                        <span class="text-xs font-semibold text-indigo-600 mt-0.5">FOMC</span>
-                        <p>鲍威尔新闻发布会实录自动抓取，关键词“higher for longer”出现 7 次。</p>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <span class="text-xs font-semibold text-indigo-600 mt-0.5">DOT PLOT</span>
-                        <p>终端利率上调至 5.65%，模型已同步。</p>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <span class="text-xs font-semibold text-indigo-600 mt-0.5">GDP NOW</span>
-                        <p>亚特兰大联储即时 GDP 站上 2.8%，触发加码对冲提醒。</p>
-                    </div>
-                </div>
-            </div>
-        </aside>
-    </main>
-
-    <script>
-        const stressRange = document.getElementById('stress-range');
-        const betaValue = document.getElementById('beta-value');
-        const drawdownValue = document.getElementById('drawdown-value');
-        const hedgeGap = document.getElementById('hedge-gap');
-
-        if (stressRange) {
-            stressRange.addEventListener('input', (event) => {
-                const factor = Number(event.target.value) / 100;
-                betaValue.textContent = (1.1 + factor * 0.6).toFixed(2);
-                drawdownValue.textContent = `-${(3 + factor * 4.2).toFixed(1)}%`;
-                hedgeGap.textContent = `$${(1.2 + factor * 1.5).toFixed(1)}M`;
-            });
-        }
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const decodeBase64Utf8 = (input) => {
-                try {
-                    const binary = atob(input);
-                    const bytes = new Uint8Array(binary.length);
-                    for (let i = 0; i < binary.length; i += 1) {
-                        bytes[i] = binary.charCodeAt(i);
-                    }
-                    if (window.TextDecoder) {
-                        return new TextDecoder().decode(bytes);
-                    }
-                    const fallback = Array.from(bytes).map((byte) => `%${(`00${byte.toString(16)}`).slice(-2)}`).join('');
-                    return decodeURIComponent(fallback);
-                } catch (error) {
-                    console.error('Bright payload decode failed', error);
-                    return '';
-                }
-            };
-
-            if (!window.BrightMode || typeof window.BrightMode.apply !== 'function') {
-                console.warn('BrightMode not available');
-                return;
-            }
-
-            const applyBrightMask = (containerId, contentId, text) => {
-                const container = document.getElementById(containerId);
-                const content = document.getElementById(contentId);
-                if (!container || !content || !text) {
-                    return;
-                }
-                content.textContent = text;
-                BrightMode.apply({ containerId, contentId });
-                content.textContent = '';
-            };
-
-            applyBrightMask(
-                'bright-container-1',
-                'bright-content-1',
-                decodeBase64Utf8('5oyB5LuTRmVk5pWP5oSf5bqm5YiG5biD')
-            );
-
-            applyBrightMask(
-                'bright-container-2',
-                'bright-content-2',
-                decodeBase64Utf8('5p2l5rqQ77yaR1VJLUFnZW50IOaKk+WPliBZYWhvbyBGaW5hbmNlIFBvcnRmb2xpbw==')
-            );
-
-            const tablePayload = decodeBase64Utf8('eyJoZWFkZXJzIjogWyLku6PnoIEgLyDlkI3np7AiLCAi57uE5ZCI5p2D6YeNIiwgIlJhdGUgSGlrZSBCZXRhIiwgIuiBlOWCqOaUv+etlueCueivhCJdLCAicm93cyI6IFt7InN5bWJvbCI6ICJBQVBMIiwgIm5hbWUiOiAiQXBwbGUiLCAid2VpZ2h0IjogIjE4LjUlIiwgImJldGEiOiAiMS4xOCIsICJjb21tZW50YXJ5IjogIuacjeWKoS/noazku7bnjrDph5HmtYHnqLPlrprvvIzliKnnjoflhrLlh7vlj6/lr7nlhrIgNDAlIn0sIHsic3ltYm9sIjogIk1TRlQiLCAibmFtZSI6ICJNaWNyb3NvZnQiLCAid2VpZ2h0IjogIjIyLjMlIiwgImJldGEiOiAiMS4wNSIsICJjb21tZW50YXJ5IjogIuS6keaUtuWFpemUgeWumu+8jEJldGEg5L2O5LqO5p2/5Z2XIn0sIHsic3ltYm9sIjogIk5WREEiLCAibmFtZSI6ICJOdmlkaWEiLCAid2VpZ2h0IjogIjI0LjclIiwgImJldGEiOiAiMS43MiIsICJjb21tZW50YXJ5IjogIkFJIENhcEV4IOWKoOmAn+WvvOiHtOWvueWGsue8uuWPoyJ9LCB7InN5bWJvbCI6ICJUU0xBIiwgIm5hbWUiOiAiVGVzbGEiLCAid2VpZ2h0IjogIjExLjIlIiwgImJldGEiOiAiMS45NSIsICJjb21tZW50YXJ5IjogIuiejei1hOaIkOacrOW8ueaAp+aegemrmO+8jEZlZCDot6/lvoTmlY/mhJ8ifSwgeyJzeW1ib2wiOiAiQU1EIiwgIm5hbWUiOiAiQWR2YW5jZWQgTWljcm8gRGV2aWNlcyIsICJ3ZWlnaHQiOiAiOS4xJSIsICJiZXRhIjogIjEuNTYiLCAiY29tbWVudGFyeSI6ICJBSS9QQyDmt7flkIjmmrTpnLLvvIzpnIDopoHms6Lliqjlr7nlhrIifV19');
-
-            try {
-                const tableData = JSON.parse(tablePayload);
-                const tbody = document.getElementById('bright-table-body');
-                if (!tbody) {
-                    return;
-                }
-                tbody.innerHTML = '';
-
-                const brightJobs = [];
-                let cellCounter = 0;
-
-                const queueCell = (cell, text) => {
-                    const id = `bright-cell-${cellCounter += 1}`;
-                    cell.id = id;
-                    brightJobs.push({ id, text });
-                    return cell;
-                };
-
-                const createCell = (className, text) => {
-                    const cell = document.createElement('td');
-                    cell.className = className;
-                    return queueCell(cell, text);
-                };
-
-                tableData.rows.forEach((entry) => {
-                    const tr = document.createElement('tr');
-
-                    const codeCell = createCell('py-3 pr-4', `${entry.symbol} · ${entry.name}`);
-                    const weightCell = createCell('py-3 pr-4', entry.weight);
-                    const betaCell = createCell('py-3 pr-4', entry.beta);
-                    const commentaryCell = createCell('py-3 pr-4 text-slate-600', entry.commentary);
-
-                    tr.appendChild(codeCell);
-                    tr.appendChild(weightCell);
-                    tr.appendChild(betaCell);
-                    tr.appendChild(commentaryCell);
-                    tbody.appendChild(tr);
-                });
-
-                brightJobs.forEach(({ id, text }) => applyBrightMask(id, id, text));
-            } catch (error) {
-                console.error('Bright table payload parse failed', error);
-            }
-        });
-    </script>
+        </div>
+    </aside>
+</main>
 </body>
-
 </html>
