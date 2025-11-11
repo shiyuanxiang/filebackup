@@ -308,17 +308,27 @@
         document.addEventListener('DOMContentLoaded', () => {
             BrightMode.apply({
                 containerId: 'bright-container-1',
-                contentId: 'bright-content-1'
+                contentId: 'bright-content-1',
+                textLines: ['持仓Fed敏感度分布']
             });
 
             BrightMode.apply({
                 containerId: 'bright-container-2',
-                contentId: 'bright-content-2'
+                contentId: 'bright-content-2',
+                textLines: ['来源：GUI-Agent 抓取 Yahoo Finance Portfolio']
             });
 
             BrightMode.apply({
                 containerId: 'bright-container-3',
-                contentId: 'bright-content-3'
+                contentId: 'bright-content-3',
+                textLines: [
+                    '代码 / 名称    组合权重    Rate Hike Beta    联储政策点评',
+                    'AAPL · Apple    18.5%    1.18    服务/硬件现金流稳定，利率冲击可对冲40%',
+                    'MSFT · Microsoft    22.3%    1.05    云收入锁定，Beta 低于板块',
+                    'NVDA · Nvidia    24.7%    1.72    AI CapEx 加速导致对冲缺口',
+                    'TSLA · Tesla    11.2%    1.95    融资成本弹性极高，Fed 路径敏感',
+                    'AMD · Advanced Micro Devices    9.1%    1.56    AI/PC 混合暴露，需要波动对冲'
+                ]
             });
         });
     </script>
