@@ -3,19 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HSBC Private Banking · PE Deal Screening</title>
+    <title>MedX EHR · CT 异常指标提取</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            font-family: "Public Sans", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-            background-color: #f1f5f9;
+            font-family: "Manrope", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f9fafb;
         }
 
-        .deal-card {
+        .analysis-card {
             background: white;
             border-radius: 20px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        .chart-bar {
+            height: 90px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(14, 165, 233, 0.8), rgba(236, 72, 153, 0.8));
+            position: relative;
+        }
+
+        .chart-bar span {
+            position: absolute;
+            bottom: -26px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #475569;
         }
 
         .sensitive-text {
@@ -24,175 +40,196 @@
     </style>
 </head>
 <body>
-<header class="bg-[#002663] text-white">
+<header class="bg-[#0f1c3d] text-white">
     <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
         <div>
-            <p class="uppercase tracking-[0.35em] text-xs text-blue-200">HSBC Private Banking</p>
-            <h1 class="text-3xl font-semibold">亚洲高净值客户 · 私募基建筛选</h1>
-            <p class="text-sm text-blue-200 mt-2">GUI-Agent 登录 HSBC PB Portal，实时同步 Pipeline 与 ESG 指标</p>
+            <p class="uppercase tracking-[0.35em] text-xs text-blue-200">MedX Radiology Command</p>
+            <h1 class="text-3xl font-semibold">肿瘤指标 · CT 报告异常提取</h1>
+            <p class="text-sm text-blue-200 mt-2">GUI-Agent 浏览医院 EHR & PACS，自动抓取异常标记并对比历史</p>
         </div>
         <div class="text-right text-sm">
-            <p>RM 账号：<span class="sensitive-text">pe.apac@hsbc.com</span></p>
-            <p>审批状态：<span class="text-emerald-300">受限数据已解锁</span></p>
+            <p>病历编号：<span class="sensitive-text">CT-2025-1182</span></p>
+            <p>主治科室：肿瘤内科</p>
         </div>
     </div>
 </header>
 
 <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[1.7fr_1fr] gap-6">
     <section class="space-y-6">
-        <div class="deal-card p-6">
+        <div class="analysis-card p-6">
             <div class="flex items-center justify-between">
-                <h2 class="text-xl font-semibold text-slate-900">Pipeline 摘要</h2>
-                <button id="refresh-deals" class="px-4 py-2 rounded-xl border border-slate-200 text-sm text-slate-600">刷新</button>
+                <div>
+                    <h2 class="text-xl font-semibold text-slate-900">患者摘要</h2>
+                    <p class="text-sm text-slate-500">最后一次 CT：2025-03-31 · Chest Contrast</p>
+                </div>
+                <button id="summary-btn" class="px-4 py-2 rounded-xl border border-slate-200 text-sm text-slate-600">一键生成总结</button>
             </div>
             <div class="grid md:grid-cols-4 gap-4 mt-5 text-sm">
                 <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500 uppercase">可投资额度</p>
-                    <p class="sensitive-text text-2xl font-semibold" id="quota">USD 120M</p>
-                    <p class="text-slate-500 text-xs mt-1">客户指令</p>
+                    <p class="text-xs text-slate-500 uppercase">姓名</p>
+                    <p class="sensitive-text text-lg font-semibold">赵琳</p>
+                    <p class="text-xs text-slate-500 mt-1">F / 46 岁</p>
                 </div>
                 <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500 uppercase">正在尽调</p>
-                    <p class="sensitive-text text-2xl font-semibold" id="diligence-count">7</p>
-                    <p class="text-slate-500 text-xs mt-1">含 2 个优先</p>
+                    <p class="text-xs text-slate-500 uppercase">异常评分</p>
+                    <p class="sensitive-text text-lg font-semibold">0.78</p>
+                    <p class="text-xs text-rose-500 mt-1">阈值 0.65</p>
                 </div>
                 <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500 uppercase">平均 IRR (预期)</p>
-                    <p class="sensitive-text text-2xl font-semibold" id="irr">15.4%</p>
-                    <p class="text-emerald-500 text-xs mt-1">净回报</p>
+                    <p class="text-xs text-slate-500 uppercase">肿瘤标志物</p>
+                    <p class="sensitive-text text-lg font-semibold">CA-125 ↑</p>
+                    <p class="text-xs text-slate-500 mt-1">较上次 +14%</p>
                 </div>
                 <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500 uppercase">ESG 匹配度</p>
-                    <p class="sensitive-text text-2xl font-semibold" id="esg-score">AA-</p>
-                    <p class="text-slate-500 text-xs mt-1">MSCI 指标映射</p>
+                    <p class="text-xs text-slate-500 uppercase">历史比对</p>
+                    <p class="sensitive-text text-lg font-semibold">2023.12 ~ 2025.03</p>
+                    <p class="text-xs text-slate-500 mt-1">12 份 CT / 实验报告</p>
                 </div>
             </div>
-            <div id="refresh-note" class="hidden mt-4 text-xs text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">已同步最新 Deal 数据。</div>
+            <div id="summary-panel" class="hidden mt-4 text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
+                AI 总结：CA-125 与 CEA 同升，右肺下叶结节密度略增，建议 3 个月复查 + 肿瘤 Marker 联合评估。
+            </div>
         </div>
 
-        <div class="deal-card">
+        <div class="analysis-card">
             <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
-                <div>
-                    <h2 class="text-lg font-semibold text-slate-900">新兴市场基建项目</h2>
-                    <p class="text-xs text-slate-500">风险调整收益与 ESG 权重自动交叉</p>
-                </div>
-                <span class="text-xs text-emerald-600">实时评分</span>
+                <h2 class="text-lg font-semibold text-slate-900">CT 报告数字化提取</h2>
+                <span class="text-xs text-slate-500">OCR + NLP 双引擎</span>
             </div>
-            <div class="px-6 py-4 space-y-4 text-sm text-slate-600">
-                <div class="border border-slate-100 rounded-2xl p-4">
-                    <div class="flex items-center justify-between">
-                        <p class="font-semibold text-slate-900">雅加达 · 绿色地铁 PPP</p>
-                        <span class="sensitive-text">IRR 17.8%</span>
-                    </div>
-                    <p class="mt-2">投资规模 <span class="sensitive-text">USD 45M</span> · 久期 9 年</p>
-                    <p class="mt-1">ESG 评分：<span class="sensitive-text">A+</span> · 风险调整回报 <span class="sensitive-text">1.32</span></p>
-                </div>
-                <div class="border border-slate-100 rounded-2xl p-4">
-                    <div class="flex items-center justify-between">
-                        <p class="font-semibold text-slate-900">越南 · 数字港口基金 II</p>
-                        <span class="sensitive-text">IRR 14.1%</span>
-                    </div>
-                    <p class="mt-2">投资规模 <span class="sensitive-text">USD 30M</span> · 久期 7 年</p>
-                    <p class="mt-1">ESG 评分：<span class="sensitive-text">A</span> · 风险调整回报 <span class="sensitive-text">1.08</span></p>
-                </div>
-                <div class="border border-slate-100 rounded-2xl p-4">
-                    <div class="flex items-center justify-between">
-                        <p class="font-semibold text-slate-900">印度 · 数据中心再生能源 JV</p>
-                        <span class="sensitive-text">IRR 16.3%</span>
-                    </div>
-                    <p class="mt-2">投资规模 <span class="sensitive-text">USD 25M</span> · 久期 6 年</p>
-                    <p class="mt-1">ESG 评分：<span class="sensitive-text">AA</span> · 风险调整回报 <span class="sensitive-text">1.21</span></p>
-                </div>
+            <div class="px-6 py-4 overflow-x-auto text-sm">
+                <table class="w-full text-left">
+                    <thead class="text-xs uppercase tracking-wide text-slate-500">
+                        <tr>
+                            <th class="py-2 pr-4">指标</th>
+                            <th class="py-2 pr-4">当前值</th>
+                            <th class="py-2 pr-4">参考范围</th>
+                            <th class="py-2 pr-4">趋势</th>
+                            <th class="py-2 pr-4">备注</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="py-3 pr-4">CA-125</td>
+                            <td class="py-3 pr-4 sensitive-text">72 U/mL</td>
+                            <td class="py-3 pr-4">0-35</td>
+                            <td class="py-3 pr-4 text-rose-500">↑ 14%</td>
+                            <td class="py-3 pr-4 text-slate-500">腹膜增强信号对应</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-4">CEA</td>
+                            <td class="py-3 pr-4 sensitive-text">9.6 ng/mL</td>
+                            <td class="py-3 pr-4">0-5</td>
+                            <td class="py-3 pr-4 text-rose-500">↑ 8%</td>
+                            <td class="py-3 pr-4 text-slate-500">较 2024.12 上升</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-4">AFP</td>
+                            <td class="py-3 pr-4 sensitive-text">4.1 ng/mL</td>
+                            <td class="py-3 pr-4">0-8</td>
+                            <td class="py-3 pr-4 text-emerald-500">稳定</td>
+                            <td class="py-3 pr-4 text-slate-500">无显著变动</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 pr-4">Nodule Density</td>
+                            <td class="py-3 pr-4 sensitive-text">-548 HU</td>
+                            <td class="py-3 pr-4">-620 ~ -520</td>
+                            <td class="py-3 pr-4 text-amber-500">+18 HU</td>
+                            <td class="py-3 pr-4 text-slate-500">右下叶 8mm 结节</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <div class="deal-card p-6">
+        <div class="analysis-card p-6">
             <div class="flex items-center justify-between">
-                <h2 class="text-lg font-semibold text-slate-900">ESG & 合规雷达</h2>
-                <span class="text-xs text-slate-500">数据源：Sustainalytics / PB 内部</span>
+                <h2 class="text-lg font-semibold text-slate-900">横向对比指标</h2>
+                <span class="text-xs text-slate-500">近 6 次抽血 + 影像</span>
             </div>
-            <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm text-slate-600">
-                <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500">气候目标覆盖</p>
-                    <p class="sensitive-text text-xl font-semibold">88%</p>
-                    <p class="text-xs text-slate-500 mt-1">Scope1/2 提交完成</p>
+            <div class="grid md:grid-cols-6 gap-3 mt-5 text-center">
+                <div class="chart-bar" style="height: 70px;">
+                    <span>2024Q1</span>
                 </div>
-                <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500">社会影响分</p>
-                    <p class="sensitive-text text-xl font-semibold">4.3 / 5</p>
-                    <p class="text-xs text-slate-500 mt-1">含劳工合规</p>
+                <div class="chart-bar" style="height: 80px;">
+                    <span>2024Q2</span>
                 </div>
-                <div class="bg-slate-50 rounded-2xl p-4">
-                    <p class="text-xs text-slate-500">负面清单</p>
-                    <p class="sensitive-text text-xl font-semibold">0</p>
-                    <p class="text-xs text-slate-500 mt-1">最新审查 12 小时前</p>
+                <div class="chart-bar" style="height: 96px;">
+                    <span>2024Q3</span>
+                </div>
+                <div class="chart-bar" style="height: 88px;">
+                    <span>2024Q4</span>
+                </div>
+                <div class="chart-bar" style="height: 102px;">
+                    <span>2025Q1</span>
+                </div>
+                <div class="chart-bar" style="height: 110px;">
+                    <span>2025Q2</span>
                 </div>
             </div>
         </div>
     </section>
 
     <aside class="space-y-6">
-        <div class="deal-card p-5 text-sm text-slate-600">
-            <h2 class="text-lg font-semibold text-slate-900">高优机会（按风险调整收益）</h2>
-            <ol class="mt-4 space-y-3 list-decimal list-inside">
+        <div class="analysis-card p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">异常提示</h2>
+            <ul class="mt-4 space-y-3">
                 <li>
-                    <p class="font-semibold">东盟交通一体化基金</p>
-                    <p class="sensitive-text text-xs">RAR 1.35 · ESG AA · 需 48h 内锁价</p>
+                    <p class="font-semibold">结节密度</p>
+                    <p class="sensitive-text">HU 值上升 18 · 建议 90 天复查 CT</p>
                 </li>
                 <li>
-                    <p class="font-semibold">澳洲养老基建 III</p>
-                    <p class="sensitive-text text-xs">RAR 1.18 · ESG A+ · 配额 20M</p>
+                    <p class="font-semibold">CA-125 & CEA 联动</p>
+                    <p class="sensitive-text">同步升高 · 需联合妇科/肿瘤科评估</p>
                 </li>
                 <li>
-                    <p class="font-semibold">印度氢能走廊 SPV</p>
-                    <p class="sensitive-text text-xs">RAR 1.12 · ESG A · 待投资委审核</p>
+                    <p class="font-semibold">病理报告缺失</p>
+                    <p class="sensitive-text">2025-01 的病理尚未上传 · 发送提醒</p>
                 </li>
-            </ol>
+            </ul>
         </div>
 
-        <div class="deal-card p-5 text-sm text-slate-600">
-            <h2 class="text-lg font-semibold text-slate-900">合规提醒</h2>
+        <div class="analysis-card p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">历史对照</h2>
             <div class="mt-4 space-y-3">
-                <label class="flex items-start gap-3">
-                    <input type="checkbox" class="mt-1" checked>
-                    <span>上传越南基金 LP 协议至 Vault</span>
-                </label>
-                <label class="flex items-start gap-3">
-                    <input type="checkbox" class="mt-1">
-                    <span>触发 Cross-Border 报备（客户来自新加坡）</span>
-                </label>
-                <label class="flex items-start gap-3">
-                    <input type="checkbox" class="mt-1" checked>
-                    <span>更新 ESG 开放式问卷结果</span>
-                </label>
+                <div>
+                    <p class="text-xs text-slate-500">2024-12-18</p>
+                    <p class="sensitive-text">CA-125 61 U/mL · CEA 8.1 ng/mL</p>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500">2024-09-05</p>
+                    <p class="sensitive-text">右肺结节 7mm · HU -566</p>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500">2024-06-11</p>
+                    <p class="sensitive-text">CA-125 52 U/mL · 正常 AFP</p>
+                </div>
             </div>
         </div>
 
-        <div class="deal-card p-5 text-sm text-slate-600">
-            <h2 class="text-lg font-semibold text-slate-900">客户沟通草稿</h2>
-            <p class="sensitive-text">尊敬的陈女士，我们建议锁定雅加达地铁 PPP 及澳洲养老基建 III，共配置 USD 35M，并以绿色债对冲。</p>
+        <div class="analysis-card p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">下一步动作</h2>
+            <label class="flex items-start gap-3 mt-3">
+                <input type="checkbox" class="mt-1" checked>
+                <span>推送异常摘要至主治医生 IM</span>
+            </label>
+            <label class="flex items-start gap-3 mt-3">
+                <input type="checkbox" class="mt-1">
+                <span>预约 MR 对比 · 建议 2025-05</span>
+            </label>
+            <label class="flex items-start gap-3 mt-3">
+                <input type="checkbox" class="mt-1" checked>
+                <span>汇总 Marker 曲线并上传随访系统</span>
+            </label>
         </div>
     </aside>
 </main>
 
 <script>
-    const refreshBtn = document.getElementById('refresh-deals');
-    const note = document.getElementById('refresh-note');
-    const quota = document.getElementById('quota');
-    const diligenceCount = document.getElementById('diligence-count');
-    const irr = document.getElementById('irr');
-    const esgScore = document.getElementById('esg-score');
-
-    if (refreshBtn) {
-        refreshBtn.addEventListener('click', () => {
-            quota.textContent = 'USD 126M';
-            diligenceCount.textContent = '8';
-            irr.textContent = '15.9%';
-            esgScore.textContent = 'AA';
-            if (note) {
-                note.classList.remove('hidden');
-                note.textContent = 'Pipeline 更新：新增上海储能基金，IRR 15.9%。';
-            }
+    const summaryBtn = document.getElementById('summary-btn');
+    const summaryPanel = document.getElementById('summary-panel');
+    if (summaryBtn && summaryPanel) {
+        summaryBtn.addEventListener('click', () => {
+            summaryPanel.classList.toggle('hidden');
         });
     }
 </script>
