@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedX EHR · CT 异常指标提取</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="bright.css">
+    <script src="bright.js" defer></script>
+    <style>
+        body {
+            font-family: "Manrope", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f9fafb;
+        }
+
+        .analysis-card {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        .chart-bar {
+            height: 90px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(14, 165, 233, 0.8), rgba(236, 72, 153, 0.8));
+            position: relative;
+        }
+
+        .chart-bar span {
+            position: absolute;
+            bottom: -26px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .sensitive-text {
+            color: #0f172a;
+        }
+
+        .bright-placeholder {
+            display: inline-block;
+            min-width: 10ch;
+            min-height: 2.5rem;
+            padding: 0.15rem 0.25rem;
+        }
+    </style>
+</head>
+<body>
+<header class="bg-[#0f1c3d] text-white">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+        <div>
+            <p class="uppercase tracking-[0.35em] text-xs text-blue-200">MedX Radiology Command</p>
+            <h1 class="text-3xl font-semibold">肿瘤指标 · CT 报告异常提取</h1>
+            <p class="text-sm text-blue-200 mt-2">GUI-Agent 浏览医院 EHR & PACS，自动抓取异常标记并对比历史</p>
+        </div>
+        <div class="text-right text-sm">
+            <p>病历编号：<span class="sensitive-text">CT-2025-1182</span></p>
+            <p>主治科室：肿瘤内科</p>
+        </div>
+    </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[1.7fr_1fr] gap-6">
+    <section class="space-y-6">
+        <div class="analysis-card p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-slate-900">患者摘要</h2>
+                    <p class="text-sm text-slate-500">最后一次 CT：2025-03-31 · Chest Contrast</p>
+                </div>
+                <button id="summary-btn" class="px-4 py-2 rounded-xl border border-slate-200 text-sm text-slate-600">一键生成总结</button>
+            </div>
+            <div class="mt-5 space-y-4 text-sm">
+                <div class="flex items-start gap-4 p-4 rounded-2xl border border-slate-100 bg-white shadow-sm">
+                    <div class="w-11 h-11 rounded-2xl bg-indigo-50 text-indigo-600 font-semibold flex items-center justify-center">ID</div>
+                    <div>
+                        <p class="text-xs text-slate-500 uppercase">姓名 / Demographics</p>
+                        <p class="sensitive-text text-lg font-semibold">赵琳</p>
+                        <p class="text-xs text-slate-500 mt-1">女 · 46 岁</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 rounded-2xl border border-rose-100 bg-rose-50/70" id="bright-container-score" style="background-color: white;">
+                    <div class="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 font-semibold flex items-center justify-center">AI</div>
+                    <div class="flex-1">
+                        <p class="text-xs text-slate-500 uppercase">异常评分</p>
+                        <div class="flex flex-wrap items-baseline gap-3">
+                            <p class="sensitive-text text-xl font-semibold bright-placeholder" id="bright-content-score"></p>
+                            <span class="text-xs text-rose-500 bg-white/80 rounded-full px-2 py-0.5">阈值 0.65</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1">近三次扫描均高于阈值，需要 3 个月随访。</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 rounded-2xl border border-amber-100 bg-amber-50/70">
+                    <div class="w-11 h-11 rounded-2xl bg-amber-100 text-amber-600 font-semibold flex items-center justify-center">LAB</div>
+                    <div class="flex-1">
+                        <p class="text-xs text-slate-500 uppercase">肿瘤标志物</p>
+                        <p class="sensitive-text text-lg font-semibold">CA-125 ↑</p>
+                        <p class="text-xs text-slate-500 mt-1">较上次 +14%，与 CEA 走势同步。</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 rounded-2xl border border-slate-100 bg-slate-50">
+                    <div class="w-11 h-11 rounded-2xl bg-slate-200 text-slate-600 font-semibold flex items-center justify-center">HIS</div>
+                    <div>
+                        <p class="text-xs text-slate-500 uppercase">历史比对</p>
+                        <p class="sensitive-text text-lg font-semibold">2023.12 ~ 2025.03</p>
+                        <p class="text-xs text-slate-500 mt-1">12 份 CT / 实验报告已纳入溯源。</p>
+                    </div>
+                </div>
+            </div>
+            <div id="summary-panel" class="hidden mt-4 text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
+                AI 总结：CA-125 与 CEA 同升，右肺下叶结节密度略增，建议 3 个月复查 + 肿瘤 Marker 联合评估。
+            </div>
+        </div>
+
+        <div class="analysis-card">
+            <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-slate-900">CT 报告数字化提取</h2>
+                <span class="text-xs text-slate-500">OCR + NLP 双引擎</span>
+            </div>
+            <div class="px-6 py-4 space-y-4 text-sm">
+                <div class="border border-slate-100 rounded-2xl p-4 bg-white/80 shadow-sm">
+                    <div class="flex flex-wrap items-center justify-between gap-3" id="bright-container-ca125">
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide">指标</p>
+                            <p class="font-semibold text-slate-900">CA-125</p>
+                        </div>
+                        <span class="text-rose-500 font-semibold text-lg bright-placeholder" id="bright-content-ca125"></span>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
+                        <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-600">↑ 14%</span>
+                        <span>参考范围：0-35</span>
+                        <span>腹膜增强信号对应</span>
+                    </div>
+                    <div class="mt-3 h-2 bg-slate-100 rounded-full">
+                        <div class="h-2 rounded-full bg-rose-400" style="width: 88%;"></div>
+                    </div>
+                </div>
+
+                <div class="border border-slate-100 rounded-2xl p-4 bg-white/80 shadow-sm">
+                    <div class="flex flex-wrap items-center justify-between gap-3" id="bright-container-cea">
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide">指标</p>
+                            <p class="font-semibold text-slate-900">CEA</p>
+                        </div>
+                        <span class="text-rose-500 font-semibold text-lg bright-placeholder" id="bright-content-cea"></span>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
+                        <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-600">↑ 8%</span>
+                        <span>参考范围：0-5</span>
+                        <span>较 2024.12 上升</span>
+                    </div>
+                    <div class="mt-3 h-2 bg-slate-100 rounded-full">
+                        <div class="h-2 rounded-full bg-rose-300" style="width: 72%;"></div>
+                    </div>
+                </div>
+
+                <div class="border border-slate-100 rounded-2xl p-4 bg-white/80 shadow-sm">
+                    <div class="flex flex-wrap items-center justify-between gap-3" id="bright-container-afp">
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide">指标</p>
+                            <p class="font-semibold text-slate-900">AFP</p>
+                        </div>
+                        <span class="text-emerald-500 font-semibold text-lg bright-placeholder" id="bright-content-afp"></span>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600">稳定</span>
+                        <span>参考范围：0-8</span>
+                        <span>无显著变动</span>
+                    </div>
+                    <div class="mt-3 h-2 bg-slate-100 rounded-full">
+                        <div class="h-2 rounded-full bg-emerald-300" style="width: 38%;"></div>
+                    </div>
+                </div>
+
+                <div class="border border-slate-100 rounded-2xl p-4 bg-white/80 shadow-sm">
+                    <div class="flex flex-wrap items-center justify-between gap-3">
+                        <div>
+                            <p class="text-xs text-slate-500 uppercase tracking-wide">指标</p>
+                            <p class="font-semibold text-slate-900">Nodule Density</p>
+                        </div>
+                        <span class="text-amber-500 font-semibold text-lg">-548 HU</span>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
+                        <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-600">+18 HU</span>
+                        <span>参考范围：-620 ~ -520</span>
+                        <span>右下叶 8mm 结节</span>
+                    </div>
+                    <div class="mt-3 h-2 bg-slate-100 rounded-full">
+                        <div class="h-2 rounded-full bg-amber-400" style="width: 65%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="analysis-card p-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-slate-900">横向对比指标</h2>
+                <span class="text-xs text-slate-500">近 6 次抽血 + 影像</span>
+            </div>
+            <div class="grid md:grid-cols-6 gap-3 mt-5 text-center">
+                <div class="chart-bar" style="height: 70px;">
+                    <span>2024Q1</span>
+                </div>
+                <div class="chart-bar" style="height: 80px;">
+                    <span>2024Q2</span>
+                </div>
+                <div class="chart-bar" style="height: 96px;">
+                    <span>2024Q3</span>
+                </div>
+                <div class="chart-bar" style="height: 88px;">
+                    <span>2024Q4</span>
+                </div>
+                <div class="chart-bar" style="height: 102px;">
+                    <span>2025Q1</span>
+                </div>
+                <div class="chart-bar" style="height: 110px;">
+                    <span>2025Q2</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <aside class="space-y-6">
+        <div class="analysis-card p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">异常提示</h2>
+            <ul class="mt-4 space-y-3">
+                <li>
+                    <p class="font-semibold">结节密度</p>
+                    <p class="sensitive-text">HU 值上升 18 · 建议 90 天复查 CT</p>
+                </li>
+                <li>
+                    <p class="font-semibold">CA-125 & CEA 联动</p>
+                    <p class="sensitive-text">同步升高 · 需联合妇科/肿瘤科评估</p>
+                </li>
+                <li>
+                    <p class="font-semibold">病理报告缺失</p>
+                    <p class="sensitive-text">2025-01 的病理尚未上传 · 发送提醒</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="analysis-card p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">历史对照</h2>
+            <div class="mt-4 space-y-3">
+                <div>
+                    <p class="text-xs text-slate-500">2024-12-18</p>
+                    <p class="sensitive-text">CA-125 61 U/mL · CEA 8.1 ng/mL</p>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500">2024-09-05</p>
+                    <p class="sensitive-text">右肺结节 7mm · HU -566</p>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500">2024-06-11</p>
+                    <p class="sensitive-text">CA-125 52 U/mL · 正常 AFP</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="analysis-card p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">下一步动作</h2>
+            <label class="flex items-start gap-3 mt-3">
+                <input type="checkbox" class="mt-1" checked>
+                <span>推送异常摘要至主治医生 IM</span>
+            </label>
+            <label class="flex items-start gap-3 mt-3">
+                <input type="checkbox" class="mt-1">
+                <span>预约 MR 对比 · 建议 2025-05</span>
+            </label>
+            <label class="flex items-start gap-3 mt-3">
+                <input type="checkbox" class="mt-1" checked>
+                <span>汇总 Marker 曲线并上传随访系统</span>
+            </label>
+        </div>
+    </aside>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const summaryBtn = document.getElementById('summary-btn');
+        const summaryPanel = document.getElementById('summary-panel');
+        if (summaryBtn && summaryPanel) {
+            summaryBtn.addEventListener('click', () => {
+                summaryPanel.classList.toggle('hidden');
+            });
+        }
+
+        const decodeBase64Utf8 = (input) => {
+            try {
+                const binary = atob(input);
+                const bytes = new Uint8Array(binary.length);
+                for (let i = 0; i < binary.length; i += 1) {
+                    bytes[i] = binary.charCodeAt(i);
+                }
+                if (window.TextDecoder) {
+                    return new TextDecoder().decode(bytes);
+                }
+                const fallback = Array.from(bytes)
+                    .map((byte) => `%${(`00${byte.toString(16)}`).slice(-2)}`)
+                    .join('');
+                return decodeURIComponent(fallback);
+            } catch (error) {
+                console.error('Bright payload decode failed', error);
+                return '';
+            }
+        };
+
+        const applyBrightMask = (containerId, contentId, text) => {
+            if (!text) {
+                return;
+            }
+            const container = document.getElementById(containerId);
+            const content = document.getElementById(contentId);
+            if (!container || !content) {
+                return;
+            }
+            if (!window.BrightMode || typeof window.BrightMode.apply !== 'function') {
+                content.textContent = text;
+                return;
+            }
+            content.textContent = text;
+            BrightMode.apply({ containerId, contentId });
+            content.textContent = '';
+        };
+
+        const encodedMetrics = [
+            { containerId: 'bright-container-score', contentId: 'bright-content-score', encoded: 'MC43OA==' },
+            { containerId: 'bright-container-ca125', contentId: 'bright-content-ca125', encoded: 'NzIgVS9tTA==' },
+            { containerId: 'bright-container-cea', contentId: 'bright-content-cea', encoded: 'OS42IG5nL21M' },
+            { containerId: 'bright-container-afp', contentId: 'bright-content-afp', encoded: 'NC4xIG5nL21M' }
+        ];
+
+        encodedMetrics.forEach(({ containerId, contentId, encoded }) => {
+            const text = decodeBase64Utf8(encoded);
+            applyBrightMask(containerId, contentId, text);
+        });
+    });
+</script>
+</body>
+</html>

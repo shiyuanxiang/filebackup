@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>裁判文书网 · 知识产权侵权要点提取</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="bright.css">
+    <script src="bright.js" defer></script>
+    <style>
+        body {
+            font-family: "Noto Sans SC", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        .sensitive-text {
+            color: #0f172a;
+        }
+
+        .bright-mask-host {
+            background-color: #ffffff !important;
+        }
+
+        .bright-placeholder {
+            display: inline-flex;
+            align-items: center;
+            min-width: 10ch;
+            min-height: 2.4rem;
+        }
+
+        .bright-placeholder-wide {
+            min-width: 18ch;
+        }
+        .bright-placeholder-block {
+            display: block;
+            min-height: 3.4rem;
+            margin-top: 0.35rem;
+        }
+
+    </style>
+</head>
+<body>
+<header class="bg-[#102a44] text-white">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+        <div>
+            <p class="uppercase tracking-[0.4em] text-xs text-blue-200">China Judgments Online</p>
+            <h1 class="text-3xl font-semibold">知识产权侵权 · 判决要点提取</h1>
+            <p class="text-sm text-blue-200 mt-2">GUI-Agent 自动登录裁判文书网，抓取赔偿金额 & 裁判理由</p>
+        </div>
+        <div class="text-right text-sm">
+            <p>检索词：<span class="sensitive-text">“知识产权侵权” + “损害赔偿”</span></p>
+            <p>同步时间：2025-04-02 14:20</p>
+        </div>
+    </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-10 grid gap-6 lg:grid-cols-5 auto-rows-min">
+    <div class="lg:col-span-2 space-y-6">
+        <div class="panel p-6 h-full" style="height: 420px;">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-slate-900">检索参数</h2>
+                    <p class="text-sm text-slate-500">法院级别：中级/高级 · 时间：2023-01 至 2025-04</p>
+                </div>
+                <button id="refresh-case" class="px-4 py-2 rounded-xl border border-slate-200 text-sm text-slate-600">刷新结果</button>
+            </div>
+            <div class="grid gap-4 mt-5 text-sm">
+                <div class="bg-slate-50 rounded-2xl p-4 flex items-center justify-between bright-mask-host" id="bright-container-doc-count">
+                    <div>
+                        <p class="text-xs text-slate-500 uppercase">命中文书</p>
+                        <p class="sensitive-text text-2xl font-semibold bright-placeholder" id="bright-content-doc-count"></p>
+                    </div>
+                    <div class="text-right bright-mask-host" id="bright-container-doc-note">
+                        <p class="text-xs text-slate-500 bright-placeholder bright-placeholder-wide" id="bright-content-doc-note"></p>
+                    </div>
+                </div>
+                <div class="bg-slate-50 rounded-2xl p-4 flex items-center justify-between bright-mask-host" id="bright-container-avg-comp">
+                    <div>
+                        <p class="text-xs text-slate-500 uppercase">平均赔偿额</p>
+                        <p class="sensitive-text text-2xl font-semibold bright-placeholder bright-placeholder-wide" id="bright-content-avg-comp"></p>
+                    </div>
+                    <p class="text-xs text-rose-400">去极值</p>
+                </div>
+                <div class="bg-slate-50 rounded-2xl p-4 flex items-center justify-between bright-mask-host" id="bright-container-hot-cause">
+                    <div>
+                        <p class="text-xs text-slate-500 uppercase">热门案由</p>
+                        <p class="sensitive-text text-2xl font-semibold bright-placeholder bright-placeholder-wide" id="bright-content-hot-cause" style="font-size: 15px;"></p>
+                    </div>
+                    <div class="text-right bright-mask-host" id="bright-container-hot-note">
+                        <p class="text-xs text-slate-500 bright-placeholder bright-placeholder-wide" id="bright-content-hot-note"></p>
+                    </div>
+                </div>
+            </div>
+            <div id="refresh-msg" class="hidden mt-4 text-xs text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">已获取新增 6 篇判决。</div>
+        </div>
+
+        <div class="panel p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">赔偿区间 & 裁判理由</h2>
+            <div class="mt-4 space-y-4">
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between bright-mask-host" id="bright-container-range-low">
+                        <span>0-500K</span>
+                        <span class="sensitive-text bright-placeholder" id="bright-content-range-low"></span>
+                    </div>
+                    <div class="flex items-center justify-between bright-mask-host" id="bright-container-range-mid">
+                        <span>500K-2M</span>
+                        <span class="sensitive-text bright-placeholder" id="bright-content-range-mid"></span>
+                    </div>
+                    <div class="flex items-center justify-between bright-mask-host" id="bright-container-range-high">
+                        <span>2M+</span>
+                        <span class="sensitive-text bright-placeholder" id="bright-content-range-high"></span>
+                    </div>
+                </div>
+                <div class="border-t border-slate-100 pt-4 space-y-2">
+                    <p class="text-xs text-slate-500 uppercase tracking-wide">裁判理由提要</p>
+                    <ul class="space-y-2">
+                        <li class="sensitive-text">认定恶意主观故意 → 支持惩罚性赔偿</li>
+                        <li class="sensitive-text">证据链包含源代码 + 服务器镜像</li>
+                        <li class="sensitive-text">跨区域侵权按最高收益地法院裁量</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">导出队列</h2>
+            <div class="mt-3 space-y-3">
+                <div class="flex items-center justify-between">
+                    <p class="sensitive-text">export_batch_0420.xlsx</p>
+                    <span class="text-xs text-slate-500">生成中</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p class="sensitive-text">ai_tableau_case_17.csv</p>
+                    <span class="text-xs text-slate-500">完成</span>
+                </div>
+            </div>
+            <div class="mt-4 border-t border-slate-100 pt-4 text-xs text-slate-500">
+                最近导出将同步至「案情沙盘」项目，可直接拖入 BI 仪表板。
+            </div>
+        </div>
+    </div>
+
+    <div class="lg:col-span-3 space-y-6">
+        <div class="panel">
+            <div class="px-6 py-5 border-b border-slate-100 flex flex-wrap gap-3 items-center justify-between">
+                <div>
+                    <h2 class="text-lg font-semibold text-slate-900">重点案件（近 60 日）</h2>
+                    <p class="text-xs text-slate-500 mt-1">通过下拉选择快速浏览赔偿与要点</p>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-slate-100 text-xs text-slate-600">实时同步</span>
+            </div>
+            <div class="px-6 py-5 space-y-4">
+                <div class="bright-mask-host" id="bright-container-case-select-label">
+                    <label class="text-xs text-slate-500 uppercase tracking-wide bright-placeholder" for="bright-content-case-select" id="bright-content-case-select-label"></label>
+                </div>
+                <div class="bright-mask-host" id="bright-container-case-select">
+                    <select id="bright-content-case-select"
+                        class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 bright-placeholder bright-placeholder-block">
+                    </select>
+                </div>
+                <div id="case-detail" class="bg-slate-50 rounded-2xl p-4 space-y-3 text-sm text-slate-600">
+                    <div class="flex items-center justify-between bright-mask-host" id="bright-container-case-comp">
+                        <span class="text-xs text-slate-500 uppercase">赔偿金额</span>
+                        <p class="sensitive-text font-semibold bright-placeholder bright-placeholder-wide" id="bright-content-case-comp"></p>
+                    </div>
+                    <div class="bright-mask-host" id="bright-container-case-point">
+                        <p class="text-xs text-slate-500 uppercase">裁判要点</p>
+                        <p class="sensitive-text leading-relaxed bright-placeholder-block" id="bright-content-case-point"></p>
+                    </div>
+                    <div class="bright-mask-host" id="bright-container-case-tags">
+                        <p class="text-xs text-slate-500 uppercase">关键词</p>
+                        <p id="bright-content-case-tags" class="sensitive-text bright-placeholder-block"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel p-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-slate-900">判决要素对比表</h2>
+                <span class="text-xs text-slate-500">自动对齐：权利基础 / 赔偿公式 / 证据来源</span>
+            </div>
+            <div class="mt-4 grid md:grid-cols-3 gap-4 text-sm text-slate-600">
+                <div class="bg-slate-50 rounded-2xl p-4">
+                    <p class="text-xs text-slate-500 uppercase">权利基础</p>
+                    <p class="sensitive-text">著作权登记证 + 源码比对报告</p>
+                </div>
+                <div class="bg-slate-50 rounded-2xl p-4">
+                    <p class="text-xs text-slate-500 uppercase">赔偿公式</p>
+                    <p class="sensitive-text">利润推定 60% + 惩罚倍数 1-2x</p>
+                </div>
+                <div class="bg-slate-50 rounded-2xl p-4">
+                    <p class="text-xs text-slate-500 uppercase">证据来源</p>
+                    <p class="sensitive-text">公证取证 + 税务进销项比对</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const refreshBtn = document.getElementById('refresh-case');
+        const refreshMsg = document.getElementById('refresh-msg');
+        const caseSelector = document.getElementById('bright-content-case-select');
+
+        const brightPairs = [
+            { containerId: 'bright-container-doc-count', contentId: 'bright-content-doc-count' },
+            { containerId: 'bright-container-doc-note', contentId: 'bright-content-doc-note' },
+            { containerId: 'bright-container-avg-comp', contentId: 'bright-content-avg-comp' },
+            { containerId: 'bright-container-hot-cause', contentId: 'bright-content-hot-cause' },
+            { containerId: 'bright-container-hot-note', contentId: 'bright-content-hot-note' },
+            { containerId: 'bright-container-range-low', contentId: 'bright-content-range-low' },
+            { containerId: 'bright-container-range-mid', contentId: 'bright-content-range-mid' },
+            { containerId: 'bright-container-range-high', contentId: 'bright-content-range-high' },
+            { containerId: 'bright-container-case-comp', contentId: 'bright-content-case-comp' },
+            { containerId: 'bright-container-case-point', contentId: 'bright-content-case-point' },
+            { containerId: 'bright-container-case-tags', contentId: 'bright-content-case-tags' },
+            { containerId: 'bright-container-case-select-label', contentId: 'bright-content-case-select-label' },
+            { containerId: 'bright-container-case-select', contentId: 'bright-content-case-select' },
+        ];
+
+        const decodeBase64Utf8 = (input) => {
+            if (!input) {
+                return '';
+            }
+            try {
+                return decodeURIComponent(atob(input).split('').map((char) => (
+                    `%${(`00${char.charCodeAt(0).toString(16)}`).slice(-2)}`
+                )).join(''));
+            } catch (error) {
+                console.warn('Bright payload decode failed', error);
+                return '';
+            }
+        };
+
+        const brightLookup = new Map(brightPairs.map(({ contentId, containerId }) => [contentId, containerId]));
+        const hasBrightMode = () => window.BrightMode && typeof window.BrightMode.apply === 'function';
+
+        const applyMaskedText = (contentId, payload, { encoded = true, preserve = false } = {}) => {
+            const content = document.getElementById(contentId);
+            const containerId = brightLookup.get(contentId);
+            if (!content || !containerId || payload == null) {
+                return;
+            }
+            const text = encoded ? decodeBase64Utf8(String(payload)) : String(payload);
+            if (!text) {
+                return;
+            }
+            if (preserve) {
+                content.dataset.brightText = text;
+            } else {
+                content.textContent = text;
+            }
+            if (hasBrightMode()) {
+                BrightMode.apply({ containerId, contentId });
+                if (!preserve) {
+                    content.textContent = '';
+                }
+            } else if (!preserve) {
+                content.textContent = text;
+            }
+        };
+
+        const metricContentIds = {
+            docCount: 'bright-content-doc-count',
+            avgComp: 'bright-content-avg-comp',
+            hotCause: 'bright-content-hot-cause',
+            rangeLow: 'bright-content-range-low',
+            rangeMid: 'bright-content-range-mid',
+            rangeHigh: 'bright-content-range-high',
+        };
+
+        const encodedMetricStates = {
+            base: {
+                docCount: 'MTg2',
+                avgComp: 'wqUgMS4yOE0=',
+                hotCause: '6L2v5Lu26JGX5L2c5p2D',
+                rangeLow: 'Mzgl',
+                rangeMid: 'NDQl',
+                rangeHigh: 'MTgl',
+            },
+            refreshed: {
+                docCount: 'MTk0',
+                avgComp: 'wqUgMS4zNU0=',
+                hotCause: '6ZuG5oiQ55S16Lev5biD5Zu+',
+            },
+        };
+
+        const staticPayloads = [
+            { contentId: 'bright-content-doc-note', payload: '5bey6Kej5p6QIDQwIOevhw==' },
+            { contentId: 'bright-content-hot-note', payload: '5Y2g5q+UIDMyJQ==' },
+            { contentId: 'bright-content-case-select-label', payload: '6YCJ5oup5qGI5Y+3' },
+        ];
+
+        const encodedCaseOptions = 'W3sidmFsdWUiOiAiMCIsICJsYWJlbCI6ICIoMjAyNSnmsqo3M+awkeWInTQ15Y+3IMK3IOS4iua1t+efpeS6p+azlemZoiJ9LCB7InZhbHVlIjogIjEiLCAibGFiZWwiOiAiKDIwMjUp5LqsNzPmsJHnu4g4MeWPtyDCtyDljJfkuqznn6Xkuqfms5XpmaIifSwgeyJ2YWx1ZSI6ICIyIiwgImxhYmVsIjogIigyMDI0KeeypDcz5rCR57uIMTE3MuWPtyDCtyDlub/kuJznnIHpq5jpmaIifV0=';
+
+        const encodedCases = [
+            {
+                comp: 'wqUgMywyMDAsMDAw',
+                point: '6K6k5a6a6KKr5ZGK5oG25oSP5aSN5Yi2IFNhYVMg5qih5Z2X77yM5pSv5oyB5oOp572a5oCn6LWU5YG/IDIg5YCN44CC',
+                tags: '5oG25oSP5aSN5Yi2IMK3IOaDqee9muaAp+i1lOWBvw==',
+            },
+            {
+                comp: 'wqUgOTgwLDAwMA==',
+                point: '566X5rOV5qih5Z6L5L615p2D77yM5L6d5o2u5pS255uK5o6o566X5rOV5LiO55So5oi36YeP57u85ZCI6YWM5a6a44CC',
+                tags: '566X5rOV5qih5Z6LIMK3IOaUtuebiuaOqOeul+azlQ==',
+            },
+            {
+                comp: 'wqUgMSw0NTAsMDAw',
+                point: 'T0VNIOW3peWOguaTheiHqueUn+S6p++8jOe7k+WQiOiuouWNleWIqea2puS4juW6k+WtmOaOqOeul+aNn+WkseOAgg==',
+                tags: 'T0VNIMK3IOWIqea2puaguOeulw==',
+            },
+        ];
+
+        const caseContentIds = {
+            comp: 'bright-content-case-comp',
+            point: 'bright-content-case-point',
+            tags: 'bright-content-case-tags',
+        };
+
+        const applyMetricState = (stateKey = 'base') => {
+            const payload = encodedMetricStates[stateKey];
+            if (!payload) {
+                return;
+            }
+            Object.entries(payload).forEach(([key, value]) => {
+                const contentId = metricContentIds[key];
+                if (contentId) {
+                    applyMaskedText(contentId, value);
+                }
+            });
+        };
+
+        const updateCaseDetail = (index = 0) => {
+            const targetCase = encodedCases[index] || encodedCases[0];
+            if (!targetCase) {
+                return;
+            }
+            Object.entries(targetCase).forEach(([key, value]) => {
+                const contentId = caseContentIds[key];
+                if (contentId) {
+                    applyMaskedText(contentId, value);
+                }
+            });
+        };
+
+        const populateCaseOptions = () => {
+            if (!caseSelector) {
+                return;
+            }
+            const payload = decodeBase64Utf8(encodedCaseOptions);
+            try {
+                const optionList = JSON.parse(payload);
+                caseSelector.innerHTML = '';
+                optionList.forEach(({ value, label }) => {
+                    const option = document.createElement('option');
+                    option.value = value;
+                    option.textContent = label;
+                    caseSelector.appendChild(option);
+                });
+            } catch (error) {
+                console.warn('Case option payload parse failed', error);
+            }
+        };
+
+        const syncCaseSelectMask = () => {
+            if (!caseSelector) {
+                return;
+            }
+            const option = caseSelector.selectedOptions && caseSelector.selectedOptions[0]
+                ? caseSelector.selectedOptions[0]
+                : caseSelector.options[caseSelector.selectedIndex];
+            if (option) {
+                applyMaskedText('bright-content-case-select', option.textContent.trim(), { encoded: false, preserve: true });
+            }
+        };
+
+        staticPayloads.forEach(({ contentId, payload }) => applyMaskedText(contentId, payload));
+        populateCaseOptions();
+        applyMetricState('base');
+        updateCaseDetail(0);
+        syncCaseSelectMask();
+
+        if (caseSelector) {
+            caseSelector.addEventListener('change', (event) => {
+                updateCaseDetail(Number(event.target.value));
+                syncCaseSelectMask();
+            });
+        }
+
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => {
+                applyMetricState('refreshed');
+                if (refreshMsg) {
+                    refreshMsg.classList.remove('hidden');
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

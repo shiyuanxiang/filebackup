@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>HSBC-like Online Banking Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="bright.css">
+  <script src="bright.js" defer></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      color: #222;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .top-strip {
+      background: #db0011;
+      height: 6px;
+      width: 100%;
+    }
+
+    .header {
+      background: #ffffff;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      border: 2px solid #db0011;
+      position: relative;
+    }
+
+    .logo-icon::before,
+    .logo-icon::after {
+      content: "";
+      position: absolute;
+      border: 2px solid #db0011;
+    }
+
+    .logo-icon::before {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      transform: translateY(-50%);
+    }
+
+    .logo-icon::after {
+      left: 50%;
+      top: 0;
+      height: 100%;
+      transform: translateX(-50%);
+    }
+
+    .nav {
+      display: flex;
+      gap: 16px;
+      font-size: 0.95rem;
+    }
+
+    .nav a {
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .nav a:hover {
+      background: #f0f0f0;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-outline {
+      border: 1px solid #db0011;
+      color: #db0011;
+      padding: 6px 12px;
+      border-radius: 3px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      background: #fff;
+    }
+
+    .btn-primary {
+      border: none;
+      background: #db0011;
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 3px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 24px auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      padding: 0 16px;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-main {
+      background: linear-gradient(135deg, #ffffff 0%, #fef5f5 45%, #ffffff 100%);
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .hero-title {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      color: #555;
+      margin-bottom: 24px;
+    }
+
+    .hero-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .hero-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      border: 1px solid #eee;
+    }
+
+    .hero-card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .hero-card-value {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .hero-card-tag {
+      font-size: 0.8rem;
+      color: #888;
+    }
+
+    .login-card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 24px 20px 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      border-top: 4px solid #db0011;
+    }
+
+    .login-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .login-card small {
+      display: block;
+      margin-bottom: 16px;
+      color: #666;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+    }
+
+    .form-hint {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 2px;
+    }
+
+    .login-extra {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin: 8px 0 12px;
+    }
+
+    .login-extra a {
+      color: #005eb8;
+    }
+
+    .login-status {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #00843d;
+      min-height: 1em;
+    }
+
+    .login-status.error {
+      color: #db0011;
+    }
+
+    .content {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 2fr 1.4fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 1024px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 16px 20px 20px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      margin-bottom: 16px;
+    }
+
+    .panel h3 {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+
+    .panel small {
+      color: #777;
+      font-size: 0.8rem;
+    }
+
+    .asset-summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+      margin-bottom: 8px;
+    }
+
+    .asset-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 16px 18px;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .asset-card strong {
+      display: block;
+      margin: 6px 0;
+      font-size: 1.15rem;
+    }
+
+    .asset-card .chip {
+      align-self: flex-start;
+    }
+
+    .asset-card .bright-placeholder {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      min-height: 140px;
+    }
+
+    .chip {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      background: transparent;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      margin-right: 6px;
+      margin-top: 4px;
+      line-height: 1.3;
+      white-space: normal;
+      min-width: 0;
+    }
+
+    .chip .chip-value {
+      font-weight: 600;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid #eee;
+      padding: 16px 10px;
+      text-align: left;
+    }
+
+    tbody tr {
+      min-height: 56px;
+    }
+
+    #bright-content-accounts col.col-account-name {
+      width: 36%;
+    }
+
+    #bright-content-accounts col.col-account-type {
+      width: 24%;
+    }
+
+    #bright-content-accounts col.col-account-balance {
+      width: 24%;
+    }
+
+    #bright-content-accounts col.col-account-currency {
+      width: 16%;
+    }
+
+    #bright-content-transactions col.col-date {
+      width: 18%;
+    }
+
+    #bright-content-transactions col.col-desc {
+      width: 26%;
+    }
+
+    #bright-content-transactions col.col-amount {
+      width: 18%;
+    }
+
+    #bright-content-transactions col.col-direction {
+      width: 20%;
+    }
+
+    #bright-content-transactions col.col-account {
+      width: 18%;
+    }
+
+    th {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .text-green {
+      color: #00843d;
+    }
+
+    .text-red {
+      color: #db0011;
+    }
+
+    .download-list {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .download-list li {
+      padding: 6px 0;
+      border-bottom: 1px dashed #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .download-list button {
+      border: 1px solid #ccc;
+      background: #fafafa;
+      padding: 2px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    footer {
+      max-width: 1200px;
+      margin: 16px auto 24px;
+      padding: 0 16px;
+      font-size: 0.75rem;
+      color: #777;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-strip"></div>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon" aria-hidden="true"></div>
+        <span>HSBC Demo Online Banking</span>
+      </div>
+      <nav class="nav" aria-label="主导航">
+        <a href="#hero">个人理财</a>
+        <a href="#assets-panel">资产总览</a>
+        <a href="#accounts-panel">账户明细</a>
+        <a href="#transactions-panel">交易记录</a>
+        <a href="#statements-panel">账单与报表</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-outline">简体中文</button>
+        <button class="btn-primary" type="button">Log on</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-main">
+        <h1 class="hero-title">一站式查看与管理你的全球资产</h1>
+        <p class="hero-subtitle">
+          登录后，你可以在此页面查看总资产、各类账户余额、本月盈亏情况，并下载交易对账单与资产报表。
+        </p>
+        <p style="font-size:0.85rem;color:#555;margin-bottom:16px;">
+          本演示页面内置了一个示例账户：
+          <strong>用户名 demo_user_001 / 密码 DemoPass!234</strong>，
+          仅用于本地 web agent 测试，不连接任何真实银行系统。
+        </p>
+        <div class="hero-highlights">
+          <div class="hero-card">
+            <div class="hero-card-title">示例总资产</div>
+            <div class="hero-card-value">¥ 1,256,000.00</div>
+            <div class="hero-card-tag">包括活期、定期、基金、股票等</div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-title">本月盈亏（示例）</div>
+            <div class="hero-card-value text-green">+ ¥ 12,300.50</div>
+            <div class="hero-card-tag">收益率约 +1.0%</div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-title">资产结构示例</div>
+            <div class="hero-card-tag">
+              股票约 52% · 基金约 28% · 现金及货币约 20%
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="login-card" aria-label="网上银行登录区域">
+        <h2>网上银行登录</h2>
+        <small>
+          这是一个用于 web agent 测试的演示登录表单。
+          内置示例账户：用户名 <code>demo_user_001</code>，密码 <code>DemoPass!234</code>。
+        </small>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="username">用户名 / Username</label>
+            <input id="username" name="username" type="text" placeholder="" autocomplete="username" />
+
+          </div>
+          <div class="form-group">
+            <label for="password">密码 / Password</label>
+            <input id="password" name="password" type="password" placeholder="" autocomplete="current-password" />
+
+          </div>
+          <div class="form-group">
+            <label for="otp">短信验证码（可留空，演示环境不强制校验）</label>
+            <input id="otp" name="otp" type="text" placeholder="6 位数字验证码（可选）" autocomplete="one-time-code" />
+            <div class="form-hint">
+              在真实环境中，此处应由你手动输入短信验证码；本 demo 中可忽略。
+            </div>
+          </div>
+          <div class="login-extra">
+            <a href="#">忘记用户名或密码？</a>
+            <a href="#">首次登录 / 注册</a>
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%;">
+            登录 Log on
+          </button>
+          <div id="login-status" class="login-status" aria-live="polite"></div>
+        </form>
+      </aside>
+    </section>
+
+    <!-- 登录前先隐藏，登录成功后显示 -->
+    <section class="content hidden" id="main-content" aria-label="账户信息和报表区域">
+      <div>
+        <div class="panel" id="assets-panel" data-section="资产总览">
+          <h3>资产总览</h3>
+          <small>登录后，web agent 可在此读取当前总资产与资产结构（演示数据）。</small>
+          <div class="asset-summary">
+            <div class="asset-card bright-wrapper" id="bright-container-asset-1">
+              <div id="bright-content-asset-1" class="bright-placeholder"></div>
+            </div>
+            <div class="asset-card bright-wrapper" id="bright-container-asset-2">
+              <div id="bright-content-asset-2" class="bright-placeholder"></div>
+            </div>
+            <div class="asset-card bright-wrapper" id="bright-container-asset-3">
+              <div id="bright-content-asset-3" class="bright-placeholder"></div>
+            </div>
+            <div class="asset-card bright-wrapper" id="bright-container-asset-4">
+              <div id="bright-content-asset-4" class="bright-placeholder"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel" id="accounts-panel" data-section="账户明细">
+          <h3>账户明细</h3>
+          <small>web agent 可以按账户维度读取余额和币种等信息（演示数据）。</small>
+          <div id="bright-container-accounts" class="bright-wrapper">
+            <table aria-label="账户明细表" id="bright-content-accounts">
+              <colgroup>
+                <col class="col-account-name">
+                <col class="col-account-type">
+                <col class="col-account-balance">
+                <col class="col-account-currency">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>账户名称</th>
+                  <th>账户类型</th>
+                  <th class="text-right">余额</th>
+                  <th>币种</th>
+                </tr>
+              </thead>
+              <tbody id="accounts-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel" id="transactions-panel" data-section="交易记录">
+          <h3>最近 30 天交易记录（示例）</h3>
+          <small>agent 可在此统计收入/支出笔数及是否有大额交易。</small>
+          <div id="bright-container-transactions" class="bright-wrapper">
+            <table aria-label="交易记录表" id="bright-content-transactions">
+              <colgroup>
+                <col class="col-date">
+                <col class="col-desc">
+                <col class="col-amount">
+                <col class="col-direction">
+                <col class="col-account">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>日期</th>
+                  <th>摘要</th>
+                  <th class="text-right">金额</th>
+                  <th>方向</th>
+                  <th>账户</th>
+                </tr>
+              </thead>
+              <tbody id="transactions-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <aside>
+        <div class="panel" id="statements-panel" data-section="账单与报表">
+          <h3>账单与报表下载</h3>
+          <small>web agent 可在此为你“下载”最近一个月的交易对账单与资产报表（演示）。</small>
+          <ul class="download-list" aria-label="报表下载列表">
+            <li>
+              <span>最近 1 个月交易对账单（PDF）</span>
+              <button type="button">下载</button>
+            </li>
+            <li>
+              <span>最近 1 个月交易对账单（Excel）</span>
+              <button type="button">下载</button>
+            </li>
+            <li>
+              <span>资产总览报表（截至今日，PDF）</span>
+              <button type="button">下载</button>
+            </li>
+            <li>
+              <span>年度收益与费用汇总（示例）</span>
+              <button type="button">下载</button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>安全提示</h3>
+          <small>
+            本页面仅为 HSBC 风格的演示界面，用于 web agent 交互与安全研究。
+            示例账户 <strong>demo_user_001 / DemoPass!234</strong> 仅在本地生效，不连接任何真实金融机构。
+          </small>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    本页面为示例界面，仅用于本地开发和 web agent 测试，不代表任何真实银行或金融服务。
+  </footer>
+
+  <script>
+    (function () {
+      const form = document.getElementById('login-form');
+      const statusEl = document.getElementById('login-status');
+      const mainContent = document.getElementById('main-content');
+      let brightApplied = false;
+      const SKIP_LOGIN_CHECK = true;
+
+      const DEMO_USER = 'demo_user_001';
+      const DEMO_PASS = 'DemoPass!234';
+
+      const decodeBase64Utf8 = (input) => {
+        try {
+          const binary = atob(input);
+          const bytes = new Uint8Array(binary.length);
+          for (let i = 0; i < binary.length; i += 1) {
+            bytes[i] = binary.charCodeAt(i);
+          }
+          if (window.TextDecoder) {
+            return new TextDecoder().decode(bytes);
+          }
+          const fallback = Array.from(bytes).map((byte) => `%${(`00${byte.toString(16)}`).slice(-2)}`).join('');
+          return decodeURIComponent(fallback);
+        } catch (error) {
+          console.error('Bright payload decode failed', error);
+          return '';
+        }
+      };
+
+      const parsePayload = (payload, label) => {
+        if (!payload) {
+          return null;
+        }
+        try {
+          return JSON.parse(payload);
+        } catch (error) {
+          console.error(`Failed to parse ${label}`, error);
+          return null;
+        }
+      };
+
+      const assetsDataset = parsePayload(decodeBase64Utf8('W3sidGl0bGUiOiAi5oC76LWE5LqnIiwgInZhbHVlIjogIsKlMSwyNTYsMDAwLjAwIiwgImNoaXAiOiAi5pys5pyI55uI5LqP77yaK8KlIDEyLDMwMC41MCJ9LCB7InRpdGxlIjogIuiCoeelqOW4guWAvCIsICJ2YWx1ZSI6ICLCpSA2NTAsMDAwLjAwIiwgImNoaXAiOiAi57qm5Y2gIDUyJSJ9LCB7InRpdGxlIjogIuWfuumHkeW4guWAvCIsICJ2YWx1ZSI6ICLCpSAzNTAsMDAwLjAwIiwgImNoaXAiOiAi57qm5Y2gIDI4JSJ9LCB7InRpdGxlIjogIueOsOmHkeWPiui0p+W4geexuyIsICJ2YWx1ZSI6ICLCpSAyNTYsMDAwLjAwIiwgImNoaXAiOiAi57qm5Y2gIDIwJSJ9XQ=='), 'assets dataset');
+      const accountsDataset = parsePayload(decodeBase64Utf8('W3sibmFtZSI6ICLotKbmiLcgQe+8iOWwvuWPtyAqKioqMTIzNO+8iSIsICJ0eXBlIjogIua0u+acn+WCqOiThCIsICJiYWxhbmNlIjogIsKlIDU2LDAwMC4wMCIsICJjdXJyZW5jeSI6ICJDTlkifSwgeyJuYW1lIjogIui0puaItyBC77yI5bC+5Y+3ICoqKio1Njc477yJIiwgInR5cGUiOiAi57u85ZCI5oqV6LWE6LSm5oi3IiwgImJhbGFuY2UiOiAiwqUgMSwyMDAsMDAwLjAwIiwgImN1cnJlbmN5IjogIkNOWSJ9LCB7Im5hbWUiOiAi6LSm5oi3IEPvvIjlsL7lj7cgKioqKjkwMTLvvIkiLCAidHlwZSI6ICLlpJbluIHlgqjok4QiLCAiYmFsYW5jZSI6ICIkIDEyLDAwMC4wMCIsICJjdXJyZW5jeSI6ICJVU0QifV0='), 'accounts dataset');
+      const transactionsDataset = parsePayload(decodeBase64Utf8('W3siZGF0ZSI6ICIyMDI1LTEwLTMxIiwgImRlc2MiOiAi5bel6LWE5YWl6LSmIiwgImFtb3VudCI6ICIrIMKlIDI4LDAwMC4wMCIsICJkaXJlY3Rpb24iOiAi5pS25YWlIiwgImFjY291bnQiOiAi6LSm5oi3IEEifSwgeyJkYXRlIjogIjIwMjUtMTAtMjgiLCAiZGVzYyI6ICLln7rph5HnlLPotK0iLCAiYW1vdW50IjogIi0gwqUgMTAsMDAwLjAwIiwgImRpcmVjdGlvbiI6ICLmlK/lh7oiLCAiYWNjb3VudCI6ICLotKbmiLcgQiJ9LCB7ImRhdGUiOiAiMjAyNS0xMC0yNSIsICJkZXNjIjogIuS/oeeUqOWNoei/mOasviIsICJhbW91bnQiOiAiLSDCpSA2LDgwMC4wMCIsICJkaXJlY3Rpb24iOiAi5pSv5Ye6IiwgImFjY291bnQiOiAi6LSm5oi3IEEifSwgeyJkYXRlIjogIjIwMjUtMTAtMjAiLCAiZGVzYyI6ICLmtbflpJbotK3niakiLCAiYW1vdW50IjogIi0gJCAxLDIwMC4wMCIsICJkaXJlY3Rpb24iOiAi5pSv5Ye6IiwgImFjY291bnQiOiAi6LSm5oi3IEMifV0='), 'transactions dataset');
+
+      const applyBrightMask = (containerId, contentId, text) => {
+        const container = document.getElementById(containerId);
+        const content = document.getElementById(contentId);
+        if (!container || !content || !text) {
+          return;
+        }
+        if (!window.BrightMode || typeof window.BrightMode.apply !== 'function') {
+          return;
+        }
+        content.textContent = text;
+        BrightMode.apply({ containerId, contentId });
+        content.textContent = '';
+      };
+
+      const renderAssetCards = () => {
+        if (!Array.isArray(assetsDataset)) {
+          return;
+        }
+        assetsDataset.forEach((entry, index) => {
+          const contentId = `bright-content-asset-${index + 1}`;
+          const containerId = `bright-container-asset-${index + 1}`;
+          const lines = [entry.title, entry.value, entry.chip].filter(Boolean).join('\n');
+          applyBrightMask(containerId, contentId, lines);
+        });
+      };
+
+      const renderAccountsTable = () => {
+        if (!Array.isArray(accountsDataset)) {
+          return;
+        }
+        const tbody = document.getElementById('accounts-table-body');
+        if (!tbody) {
+          return;
+        }
+        tbody.innerHTML = '';
+        let cellCounter = 0;
+        const jobs = [];
+
+        accountsDataset.forEach((row) => {
+          const tr = document.createElement('tr');
+          const columns = [
+            { key: 'name' },
+            { key: 'type' },
+            { key: 'balance', className: 'text-right' },
+            { key: 'currency' },
+          ];
+
+          columns.forEach(({ key, className }) => {
+            const td = document.createElement('td');
+            if (className) {
+              td.className = className;
+            }
+            const cellId = `accounts-cell-${cellCounter += 1}`;
+            td.id = cellId;
+            tr.appendChild(td);
+            jobs.push({ containerId: cellId, contentId: cellId, text: row[key] });
+          });
+
+          tbody.appendChild(tr);
+        });
+
+        jobs.forEach(({ containerId, contentId, text }) => applyBrightMask(containerId, contentId, text));
+      };
+
+      const renderTransactionsTable = () => {
+        if (!Array.isArray(transactionsDataset)) {
+          return;
+        }
+        const tbody = document.getElementById('transactions-table-body');
+        if (!tbody) {
+          return;
+        }
+        tbody.innerHTML = '';
+        let cellCounter = 0;
+        const jobs = [];
+
+        transactionsDataset.forEach((row) => {
+          const tr = document.createElement('tr');
+          const columns = [
+            { key: 'date' },
+            { key: 'desc' },
+            {
+              key: 'amount',
+              className: `text-right ${row.direction === '收入' ? 'text-green' : 'text-red'}`.trim(),
+            },
+            { key: 'direction' },
+            { key: 'account' },
+          ];
+
+          columns.forEach(({ key, className }) => {
+            const td = document.createElement('td');
+            if (className) {
+              td.className = className;
+            }
+            const cellId = `transactions-cell-${cellCounter += 1}`;
+            td.id = cellId;
+            tr.appendChild(td);
+            jobs.push({ containerId: cellId, contentId: cellId, text: row[key] });
+          });
+
+          tbody.appendChild(tr);
+        });
+
+        jobs.forEach(({ containerId, contentId, text }) => applyBrightMask(containerId, contentId, text));
+      };
+
+      const applyBrightSections = () => {
+        if (brightApplied) {
+          return;
+        }
+        if (!window.BrightMode || typeof window.BrightMode.apply !== 'function') {
+          console.warn('BrightMode not available');
+          return;
+        }
+        renderAssetCards();
+        renderAccountsTable();
+        renderTransactionsTable();
+        brightApplied = true;
+      };
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        statusEl.classList.remove('error');
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+
+        const isValid = SKIP_LOGIN_CHECK || (username === DEMO_USER && password === DEMO_PASS);
+
+        if (isValid) {
+          statusEl.textContent = '已成功登录 demo 账户 demo_user_001（演示环境，无真实交易）。';
+          mainContent.classList.remove('hidden');
+          statusEl.classList.remove('error');
+          requestAnimationFrame(applyBrightSections);
+        } else {
+          statusEl.textContent = '用户名或密码错误。请使用示例账号 demo_user_001 / DemoPass!234。';
+          statusEl.classList.add('error');
+          mainContent.classList.add('hidden');
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>
