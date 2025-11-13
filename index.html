@@ -1,272 +1,360 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>微信公众平台 · 舆情热度监控</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>SciCheck: AI Deepfake Verification Tool - FactCheck.org</title>
+    <link rel="canonical" href="https://www.factcheck.org/scicheck/ai-deepfake-verification-tool/">
+    <link href="https://fonts.googleapis.com/css2?family=Georgia:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-            font-family: "Inter", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-            background-color: #03141f;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
         }
 
-        .glass-panel {
-            background: rgba(9, 24, 36, 0.85);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            border-radius: 20px;
-            box-shadow: inset 0 0 0 1px rgba(15, 76, 117, 0.2);
+        .header {
+            background-color: #fff;
+            border-bottom: 3px solid #d9534f;
+            padding: 1rem 0;
+            position: relative;
         }
 
-        .heat-cell {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
-            background: linear-gradient(135deg, #0ea5e9, #f87171);
+        .site-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #000;
+            text-decoration: none;
         }
 
-        .sensitive-text {
-            color: #e2f3ff;
+        .site-tagline {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .social-links a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #d9534f;
+        }
+
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            padding: 0.5rem 0;
+        }
+
+        .navbar-nav .nav-link {
+            color: #333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #d9534f;
+            border-bottom: 2px solid #d9534f;
+        }
+
+        .search-form {
+            margin-left: auto;
+        }
+
+        .search-form .form-control {
+            border: 1px solid #ddd;
+            border-radius: 0;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: #000;
+            border-bottom: 2px solid #d9534f;
+            padding-bottom: 0.5rem;
+        }
+
+        .tool-section {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background-color: #d9534f;
+            border-color: #d9534f;
+            border-radius: 0;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #c9302c;
+            border-color: #ac2925;
+        }
+
+        .truth-rating {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #fff;
+            border-radius: 3px;
+            background-color: #d9534f;
+        }
+
+        .article-card {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .article-card h3 {
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+        }
+
+        .article-card h3 a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .article-card h3 a:hover {
+            color: #d9534f;
+        }
+
+        .metrics-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .metrics-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+            padding: 2rem 0;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .social-links {
+                flex-direction: column;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
-<body class="text-slate-200">
-<header class="bg-gradient-to-r from-[#062f4f] to-[#0d5c63]">
-    <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-        <div>
-            <p class="uppercase tracking-[0.4em] text-xs text-cyan-200">WeChat Official Accounts Ops</p>
-            <h1 class="text-3xl font-semibold text-white">热点话题 · 舆情情绪矩阵</h1>
-            <p class="text-sm text-cyan-200 mt-2">GUI-Agent 在公众平台后台抓取文章 & 评论，实时生成情绪极值热力图</p>
-        </div>
-        <div class="text-right text-sm">
-            <p>帐号：<span class="sensitive-text">brand_guardian@wx</span></p>
-            <p>最后同步：2025-04-02 15:08</p>
-        </div>
-    </div>
-</header>
 
-<main class="max-w-6xl mx-auto px-6 py-10 flex flex-col gap-8">
-    <div class="grid gap-6 lg:grid-cols-3">
-        <div class="glass-panel p-6 lg:col-span-2">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-xl font-semibold text-white">热点矩阵</h2>
-                    <p class="text-sm text-slate-400">展示 6 个核心指标的异常幅度</p>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <a href="/" class="site-logo">FactCheck.org</a>
+                    <div class="site-tagline">A Project of The Annenberg Public Policy Center</div>
                 </div>
-                <button id="sync-btn" class="px-4 py-2 rounded-xl border border-cyan-200 text-sm text-cyan-100">重新抓取</button>
-            </div>
-            <div class="mt-5 grid grid-cols-2 gap-3 text-sm">
-                <div class="bg-white/5 rounded-xl p-4 space-y-2">
-                    <p class="text-xs text-slate-400 uppercase">热度指数</p>
-                    <p class="sensitive-text text-2xl font-semibold" id="heat-index">82</p>
-                    <p class="text-xs text-slate-400">较昨日 +5</p>
-                </div>
-                <div class="bg-white/5 rounded-xl p-4 space-y-2">
-                    <p class="text-xs text-slate-400 uppercase">负面评论</p>
-                    <p class="sensitive-text text-2xl font-semibold" id="negative-count">312</p>
-                    <p class="text-xs text-slate-400">突发高峰 9:10</p>
-                </div>
-                <div class="bg-white/5 rounded-xl p-4 space-y-2">
-                    <p class="text-xs text-slate-400 uppercase">危机标签</p>
-                    <p class="sensitive-text text-2xl font-semibold" id="crisis-tags">3</p>
-                    <p class="text-xs text-slate-400">需响应</p>
-                </div>
-                <div class="bg-white/5 rounded-xl p-4 space-y-2">
-                    <p class="text-xs text-slate-400 uppercase">情绪平衡</p>
-                    <p class="sensitive-text text-2xl font-semibold" id="balance">46% 正向</p>
-                    <p class="text-xs text-slate-400">高于目标 5%</p>
-                </div>
-                <div class="bg-cyan-900/30 rounded-xl p-4 space-y-2">
-                    <p class="text-xs text-slate-400 uppercase">互动完成度</p>
-                    <p class="sensitive-text text-2xl font-semibold" id="engagement-rate">76%</p>
-                    <p class="text-xs text-slate-400">周环比 +12%</p>
-                </div>
-                <div class="bg-cyan-900/30 rounded-xl p-4 space-y-2">
-                    <p class="text-xs text-slate-400 uppercase">粉丝回复率</p>
-                    <p class="sensitive-text text-2xl font-semibold" id="reply-rate">58%</p>
-                    <p class="text-xs text-slate-400">客服 SLA 90%</p>
+                <div class="col-md-8 text-md-end">
+                    <div class="social-links d-inline-flex">
+                        <a href="https://www.facebook.com/factcheckdotorg" aria-label="Facebook"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/factcheckdotorg" aria-label="Twitter"><i
+                                class="fab fa-twitter"></i></a>
+                        <a href="https://www.tumblr.com/factcheckdotorg" aria-label="Tumblr"><i
+                                class="fab fa-tumblr"></i></a>
+                    </div>
                 </div>
             </div>
-            <div id="sync-hint" class="hidden mt-4 text-xs text-emerald-300 bg-emerald-500/10 border border-emerald-500/40 rounded-xl px-4 py-3">已同步新增 58 条评论，热度数据更新。</div>
+            <a href="#main" class="visually-hidden">Skip to main content</a>
         </div>
-        <div class="glass-panel p-5 text-sm text-slate-300">
-            <h2 class="text-lg font-semibold text-white">危机提醒</h2>
-            <ul class="mt-4 space-y-3">
-                <li>
-                    <p class="font-semibold text-white">#耳机发热</p>
-                    <p class="sensitive-text">9 分钟内新增 86 条负评 · 需技术公告</p>
-                </li>
-                <li>
-                    <p class="font-semibold text-white">#渠道缺货</p>
-                    <p class="sensitive-text">华东代理引导用户去竞品，建议区域直播</p>
-                </li>
-                <li>
-                    <p class="font-semibold text-white">#售后排队</p>
-                    <p class="sensitive-text">客服等待超 30 分钟 · 建议开放人工白名单</p>
-                </li>
-            </ul>
-        </div>
-    </div>
+    </header>
 
-    <div class="grid gap-6 lg:grid-cols-12">
-        <div class="glass-panel lg:col-span-7 col-span-12">
-            <div class="px-6 py-5 border-b border-white/10 flex items-center justify-between">
-                <h2 class="text-lg font-semibold text-white">文章 & 评论极值</h2>
-                <span class="text-xs text-slate-400">使用下拉查看具体情绪与建议</span>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/2024-election/">2024 Election</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/scicheck/">SciCheck</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/viral-spiral/">Viral Spiral</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/media/">Media</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/blog/">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about/">About</a></li>
+                </ul>
+                <form class="search-form d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search FactChecks" aria-label="Search">
+                    <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
+                </form>
             </div>
-            <div class="px-6 py-5 space-y-4 text-sm">
-                <label class="text-xs uppercase tracking-wide text-slate-400" for="article-selector">选择文章</label>
-                <select id="article-selector"
-                    class="w-full rounded-2xl border border-cyan-200/40 bg-white/5 px-4 py-3 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-300/60">
-                    <option value="0">【新品】AI 智能耳机体验</option>
-                    <option value="1">CEO 直播回应补贴政策</option>
-                    <option value="2">售后体系升级公告</option>
-                </select>
-                <div id="article-detail" class="bg-white/5 rounded-2xl p-4 space-y-3 text-slate-200">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs text-slate-400 uppercase">情绪值</p>
-                            <p id="article-sentiment" class="text-2xl font-semibold text-rose-300">-0.63</p>
+        </div>
+    </nav>
+
+    <main id="main" class="main-content">
+        <div class="page-header">
+            <h1>SciCheck: AI Deepfake Verification Tool</h1>
+            <p class="lead text-center">Separating science fact from fiction, with a focus on AI-generated content for
+                2025 elections and beyond. Powered by GUI-Agent for real-time multimodal analysis.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <section class="tool-section">
+                    <h2>Submit Content for Deepfake Analysis</h2>
+                    <p>Enter a video URL or upload a file to verify authenticity using advanced detection for
+                        watermarks, metadata, and anomalies.</p>
+                    <form>
+                        <div class="mb-3">
+                            <label for="videoUrl" class="form-label">Video URL</label>
+                            <input type="url" class="form-control" id="videoUrl"
+                                placeholder="https://example.com/2025-election-deepfake.mp4" required>
                         </div>
-                        <div class="text-right text-xs text-slate-400">
-                            <p id="article-meta">阅读 42w · 评论 5.6k</p>
+                        <div class="mb-3">
+                            <label for="fileUpload" class="form-label">Or Upload File</label>
+                            <input type="file" class="form-control" id="fileUpload" accept="video/*">
                         </div>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-400 uppercase">热词</p>
-                        <p id="article-tags">“发热”“虚假宣传”</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-400 uppercase">处理建议</p>
-                        <p id="article-action">技术团队 1h 内回复 + 发布降温 FAQ</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="glass-panel p-5 text-sm text-slate-300 lg:col-span-5 col-span-12">
-            <h2 class="text-lg font-semibold text-white">评论摘录</h2>
-            <div class="mt-4 space-y-3">
-                <div class="bg-white/5 rounded-xl p-3">
-                    <p class="sensitive-text">“昨晚直播后就收到补贴到账，效率不错。”</p>
-                    <p class="text-xs text-slate-400 mt-2">正向 · 广州</p>
-                </div>
-                <div class="bg-white/5 rounded-xl p-3">
-                    <p class="sensitive-text">“耳机烫得像暖手宝，售后还在排队。”</p>
-                    <p class="text-xs text-slate-400 mt-2">负向 · 成都</p>
-                </div>
-                <div class="bg-white/5 rounded-xl p-3">
-                    <p class="sensitive-text">“客服说排到 72 小时后，能否开放线下换新？”</p>
-                    <p class="text-xs text-slate-400 mt-2">负向 · 上海</p>
-                </div>
-            </div>
-        </div>
-    </div>
+                        <button type="button" class="btn btn-primary" onclick="runVerification()"><i
+                                class="fas fa-play-circle"></i> Run GUI-Agent Analysis</button>
+                        <div class="progress mt-3" style="display: none;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                                role="progressbar" style="width: 0%;">Analyzing...</div>
+                        </div>
+                        <div id="result" class="mt-3" style="display: none;"></div>
+                    </form>
+                </section>
 
-    <div class="grid gap-6 lg:grid-cols-2">
-        <div class="glass-panel p-6">
-            <div class="flex items-center justify-between">
-                <h2 class="text-lg font-semibold text-white">实时热力图</h2>
-                <span class="text-xs text-slate-400">维度：城市 × 情绪极端</span>
+                <section class="tool-section">
+                    <h3>Verification Metrics</h3>
+                    <ul class="metrics-list">
+                        <li><span>Watermark Detection:</span> <span id="watermark">Pending</span></li>
+                        <li><span>Metadata Integrity:</span> <span id="metadata">Pending</span></li>
+                        <li><span>Facial Anomaly Score:</span> <span id="anomaly">Pending</span></li>
+                        <li><span>Overall Credibility:</span> <span id="credibility" class="truth-rating">Pending</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="tool-section">
+                    <h3>GUI-Agent Workflow</h3>
+                    <ol>
+                        <li>Navigate to SciCheck search and input the 2025 election deepfake URL.</li>
+                        <li>Activate multimodal tool for frame-by-frame extraction and AI artifact scanning.</li>
+                        <li>Cross-check against databases for watermarks and metadata tampering.</li>
+                        <li>Generate detailed report with highlighted manipulations, e.g., unnatural artifacts in 72% of
+                            frames.</li>
+                    </ol>
+                    <p class="text-muted"><em>Impact: Enables journalists and voters to debunk AI misinformation in
+                            real-time, reducing spread by up to 65% in tested scenarios.</em></p>
+                </section>
             </div>
-            <div class="grid grid-cols-6 gap-2 mt-5">
-                <div class="heat-cell"></div>
-                <div class="heat-cell opacity-80"></div>
-                <div class="heat-cell opacity-70"></div>
-                <div class="heat-cell opacity-40"></div>
-                <div class="heat-cell opacity-90"></div>
-                <div class="heat-cell opacity-50"></div>
-                <div class="heat-cell opacity-80"></div>
-                <div class="heat-cell opacity-30"></div>
-                <div class="heat-cell opacity-60"></div>
-                <div class="heat-cell opacity-95"></div>
-                <div class="heat-cell opacity-45"></div>
-                <div class="heat-cell opacity-75"></div>
+
+            <div class="col-lg-4">
+                <section class="tool-section">
+                    <h4>Recent SciChecks on AI & Deepfakes</h4>
+                    <div class="article-card">
+                        <img src="https://picsum.photos/300/150?random=1" alt="AI Deepfake" class="img-fluid mb-2">
+                        <h5><a href="#">Claims of AI in 2025 Elections Distorted</a></h5>
+                        <p class="small">A viral video purporting to show election interference is AI-generated;
+                            analysis reveals inconsistencies.</p>
+                        <span class="truth-rating">Mostly False</span>
+                    </div>
+                    <div class="article-card">
+                        <img src="https://picsum.photos/300/150?random=2" alt="Deepfake Tech" class="img-fluid mb-2">
+                        <h5><a href="#">New Tools for Detecting Deepfakes</a></h5>
+                        <p class="small">Evaluating emerging detection methods; evidence supports but notes limitations
+                            in real-world use.</p>
+                        <span class="truth-rating">True</span>
+                    </div>
+                </section>
             </div>
         </div>
-        <div class="glass-panel p-5 text-sm text-slate-300">
-            <h2 class="text-lg font-semibold text-white">行动清单</h2>
-            <label class="flex items-start gap-3 mt-3">
-                <input type="checkbox" class="mt-1" checked>
-                <span>向 PR 群推送耳机发热 FAQ</span>
-            </label>
-            <label class="flex items-start gap-3 mt-3">
-                <input type="checkbox" class="mt-1">
-                <span>安排 CEO 直播回访粉丝</span>
-            </label>
-            <label class="flex items-start gap-3 mt-3">
-                <input type="checkbox" class="mt-1" checked>
-                <span>将 46 个负面评论加入热词跟踪</span>
-            </label>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 FactCheck.org, a project of the Annenberg Public Policy Center of the University of
+                Pennsylvania. All Rights Reserved. <a href="/privacy/">Privacy Policy</a> | <a href="/contact/">Contact
+                    Us</a></p>
         </div>
-    </div>
-</main>
+    </footer>
 
-<script>
-    const syncBtn = document.getElementById('sync-btn');
-    const heatIndex = document.getElementById('heat-index');
-    const negativeCount = document.getElementById('negative-count');
-    const crisisTags = document.getElementById('crisis-tags');
-    const balance = document.getElementById('balance');
-    const syncHint = document.getElementById('sync-hint');
-    const engagementRate = document.getElementById('engagement-rate');
-    const replyRate = document.getElementById('reply-rate');
-    const articleSelector = document.getElementById('article-selector');
-    const articleSentiment = document.getElementById('article-sentiment');
-    const articleMeta = document.getElementById('article-meta');
-    const articleTags = document.getElementById('article-tags');
-    const articleAction = document.getElementById('article-action');
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function runVerification() {
+            const progress = document.querySelector('.progress');
+            const result = document.getElementById('result');
+            const progressBar = progress.querySelector('.progress-bar');
+            progress.style.display = 'block';
 
-    const articleData = [
-        {
-            sentiment: '-0.63',
-            meta: '阅读 42w · 评论 5.6k',
-            tags: '“发热”“虚假宣传”',
-            action: '技术团队 1h 内回复 + 发布降温 FAQ',
-            color: 'text-rose-300'
-        },
-        {
-            sentiment: '+0.41',
-            meta: '阅读 18w · 评论 2.1k',
-            tags: '“透明”“诚意”',
-            action: '精选正向评论置顶 · 强化口碑',
-            color: 'text-emerald-300'
-        },
-        {
-            sentiment: '-0.12',
-            meta: '阅读 9w · 评论 980',
-            tags: '“排队”“人工客服”',
-            action: '同步工单系统 + 增设人工入口',
-            color: 'text-amber-300'
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    progress.style.display = 'none';
+                    result.style.display = 'block';
+                    result.innerHTML = `
+                        <div class="alert alert-info">
+                            <h6>Analysis Complete</h6>
+                            <p><strong>Credibility Rating:</strong> <span class="truth-rating">Potential Manipulation</span> (72% Confidence)</p>
+                            <p><strong>Key Findings:</strong> Absent watermarks; compromised metadata; high anomaly score in facial landmarks (e.g., unnatural blinks at 0:45). Recommended: Cross-verify with original sources.</p>
+                            <a href="#" class="btn btn-primary btn-sm">Download Full Report (PDF)</a>
+                        </div>
+                    `;
+                    document.getElementById('watermark').textContent = 'Absent';
+                    document.getElementById('metadata').textContent = 'Compromised';
+                    document.getElementById('anomaly').textContent = '0.85 (High Risk)';
+                    document.getElementById('credibility').innerHTML = '<span class="truth-rating">Potential Manipulation (72%)</span>';
+                } else {
+                    width += 10;
+                    progressBar.style.width = width + '%';
+                }
+            }, 400);
         }
-    ];
-
-    if (syncBtn) {
-        syncBtn.addEventListener('click', () => {
-            heatIndex.textContent = '88';
-            negativeCount.textContent = '274';
-            crisisTags.textContent = '2';
-            balance.textContent = '53% 正向';
-            if (engagementRate) {
-                engagementRate.textContent = '81%';
-            }
-            if (replyRate) {
-                replyRate.textContent = '62%';
-            }
-            syncHint.classList.remove('hidden');
-        });
-    }
-
-    if (articleSelector) {
-        articleSelector.addEventListener('change', (event) => {
-            const idx = Number(event.target.value);
-            const payload = articleData[idx] || articleData[0];
-            articleSentiment.textContent = payload.sentiment;
-            articleSentiment.className = `text-2xl font-semibold ${payload.color}`;
-            articleMeta.textContent = payload.meta;
-            articleTags.textContent = payload.tags;
-            articleAction.textContent = payload.action;
-        });
-    }
-</script>
+    </script>
 </body>
+
 </html>
