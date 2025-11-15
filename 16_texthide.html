@@ -253,6 +253,14 @@
         const brightLookup = new Map(brightPairs.map(({ contentId, containerId }) => [contentId, containerId]));
         const hasSvgMask = () => window.SvgMask && typeof window.SvgMask.apply === 'function';
 
+        const isInteractiveElement = (element) => {
+            if (!element || !element.tagName) {
+                return false;
+            }
+            const tag = element.tagName.toUpperCase();
+            return tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA' || tag === 'BUTTON';
+        };
+
         const applyMaskedText = (contentId, payload, { encoded = true, preserve = false } = {}) => {
             const content = document.getElementById(contentId);
             const containerId = brightLookup.get(contentId);
@@ -263,17 +271,21 @@
             if (!text) {
                 return;
             }
+            const interactive = isInteractiveElement(content);
             if (preserve) {
                 content.dataset.brightText = text;
-            } else {
+            } else if (!interactive) {
                 content.textContent = text;
+            } else {
+                content.dataset.brightText = text;
             }
-            if (hasSvgMask()) {
+            const shouldApplyMask = hasSvgMask() && !interactive;
+            if (shouldApplyMask) {
                 SvgMask.apply({ containerId, contentId });
                 if (!preserve) {
                     content.textContent = '';
                 }
-            } else if (!preserve) {
+            } else if (!preserve && !interactive) {
                 content.textContent = text;
             }
         };
