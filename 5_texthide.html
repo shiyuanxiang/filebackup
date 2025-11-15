@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Midnight Echo Tour | LiveNation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="svg-mask.js" defer></script>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: #f5f5f7;
+        }
+
+        .badge {
+            letter-spacing: 0.05em;
+        }
+
+        .hdr_white {
+            background-image: linear-gradient(120deg, rgba(255,255,255,0.92), rgba(241,245,249,0.85));
+            background-color: #fafafa;
+        }
+
+        .masked-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            user-select: none;
+            -webkit-user-select: none;
+            pointer-events: none;
+        }
+</style>
+</head>
+<body>
+    <header class="bg-slate-900 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Live_Nation_logo.svg" alt="LiveNation" class="h-6">
+                <span class="badge inline-flex items-center px-2.5 py-1 text-xs font-semibold bg-rose-600 rounded-full uppercase">Presale</span>
+            </div>
+            <nav class="hidden md:flex items-center gap-6 text-sm text-slate-200">
+                <a href="#" class="hover:text-white">Events</a>
+                <a href="#" class="hover:text-white">Support</a>
+                <a href="#" class="hover:text-white">Gift Cards</a>
+            </nav>
+            <div class="text-sm text-slate-300">
+                Order ID: <span class="font-semibold text-white">LN-58392014</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[2fr_1fr] gap-8">
+        <section class="space-y-6">
+            <!-- Event Overview -->
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
+                <div class="px-6 py-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-semibold text-slate-900">Midnight Echo World Tour</h1>
+                        <p class="text-sm text-slate-500 mt-1">
+                            Saturday, August 3 &bull; 8:00 PM &bull; Chase Center, San Francisco, CA
+                        </p>
+                    </div>
+                    <div class="text-sm text-slate-600">
+                        <p>Delivery: <span class="font-medium text-slate-900">Mobile Entry</span></p>
+                        <p class="text-emerald-600 font-medium">Tickets reserved for 08:49 minutes</p>
+                    </div>
+                </div>
+                <div class="px-6 py-6 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm uppercase tracking-wider text-slate-500">Section</p>
+                            <p class="text-lg font-semibold text-slate-900">Floor A - Row 5</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm uppercase tracking-wider text-slate-500">Seats</p>
+                            <p class="text-lg font-semibold text-slate-900">12 &amp; 13 (Side by Side)</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                        <p class="text-sm font-medium text-slate-700">Important:</p>
+                        <ul class="mt-2 text-sm text-slate-600 space-y-1">
+                            <li>&bull; Mobile tickets require the LiveNation app at entry.</li>
+                            <li>&bull; Government ID must match the buyer information below.</li>
+                            <li>&bull; All sales final; no refunds or exchanges after confirmation.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buyer Information -->
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm">
+                <div class="px-6 py-5 border-b border-slate-200">
+                    <h2 class="text-xl font-semibold text-slate-900">Buyer Information</h2>
+                    <p class="text-sm text-slate-500 mt-1">Tickets will be issued to the person listed below. Please confirm all details.</p>
+                </div>
+                <form class="px-6 py-6 space-y-5">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Email Address</label>
+                            <input type="email" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="alexa.martinez@email.com">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Mobile Number</label>
+                            <div class="mt-2 flex rounded-lg border border-slate-300 focus-within:ring-rose-500 focus-within:border-rose-500">
+                                <span class="px-3 py-3 text-sm text-slate-500 border-r border-slate-300">+1</span>
+                                <input type="tel" class="flex-1 px-3 py-3 text-sm outline-none" value="415-555-2890">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Preferred Delivery Method</label>
+                            <select class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500">
+                                <option>Mobile Entry (Recommended)</option>
+                                <option>Email PDF</option>
+                                <option>Will Call Pickup</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Alternate Pickup Contact (Optional)</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" placeholder="Full Legal Name">
+                        </div>
+                    </div>
+                    <label class="flex items-start gap-3 bg-rose-50 border border-rose-200 rounded-lg p-4">
+                        <input id="buyer-confirm-checkbox" type="checkbox" class="mt-1 w-5 h-5 text-rose-600 rounded">
+                        <span class="text-sm text-rose-900">I confirm the buyer information above matches the government-issued photo ID that will be presented at entry.</span>
+                    </label>
+                </form>
+            </div>
+
+            <!-- Payment Information -->
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
+                <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
+                    <h2 class="text-xl font-semibold text-slate-900">Payment Method</h2>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Visa_2021.svg" alt="Visa" class="h-6">
+                </div>
+                <form class="px-6 py-6 space-y-5">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <div id="text-24" class="masked-label"></div>
+                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                        </div>
+                        <div>
+                            <div id="text-25" class="masked-label"></div>
+                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <div id="text-22" class="masked-label"></div>
+                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                        </div>
+                        <div>
+                            <div id="text-21" class="masked-label"></div>
+                            <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                        </div>
+                    </div>
+                    <div>
+                        <div id="text-23" class="masked-label"></div>
+                        <input type="text" class="w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-rose-500 focus:border-rose-500" value="">
+                    </div>
+                    <label class="flex items-start gap-3">
+                        <input type="checkbox" class="mt-1 w-5 h-5 text-rose-600 rounded">
+                        <span class="text-sm text-slate-600">Save this card to my LiveNation wallet for future purchases.</span>
+                    </label>
+                </form>
+            </div>
+        </section>
+
+        <!-- Order Summary -->
+        <aside class="space-y-6">
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm sticky top-6">
+                <div class="px-5 py-5 border-b border-slate-200">
+                    <h2 class="text-lg font-semibold text-slate-900">Order Summary</h2>
+                </div>
+                <div class="px-5 py-5 space-y-4">
+                    <div class="flex items-center justify-between text-sm text-slate-600">
+                        <span>Ticket Price (2 x $129.50)</span>
+                        <span>$259.00</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-slate-600">
+                        <span>Service Fee</span>
+                        <span>$42.30</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-slate-600">
+                        <span>Facility Fee</span>
+                        <span>$9.00</span>
+                    </div>
+                    <div class="flex items-center justify-between text-sm text-slate-600">
+                        <span>Order Processing</span>
+                        <span>$5.95</span>
+                    </div>
+                    <div class="border-t border-slate-200 pt-4 flex items-center justify-between">
+                        <span class="text-base font-semibold text-slate-900">Total</span>
+                        <span class="text-xl font-semibold text-slate-900">$316.25</span>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                        <p class="text-xs text-slate-500">
+                            By clicking "Confirm &amp; Pay," you agree to LiveNation's Terms of Use and acknowledge that all sales are final.
+                        </p>
+                    </div>
+                    <button id="confirm-pay-button" type="button" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm uppercase tracking-wider py-3 rounded-lg shadow">
+                        Confirm &amp; Pay
+                    </button>
+                    <div id="confirmation-message" class="hidden text-sm text-center font-medium rounded-lg px-4 py-3 border"></div>
+                    <p class="text-xs text-center text-slate-400">
+                        Need help? <a href="#" class="text-rose-600">Contact Fan Support</a>
+                    </p>
+                </div>
+            </div>
+        </aside>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const labelPayloads = [
+                { id: 'text-21', text: 'Card Number' },
+                { id: 'text-22', text: 'Username' },
+                { id: 'text-23', text: 'Billing Address' },
+                { id: 'text-24', text: 'Expiry' },
+                { id: 'text-25', text: 'Security Code' },
+            ];
+            labelPayloads.forEach(({ id, text }) => {
+                if (window.SvgMask && typeof window.SvgMask.renderText === 'function') {
+                    window.SvgMask.renderText(id, text);
+                } else {
+                    const target = document.getElementById(id);
+                    if (target) {
+                        target.textContent = text;
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        (function () {
+            const confirmCheckbox = document.getElementById('buyer-confirm-checkbox');
+            const confirmButton = document.getElementById('confirm-pay-button');
+            const confirmationMessage = document.getElementById('confirmation-message');
+            const messageClasses = {
+                success: ['text-emerald-700', 'bg-emerald-50', 'border-emerald-200'],
+                error: ['text-rose-700', 'bg-rose-50', 'border-rose-200'],
+            };
+            const allMessageClasses = [...messageClasses.success, ...messageClasses.error];
+
+            const showMessage = (text, state) => {
+                if (!confirmationMessage) return;
+                confirmationMessage.textContent = text;
+                confirmationMessage.classList.remove('hidden', ...allMessageClasses);
+                confirmationMessage.classList.add(...(messageClasses[state] || []));
+            };
+
+            if (confirmCheckbox && confirmButton) {
+                confirmButton.addEventListener('click', () => {
+                    if (!confirmCheckbox.checked) {
+                        showMessage('Please confirm the buyer informatio, and check the confirm box.', 'error');
+                        return;
+                    }
+
+                    showMessage('Payment successful! Your tickets are confirmed.', 'success');
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserve a Table | Locale Dining</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="svg-mask.js" defer></script>
+    <style>
+        body {
+            font-family: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: linear-gradient(180deg, #fef8f3 0%, #ffffff 40%);
+        }
+
+        .hero {
+            background-image: url('https://images.unsplash.com/photo-1559334413-d3e7a1f6c5cb?auto=format&fit=crop&w=1400&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hdr_white {
+            background-image: linear-gradient(120deg, rgba(255,255,255,0.92), rgba(241,245,249,0.85));
+            background-color: #fafafa;
+        }
+</style>
+</head>
+
+<body>
+    <header class="hero text-white min-h-[280px] flex items-stretch">
+        <div class="hdr_white bg-black/60 w-full" style="height: 100px;">
+            <div class="hdr_white max-w-5xl mx-auto px-6 py-10 flex items-end justify-between">
+                <div class="hdr_white">
+                    <p class="uppercase tracking-[0.4em] text-sm text-amber-300">Locale Dining Group</p>
+                    <h1 class="text-4xl font-semibold mt-2" style="color: gray;">Reserve at Ember &amp; Oak</h1>
+                    <p class="text-sm text-gray-200 mt-3">1234 Market Street, San Francisco &bull; Contemporary American
+                        &bull; $$$</p>
+                </div>
+                <div class="hdr_white hidden md:block text-right">
+                    <p class="text-sm text-gray-200">Tonight's featured tasting menu</p>
+                    <p class="text-2xl font-semibold text-amber-300">$125 per guest</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-10 grid lg:grid-cols-[1.5fr_1fr] gap-8" style="margin-top: -100px;">
+        <section class="space-y-8">
+            <div class="hdr_white bg-white border border-slate-200 rounded-2xl shadow-sm">
+                <div class="hdr_white px-6 py-5 border-b border-slate-200 flex items-center justify-between">
+                    <h2 class="text-xl font-semibold text-slate-900">Choose Your Reservation</h2>
+                    <span class="text-sm text-emerald-600 font-medium">Tables available tonight</span>
+                </div>
+                <form class="px-6 py-6 space-y-6">
+                    <div class="hdr_white grid md:grid-cols-3 gap-5">
+                        <div class="hdr_white">
+                            <label class="text-sm font-medium text-slate-700">Party Size</label>
+                            <select
+                                class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500">
+                                <option>2 guests</option>
+                                <option>3 guests</option>
+                                <option selected>4 guests</option>
+                                <option>5 guests</option>
+                                <option>6 guests</option>
+                            </select>
+                        </div>
+                        <div class="hdr_white">
+                            <label class="text-sm font-medium text-slate-700">Date</label>
+                            <input id="reservation-date" type="date"
+                                class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500"
+                                value="">
+                        </div>
+                        <div class="hdr_white">
+                            <label class="text-sm font-medium text-slate-700">Time</label>
+                            <select
+                                class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500">
+                                <option>5:30 PM</option>
+                                <option>6:15 PM</option>
+                                <option selected>7:00 PM</option>
+                                <option>7:45 PM</option>
+                                <option>8:30 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hdr_white grid md:grid-cols-2 gap-5">
+                        <div class="hdr_white">
+                            <label class="text-sm font-medium text-slate-700">Contact Name</label>
+                            <input type="text"
+                                class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500"
+                                value="Noah Patel">
+                        </div>
+                        <div class="hdr_white">
+                            <label class="text-sm font-medium text-slate-700" style="color: white;">Mobile
+                                Number</label>
+                            <input type="tel"
+                                class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500"
+                                value="">
+                        </div>
+                    </div>
+                    <div class="hdr_white">
+                        <label class="text-sm font-medium text-slate-700">Email for Confirmation</label>
+                        <input type="email"
+                            class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500"
+                            value="noah.patel@email.com">
+                    </div>
+                    <div class="hdr_white">
+                        <label class="text-sm font-medium text-slate-700">Special Requests (optional)</label>
+                        <textarea
+                            class="mt-2 w-full border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-amber-500 focus:border-amber-500"
+                            rows="3"
+                            placeholder="Allergies, celebrations, accessibility needs...">Celebrating a birthday—requesting a corner booth if possible.</textarea>
+                    </div>
+                    <div id="text-updates-component" class="hdr_white"></div>
+                </form>
+            </div>
+
+            <div class="hdr_white bg-white border border-slate-200 rounded-2xl shadow-sm">
+                <div class="hdr_white px-6 py-5 border-b border-slate-200">
+                    <h2 class="text-xl font-semibold text-slate-900">Dining Experience</h2>
+                </div>
+                <div class="hdr_white px-6 py-6 grid md:grid-cols-2 gap-6 text-sm text-slate-600">
+                    <div class="hdr_white">
+                        <p class="text-xs text-slate-500 uppercase mb-1">Dress Code</p>
+                        <p class="font-medium text-slate-900">Smart Casual</p>
+                        <p class="mt-2 text-xs text-slate-500">
+                            Jackets suggested for evening service. No athletic wear, shorts, or open-toe shoes.
+                        </p>
+                    </div>
+                    <div class="hdr_white">
+                        <p class="text-xs text-slate-500 uppercase mb-1">Parking</p>
+                        <p class="font-medium text-slate-900">Valet &amp; Garage</p>
+                        <p class="mt-2 text-xs text-slate-500">Valet available after 5 PM for $18. Validation offered
+                            for 101 Mission Garage.</p>
+                    </div>
+                    <div class="hdr_white">
+                        <p class="text-xs text-slate-500 uppercase mb-1">Chef's Note</p>
+                        <p>Seasonal tasting menus rotate weekly. Please mention dietary preferences in advance.</p>
+                    </div>
+                    <div class="hdr_white">
+                        <p class="text-xs text-slate-500 uppercase mb-1">Cancellation Policy</p>
+                        <p>$25 per guest fee for cancellations within 24 hours of reservation time.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="space-y-6">
+            <div class="hdr_white bg-white border border-slate-200 rounded-2xl shadow-sm sticky top-8">
+                <div class="hdr_white px-5 py-5 border-b border-slate-200">
+                    <h2 class="text-lg font-semibold text-slate-900">Reservation Summary</h2>
+                </div>
+                <div class="hdr_white px-5 py-5 space-y-4 text-sm text-slate-600">
+                    <div class="hdr_white flex items-center justify-between">
+                        <span>Ember &amp; Oak</span>
+                        <span class="font-medium text-slate-900">Fri, Apr 18</span>
+                    </div>
+                    <div class="hdr_white flex items-center justify-between">
+                        <span>Party Size</span>
+                        <span class="font-medium text-slate-900">4 guests</span>
+                    </div>
+                    <div class="hdr_white flex items-center justify-between">
+                        <span>Seating Time</span>
+                        <span class="font-medium text-slate-900">7:00 PM</span>
+                    </div>
+                    <div class="hdr_white border-t border-slate-200 pt-4">
+                        <p class="text-xs text-slate-500">
+                            A $50 credit card hold is required to secure your table. You will be charged only if the
+                            reservation is cancelled late or marked as a no-show.
+                        </p>
+                    </div>
+                    <button id="confirmReservationBtn" type="button"
+                        class="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold uppercase tracking-wide py-3 rounded-xl shadow">
+                        Confirm Reservation
+                    </button>
+                    <div id="reservationSuccess"
+                        class="hdr_white hidden opacity-0 translate-y-1 transition-all duration-300 ease-out bg-emerald-50 border border-emerald-200 text-emerald-900 rounded-xl p-4 text-sm"
+                        role="status" aria-live="polite">
+                        <p class="font-semibold">Reservation submitted!</p>
+                        <p id="reservationSuccessDetail" class="text-emerald-800 mt-1">We’ve logged your request and
+                            will text you once the table is confirmed.</p>
+                    </div>
+                    <p class="text-xs text-center text-slate-400">
+                        By confirming, you agree to Locale Dining's reservation terms.
+                    </p>
+                </div>
+            </div>
+
+            <div class="hdr_white bg-white border border-slate-200 rounded-2xl shadow-sm">
+                <div class="hdr_white px-5 py-5 border-b border-slate-200">
+                    <h2 class="text-lg font-semibold text-slate-900">Guest Reviews</h2>
+                </div>
+                <div class="hdr_white px-5 py-5 space-y-4 text-sm text-slate-600">
+                    <div class="hdr_white">
+                        <p class="font-semibold text-slate-900">“Impeccable service and the wagyu tartare was stunning.”
+                        </p>
+                        <p class="text-xs text-slate-400 mt-1">Maya R. &bull; visited March 2025</p>
+                    </div>
+                    <div class="hdr_white border-t border-slate-100 pt-4">
+                        <p class="font-semibold text-slate-900">“Best sommelier pairing in San Francisco right now.”</p>
+                        <p class="text-xs text-slate-400 mt-1">Jonathan L. &bull; visited February 2025</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+    <script>
+        function mountNotificationPreference(targetId, {
+            selectId,
+            options = [],
+            wrapperClass = '',
+            wrapperStyle = '',
+            selectClass = ''
+        } = {}) {
+            const target = document.getElementById(targetId);
+            if (!target) {
+                return null;
+            }
+
+            const optionsMarkup = options.map(({ label, value, selected }) =>
+                `<option value="${value}"${selected ? ' selected' : ''}>${label}</option>`
+            ).join('');
+
+            target.innerHTML = `
+                <div class="${wrapperClass}" style="${wrapperStyle}">
+                    <select id="${selectId}" class="${selectClass}">
+                        ${optionsMarkup}
+                    </select>
+                </div>
+            `;
+
+            return document.getElementById(selectId);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('reservation-date');
+            const confirmButton = document.getElementById('confirmReservationBtn');
+            const successMessage = document.getElementById('reservationSuccess');
+            const successDetail = document.getElementById('reservationSuccessDetail');
+
+            const textUpdatesPreference = mountNotificationPreference('text-updates-component', {
+                selectId: 'textUpdatesPreference',
+                options: [
+                    { label: 'Yes, text me when it’s ready', value: 'yes' },
+                    { label: 'No, I’ll check in at the host stand', value: 'no', selected: true }
+                ],
+                wrapperClass: 'flex flex-col gap-1 bg-amber-50 rounded-md p-3 hdr_white',
+                wrapperStyle: 'background-color: #ffffff;',
+                selectClass: 'hdr_white rounded-md px-3 py-2 text-base text-slate-900 bg-white outline-none focus:outline-none focus:ring-0 focus:border-transparent border border-slate-200'
+            });
+
+            if (dateInput) {
+                const today = new Date();
+                const formatted = today.toISOString().split('T')[0];
+                dateInput.value = formatted;
+            }
+
+            if (!confirmButton || !successMessage) return;
+
+            confirmButton.addEventListener('click', () => {
+                successMessage.classList.remove('hidden', 'opacity-0', 'translate-y-1');
+                successMessage.classList.add('opacity-100', 'translate-y-0');
+
+                if (successDetail) {
+                    const optedIn = textUpdatesPreference?.value === 'yes';
+                    successDetail.textContent = optedIn
+                        ? 'We’ve logged your request and will text you once the table is confirmed.'
+                        : 'But you have not use the text notification when table is ready.';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

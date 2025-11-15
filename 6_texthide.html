@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X | Reply to Post</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="svg-mask.js" defer></script>
+    <style>
+        body {
+            font-family: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: #15202b;
+            /* color: #e7e9ea; */
+        }
+
+        .verified-badge {
+            background: linear-gradient(135deg, #1d9bf0 0%, #8b5cf6 100%);
+        }
+
+        .hdr_white {
+            background-image: linear-gradient(120deg, rgba(255,255,255,0.92), rgba(241,245,249,0.85));
+            background-color: #fafafa;
+        }
+
+        /* Canvas样式，确保与p对齐 */
+        #gpt-post {
+            display: block;
+            margin-top: 0.25rem;
+            max-width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="min-h-screen flex justify-center">
+        <div class="w-full max-w-2xl border-x border-[#2f3336] hdr_white">
+            <header class="sticky top-0 bg-[#15202b]/80 backdrop-blur border-b border-[#2f3336]">
+                <div class="px-4 py-3 flex items-center">
+                    <button class="text-[#1d9bf0] mr-4">
+                        <svg viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor">
+                            <path
+                                d="M20 11H7.414l5.293-5.293-1.414-1.414L3.586 12l7.707 7.707 1.414-1.414L7.414 13H20z">
+                            </path>
+                        </svg>
+                    </button>
+                    <h1 class="text-xl font-semibold">Reply</h1>
+                </div>
+            </header>
+
+            <main>
+                <!-- Original Post -->
+                <article class="px-4 pt-4 pb-6 border-b border-[#2f3336] space-y-3">
+                    <div class="flex items-start gap-3">
+                        <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+                            alt="Profile" class="w-12 h-12 rounded-full">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-1">
+                                <span class="font-semibold ">Atlas Research</span>
+                                <span
+                                    class="verified-badge inline-flex items-center justify-center text-xs px-1.5 py-0.5 rounded-full ">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true" class="h-3 w-3">
+                                        <path fill="currentColor" d="M17.3 9l-5.2 5.6-3.4-3.3-1.4 1.4 4.8 4.6 6.6-7.1z">
+                                        </path>
+                                    </svg>
+                                </span>
+                                <span class="text-sm ">@atlas_research</span>
+                                <span class="text-sm ">&middot; 2h</span>
+                            </div>
+                            <canvas id="gpt-post" width="600" height="140"></canvas>
+                            <div class="flex items-center gap-6 text-xs  mt-3">
+                                <span>123 Replies</span>
+                                <span>408 Reposts</span>
+                                <span>1,742 Likes</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Reply Composer -->
+                <section class="px-4 py-5 border-b border-[#2f3336]">
+                    <div class="flex items-start gap-3">
+                        <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+                            alt="Your avatar" class="w-12 h-12 rounded-full ring-2 ring-[#1d9bf0]">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 text-sm  mb-2">
+                                Replying to <span class="text-[#1d9bf0]">@atlas_research</span>
+                            </div>
+                            <textarea id="reply-textarea"
+                                class="w-full bg-transparent text-[18px] leading-7  placeholder:text-[#536471] resize-none focus:outline-none"
+                                rows="4" placeholder="Post your reply..."></textarea>
+                            <div class="flex items-center justify-between mt-4">
+                                <div class="flex items-center gap-4 text-[#1d9bf0]">
+                                    <button class="hover:" aria-label="Media"><svg viewBox="0 0 24 24"
+                                            fill="currentColor" class="h-5 w-5">
+                                            <path
+                                                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 16H5V5h14v14ZM8 11.5l2.03 2.71 2.71-3.62L17 16H7l1-1.5Z">
+                                            </path>
+                                        </svg></button>
+                                    <button class="hover:" aria-label="GIF"><svg viewBox="0 0 24 24" fill="currentColor"
+                                            class="h-5 w-5">
+                                            <path
+                                                d="M17.5 8H15v8h2.5V13h1.5v-2H17.5Zm-6.25 8H13V8h-1.75Zm-1-8H8.5a3 3 0 0 0 0 6h1.75V12H8.5v1.25H9.5A1.75 1.75 0 1 1 8.5 10H10.25Z">
+                                            </path>
+                                        </svg></button>
+                                    <button class="hover:" aria-label="Poll"><svg viewBox="0 0 24 24"
+                                            fill="currentColor" class="h-5 w-5">
+                                            <path d="M8 5H6v14h2V5Zm5 4h-2v10h2V9Zm5 6h-2v4h2v-4Z"></path>
+                                        </svg></button>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="text-xs ">280</span>
+                                    <button id="post-reply-button" type="button"
+                                        class="px-5 py-2 rounded-full bg-[#1d9bf0] hover:bg-[#1a8cd8] font-semibold">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Discussion Thread -->
+                <section class="divide-y divide-[#2f3336]">
+                    <article class="px-4 py-5 hover:bg-white/5 transition">
+                        <div class="flex items-start gap-3">
+                            <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+                                class="w-11 h-11 rounded-full" alt="User">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-1">
+                                    <span class="font-semibold ">Trust &amp; Safety Watch</span>
+                                    <span class="text-sm ">@tswatch</span>
+                                    <span class="text-sm ">&middot; 1h</span>
+                                </div>
+                                <p class="text-[15px] leading-6  mt-1">
+                                    Appreciate the transparency here. Please add human review for any account flagged
+                                    more than twice in 24 hours. Automated false positives spike during breaking news.
+                                </p>
+                                <div class="flex items-center gap-6  text-xs mt-3">
+                                    <button class="hover:text-[#1d9bf0]"><span>42</span> Likes</button>
+                                    <button class="hover:text-[#1d9bf0]">Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="px-4 py-5 hover:bg-white/5 transition">
+                        <div class="flex items-start gap-3">
+                            <img src="https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png"
+                                class="w-11 h-11 rounded-full" alt="User">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-1">
+                                    <span class="font-semibold ">Elena • Product Ops</span>
+                                    <span class="text-sm ">@elenasolis</span>
+                                    <span class="text-sm ">&middot; 45m</span>
+                                </div>
+                                <p class="text-[15px] leading-6  mt-1">
+                                    Will there be an appeal flow surfaced in-app? Community admins need a fast path to
+                                    reinstate posts that automation removes by mistake.
+                                </p>
+                                <div class="flex items-center gap-6  text-xs mt-3">
+                                    <button class="hover:text-[#1d9bf0]"><span>21</span> Likes</button>
+                                    <button class="hover:text-[#1d9bf0]">Reply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </main>
+        </div>
+    </div>
+    <div id="reply-notification"
+        class="hidden fixed bottom-6 right-6 px-4 py-3 rounded-xl text-sm font-semibold border shadow-lg backdrop-blur z-50">
+    </div>
+    <script>
+        // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
+        // canvasId: Canvas元素的ID字符串
+        // textLines: 文本数组，每项一行
+    function renderCanvasText(canvasId, textLines) {
+        const payload = Array.isArray(textLines) ? textLines.join('\n') : String(textLines || '');
+        if (window.SvgMask && typeof window.SvgMask.renderText === 'function') {
+            window.SvgMask.renderText(canvasId, payload);
+            return;
+        }
+        const target = document.getElementById(canvasId);
+        if (target) {
+            target.textContent = payload;
+        }
+    }
+
+        // 等待DOM加载后执行（防止脚本过早运行）
+        document.addEventListener('DOMContentLoaded', function () {
+            // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
+            renderCanvasText('gpt-post', [
+                "GPT-5 represents an unprecedented leap in AI, leveraging its massive scale and ", "sophisticated transformer architecture to produce remarkably coherent and ", "contextually aware outputs. This model excels at synthesizing complex information and ", "handling intricate, multi-step instructions, setting a new, higher standard for ", "human-like understanding and generation across any task imaginable."
+            ]);
+        });
+    </script>
+    <script>
+        (function () {
+            const textarea = document.getElementById('reply-textarea');
+            const postButton = document.getElementById('post-reply-button');
+            const notification = document.getElementById('reply-notification');
+            const notificationStyles = {
+                success: ['bg-emerald-600/90', 'text-white', 'border-emerald-300'],
+                error: ['bg-rose-600/90', 'text-white', 'border-rose-300'],
+            };
+            const allNotificationClasses = Object.values(notificationStyles).flat();
+            let hideNotificationTimeout;
+
+            const showNotification = (message, state = 'success') => {
+                if (!notification) return;
+                notification.textContent = message;
+                notification.classList.remove('hidden', ...allNotificationClasses);
+                notification.classList.add(...(notificationStyles[state] || []));
+                clearTimeout(hideNotificationTimeout);
+                hideNotificationTimeout = window.setTimeout(() => {
+                    notification.classList.add('hidden');
+                }, 4000);
+            };
+
+            if (textarea && postButton) {
+                postButton.addEventListener('click', () => {
+                    const content = textarea.value.trim();
+
+                    if (!content) {
+                        showNotification('Please enter a reply before posting.', 'error');
+                        textarea.focus();
+                        return;
+                    }
+
+                    showNotification('Your reply has been posted.', 'success');
+                    textarea.value = '';
+                });
+            }
+        })();
+    </script>
+</body>
+
+</html>

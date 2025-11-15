@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Jobs - TechCareers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="svg-mask.js" defer></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+        }
+
+        .job-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+
+        .job-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .salary-display {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #059669;
+            padding: 8px 16px;
+            background-color: #f0fdf4;
+            border-radius: 6px;
+            min-width: 180px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-tag {
+            transition: all 0.2s;
+        }
+
+        .filter-tag:hover {
+            transform: scale(1.05);
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .hdr_white {
+            background-image: linear-gradient(120deg, rgba(255,255,255,0.92), rgba(241,245,249,0.85));
+            background-color: #fafafa;
+        }
+</style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200 ">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 hdr_white">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <span class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">TechCareers</span>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Find Jobs</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Companies</a>
+                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Resources</a>
+                    <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition">
+                        Post a Job
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="bg-white border-b border-gray-200 shadow-sm hdr_white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="flex-1">
+                    <div class="relative">
+                        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <input type="text" placeholder="Job title, keywords, or company" class="search-input w-full pl-12 pr-4 py-3 border-2 border-gray-300 rounded-lg text-gray-900 placeholder-gray-500" value="Software Engineer">
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <div class="relative">
+                        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <input type="text" placeholder="City, state, or remote" class="search-input w-full pl-12 pr-4 py-3 border-2 border-gray-300 rounded-lg text-gray-900 placeholder-gray-500" value="San Francisco, CA">
+                    </div>
+                </div>
+                <button class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition">
+                    Search Jobs
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 hdr_white">
+        <!-- Results Header -->
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">
+                <span id="job-count">12</span> jobs found
+            </h2>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-600">Sort by:</span>
+                <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option>Most Relevant</option>
+                    <option>Date Posted</option>
+                    <option>Salary (High to Low)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="mb-6 flex flex-wrap gap-2 hdr_white">
+            <span class="text-sm font-medium text-gray-700 self-center mr-2">Filters:</span>
+            <span class="filter-tag px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium cursor-pointer">Full-time</span>
+            <span class="filter-tag px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium cursor-pointer">Remote</span>
+            <span class="filter-tag px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-medium cursor-pointer">$100k+</span>
+        </div>
+
+        <!-- Job Listings -->
+        <div class="space-y-4 hdr_white" id="job-listings">
+            <!-- Jobs will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        function renderSalaryCanvas(elementId, text) {
+            const payload = Array.isArray(text) ? text.join('\n') : String(text || '');
+            if (window.SvgMask && typeof window.SvgMask.renderText === 'function') {
+                window.SvgMask.renderText(elementId, payload);
+                return;
+            }
+            const target = document.getElementById(elementId);
+            if (target) {
+                target.textContent = payload;
+            }
+        }
+
+        // Job data
+        const jobsData = [
+            {
+                id: 1,
+                title: 'Senior Software Engineer',
+                company: 'TechCorp Inc.',
+                location: 'San Francisco, CA',
+                type: 'Full-time',
+                remote: true,
+                salary: '$175,000',
+                posted: '2 days ago',
+                tags: ['React', 'Node.js', 'AWS'],
+                logo: '🚀'
+            },
+            {
+                id: 2,
+                title: 'Frontend Developer',
+                company: 'StartupXYZ',
+                location: 'Remote',
+                type: 'Full-time',
+                remote: true,
+                salary: '$140,000',
+                posted: '1 week ago',
+                tags: ['Vue.js', 'TypeScript', 'CSS'],
+                logo: '💻'
+            },
+            {
+                id: 3,
+                title: 'DevOps Engineer',
+                company: 'CloudSolutions Ltd',
+                location: 'Seattle, WA',
+                type: 'Full-time',
+                remote: false,
+                salary: '$160,000',
+                posted: '3 days ago',
+                tags: ['Docker', 'Kubernetes', 'CI/CD'],
+                logo: '☁️'
+            },
+            {
+                id: 4,
+                title: 'Machine Learning Engineer',
+                company: 'AI Innovations',
+                location: 'Boston, MA',
+                type: 'Full-time',
+                remote: true,
+                salary: '$190,000',
+                posted: '5 days ago',
+                tags: ['Python', 'TensorFlow', 'PyTorch'],
+                logo: '🤖'
+            },
+            {
+                id: 5,
+                title: 'Full Stack Developer',
+                company: 'WebWorks Agency',
+                location: 'Austin, TX',
+                type: 'Full-time',
+                remote: false,
+                salary: '$130,000',
+                posted: '1 day ago',
+                tags: ['JavaScript', 'React', 'MongoDB'],
+                logo: '🌐'
+            },
+            {
+                id: 6,
+                title: 'Backend Engineer',
+                company: 'DataStream Corp',
+                location: 'New York, NY',
+                type: 'Full-time',
+                remote: true,
+                salary: '$165,000',
+                posted: '4 days ago',
+                tags: ['Java', 'Spring', 'PostgreSQL'],
+                logo: '⚙️'
+            },
+            {
+                id: 7,
+                title: 'Mobile Developer (iOS)',
+                company: 'AppMakers Studio',
+                location: 'Los Angeles, CA',
+                type: 'Full-time',
+                remote: false,
+                salary: '$150,000',
+                posted: '1 week ago',
+                tags: ['Swift', 'SwiftUI', 'iOS'],
+                logo: '📱'
+            },
+            {
+                id: 8,
+                title: 'Security Engineer',
+                company: 'SecureTech Inc',
+                location: 'Washington, DC',
+                type: 'Full-time',
+                remote: true,
+                salary: '$180,000',
+                posted: '2 days ago',
+                tags: ['Cybersecurity', 'Python', 'Networking'],
+                logo: '🔒'
+            },
+            {
+                id: 9,
+                title: 'Data Engineer',
+                company: 'Analytics Pro',
+                location: 'Chicago, IL',
+                type: 'Full-time',
+                remote: false,
+                salary: '$145,000',
+                posted: '6 days ago',
+                tags: ['Python', 'Spark', 'SQL'],
+                logo: '📊'
+            },
+            {
+                id: 10,
+                title: 'Platform Engineer',
+                company: 'Infrastructure Labs',
+                location: 'Denver, CO',
+                type: 'Full-time',
+                remote: true,
+                salary: '$155,000',
+                posted: '3 days ago',
+                tags: ['Terraform', 'AWS', 'Linux'],
+                logo: '🏗️'
+            },
+            {
+                id: 11,
+                title: 'QA Automation Engineer',
+                company: 'Quality First Software',
+                location: 'Portland, OR',
+                type: 'Full-time',
+                remote: true,
+                salary: '$120,000',
+                posted: '1 week ago',
+                tags: ['Selenium', 'Jest', 'Automation'],
+                logo: '✅'
+            },
+            {
+                id: 12,
+                title: 'Staff Software Engineer',
+                company: 'MegaTech Corporation',
+                location: 'San Jose, CA',
+                type: 'Full-time',
+                remote: false,
+                salary: '$215,000',
+                posted: '2 days ago',
+                tags: ['System Design', 'Go', 'Microservices'],
+                logo: '⭐'
+            }
+        ];
+
+        // Render job listings
+        function renderJobs() {
+            const container = document.getElementById('job-listings');
+            const jobCount = document.getElementById('job-count');
+
+            jobCount.textContent = jobsData.length;
+
+            jobsData.forEach(job => {
+                const jobCard = document.createElement('div');
+                jobCard.className = 'job-card bg-white rounded-lg p-6 hdr_white';
+
+                    const salaryCanvasId = `salary-mask-${job.id}`;
+
+                jobCard.innerHTML = `
+                    <div class="flex items-start justify-between hdr_white">
+                        <div class="flex-1 hdr_white">
+                            <div class="flex items-start space-x-4">
+                                <!-- Company Logo -->
+                                <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center text-2xl flex-shrink-0">
+                                    ${job.logo}
+                                </div>
+
+                                <!-- Job Info -->
+                                <div class="flex-1">
+                                    <h3 class="text-xl font-bold text-gray-900 mb-1 hover:text-blue-600 cursor-pointer">
+                                        ${job.title}
+                                    </h3>
+                                    <div class="flex items-center space-x-4 text-gray-600 mb-3">
+                                        <span class="font-medium">${job.company}</span>
+                                        <span class="flex items-center">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            </svg>
+                                            ${job.location}
+                                        </span>
+                                        ${job.remote ? '<span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded">Remote</span>' : ''}
+                                    </div>
+
+                                    <!-- Tags -->
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        ${job.tags.map(tag => `<span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-md">${tag}</span>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side: Salary and Apply -->
+                        <div class="flex flex-col items-end space-y-3 ml-6 ">
+                            <!-- Normal Salary Display -->
+                            <div id="${salaryCanvasId}" class="salary-display hdr_white"></div>
+
+                            <button class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition whitespace-nowrap">
+                                Apply Now
+                            </button>
+
+                            <span class="text-sm text-gray-500">${job.posted}</span>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(jobCard);
+                renderSalaryCanvas(salaryCanvasId, job.salary);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderJobs();
+        });
+    </script>
+</body>
+</html>

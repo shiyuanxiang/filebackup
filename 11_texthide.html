@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yahoo Finance Pro · Tech Portfolio Risk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="svg-mask.js" defer></script>
+    <style>
+        body {
+            font-family: "Inter", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background-color: #eef2ff;
+            color: #0f172a;
+        }
+
+        /* #bright-content-1,
+        #bright-content-2 {
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        } */
+
+        .metric-card {
+            background: linear-gradient(135deg, rgba(93, 63, 211, 0.15), rgba(15, 118, 110, 0.15));
+        }
+
+        .mini-candle {
+            height: 72px;
+            width: 16px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .mini-candle::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            top: 4px;
+            bottom: 4px;
+            background-color: rgba(34, 197, 94, 0.6);
+        }
+
+        .mini-candle::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 16px;
+            bottom: 24px;
+            border-radius: 4px;
+            background: linear-gradient(180deg, rgba(34, 197, 94, 0.6), rgba(21, 128, 61, 0.7));
+        }
+
+        .bright-placeholder {
+            display: block;
+            width: 100%;
+            min-height: 1.75rem;
+        }
+
+        #bright-content-3 {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        #bright-content-3 th,
+        #bright-content-3 td {
+            vertical-align: middle;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #bright-content-3 col.col-code {
+            width: 30%;
+        }
+
+        #bright-content-3 col.col-weight {
+            width: 12%;
+        }
+
+        #bright-content-3 col.col-beta {
+            width: 18%;
+        }
+
+        #bright-content-3 col.col-commentary {
+            width: 40%;
+        }
+
+        .table-mask {
+            display: block;
+            width: 100%;
+            min-height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="bg-[#410093] text-white shadow">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div>
+                <p class="uppercase tracking-[0.3em] text-xs text-indigo-200">Yahoo Finance Pro</p>
+                <h1 class="text-2xl font-semibold">Tech Portfolio Risk Console</h1>
+            </div>
+            <div class="text-right text-sm">
+                <p>登录账号：<span class="font-semibold">hkus3lab.quant</span></p>
+                <p class="text-indigo-200">多因素风控沙盒 · 实时同步</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[1.6fr_1fr] gap-6">
+        <section class="space-y-6">
+            <div class="metric-card rounded-2xl border border-indigo-100 backdrop-blur bg-white/90 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-semibold">科技股持仓利率冲击暴露</h2>
+                        <p class="text-sm text-slate-600 mt-1">联储 2025Q1 Hawkish 场景 · 实时更新</p>
+                    </div>
+                    <div class="text-right">
+                        <label class="text-xs text-indigo-600 uppercase">Stress Scenario (%)</label>
+                        <input id="stress-range" type="range" min="0" max="150" value="80"
+                            class="w-40 accent-emerald-400">
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-4 gap-4 mt-6 text-sm">
+                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
+                        <p class="text-slate-500 text-xs uppercase">组合净值</p>
+                        <p class="text-2xl font-semibold mt-1" id="nav-value">$12.84M</p>
+                        <p class="text-emerald-600 text-xs mt-1">+1.2% 今日</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
+                        <p class="text-slate-500 text-xs uppercase">利率敏感 Beta</p>
+                        <p class="text-2xl font-semibold mt-1" id="beta-value">1.46</p>
+                        <p class="text-slate-500 text-xs mt-1">对 25bps 加息冲击</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
+                        <p class="text-slate-500 text-xs uppercase">最大回撤 (模拟)</p>
+                        <p class="text-2xl font-semibold mt-1" id="drawdown-value">-6.2%</p>
+                        <p class="text-rose-500 text-xs mt-1">99% C.L. 五日窗口</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 border border-white/60 shadow-sm">
+                        <p class="text-slate-500 text-xs uppercase">对冲缺口</p>
+                        <p class="text-2xl font-semibold mt-1" id="hedge-gap">$2.1M</p>
+                        <p class="text-slate-500 text-xs mt-1">需额外国债久期</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm">
+                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                    <div>
+                        <div id="bright-container-1" style="margin-top: -100px;">
+                            <div id="bright-content-1"
+                                class="bright-placeholder text-lg font-semibold tracking-tight leading-tight"></div>
+                        </div>
+                        <div id="bright-container-2">
+                            <p id="bright-content-2" class="bright-placeholder text-sm text-slate-500"></p>
+                        </div>
+                    </div>
+                    <!-- <span class="text-xs text-emerald-600 font-semibold">实时同步</span> -->
+                </div>
+                <div class="px-6 py-4 overflow-x-auto" id="bright-container-3">
+                    <table class="w-full text-sm" id="bright-content-3" style="height: 500px;">
+                        <colgroup>
+                            <col class="col-code">
+                            <col class="col-weight">
+                            <col class="col-beta">
+                            <col class="col-commentary">
+                        </colgroup>
+                        <thead class="text-left text-slate-500 uppercase text-xs tracking-wide">
+                            <tr>
+                                <th class="py-2 pr-4">代码 / 名称</th>
+                                <th class="py-2 pr-4">组合权重</th>
+                                <th class="py-2 pr-4">Rate Hike Beta</th>
+                                <th class="py-2 pr-4">联储政策点评</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bright-table-body" class="divide-y divide-slate-100"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm">
+                <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-semibold">实时蜡烛图回放</h2>
+                        <p class="text-xs text-slate-500">GUI-Agent 通过 WebSocket 拉取 5s 刷新快照</p>
+                    </div>
+                    <span class="text-xs text-slate-500">纽约时区 09:42:17</span>
+                </div>
+                <div class="px-6 py-5 grid md:grid-cols-3 gap-4 text-sm">
+                    <div class="border border-slate-100 rounded-xl p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold">NVDA</p>
+                            <span class="text-emerald-600 text-xs">+2.4%</span>
+                        </div>
+                        <div class="mini-candle my-3"></div>
+                        <p class="text-xs text-slate-500">H: <span class="font-semibold">$942.10</span> · L: <span
+                                class="font-semibold">$918.40</span></p>
+                        <p class="text-xs text-slate-500">成交量 <span class="font-semibold">8.2M</span></p>
+                    </div>
+                    <div class="border border-slate-100 rounded-xl p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold">MSFT</p>
+                            <span class="text-rose-500 text-xs">-0.3%</span>
+                        </div>
+                        <div class="mini-candle my-3"></div>
+                        <p class="text-xs text-slate-500">H: <span class="font-semibold">$432.80</span> · L: <span
+                                class="font-semibold">$428.05</span></p>
+                        <p class="text-xs text-slate-500">成交量 <span class="font-semibold">3.1M</span></p>
+                    </div>
+                    <div class="border border-slate-100 rounded-xl p-4">
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold">TSLA</p>
+                            <span class="text-emerald-600 text-xs">+1.1%</span>
+                        </div>
+                        <div class="mini-candle my-3"></div>
+                        <p class="text-xs text-slate-500">H: <span class="font-semibold">$213.45</span> · L: <span
+                                class="font-semibold">$205.22</span></p>
+                        <p class="text-xs text-slate-500">成交量 <span class="font-semibold">12.4M</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="space-y-6">
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-semibold">分散化建议</h2>
+                    <span class="text-xs text-emerald-600 font-semibold">AI Assistant Draft</span>
+                </div>
+                <ol class="mt-4 space-y-4 text-sm text-slate-600">
+                    <li>
+                        <p class="font-semibold text-slate-900">1. 降低半导体集中度</p>
+                        <p class="mt-1">将 NVDA/AMD 权重各下调 4%，转入 XLK 防御 ETF。</p>
+                    </li>
+                    <li>
+                        <p class="font-semibold text-slate-900">2. 增配美元现金替代</p>
+                        <p class="mt-1">买入 6 个月期 SOFR 期货多头，对冲短端利率意外。</p>
+                    </li>
+                    <li>
+                        <p class="font-semibold text-slate-900">3. 加入能源反向相关</p>
+                        <p class="mt-1">建立 XLE 5% 权重，以平衡通胀二阶冲击。</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-semibold">执行队列</h2>
+                    <button class="text-xs text-indigo-600">刷新 FIX</button>
+                </div>
+                <ul class="mt-4 space-y-3 text-sm text-slate-600">
+                    <li class="flex items-start gap-3">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 mt-1"></span>
+                        <div>
+                            <p class="font-medium">下单 14:05 · 卖出 NVDA 1,200 股</p>
+                            <p class="text-xs text-slate-500">限价 $935.50 · 状态：部分成交 42%</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400 mt-1"></span>
+                        <div>
+                            <p class="font-medium">下单 14:08 · 买入 SOFRM5 多头</p>
+                            <p class="text-xs text-slate-500">盈亏平衡收益 18bps</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-400 mt-1"></span>
+                        <div>
+                            <p class="font-medium">待审批 · 启用油气对冲篮子</p>
+                            <p class="text-xs text-slate-500">合规核查截止 15:00</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
+                <h2 class="text-lg font-semibold">事件追踪</h2>
+                <div class="mt-4 space-y-3 text-sm text-slate-600">
+                    <div class="flex items-start gap-3">
+                        <span class="text-xs font-semibold text-indigo-600 mt-0.5">FOMC</span>
+                        <p>鲍威尔新闻发布会实录自动抓取，关键词“higher for longer”出现 7 次。</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-xs font-semibold text-indigo-600 mt-0.5">DOT PLOT</span>
+                        <p>终端利率上调至 5.65%，模型已同步。</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="text-xs font-semibold text-indigo-600 mt-0.5">GDP NOW</span>
+                        <p>亚特兰大联储即时 GDP 站上 2.8%，触发加码对冲提醒。</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        const stressRange = document.getElementById('stress-range');
+        const betaValue = document.getElementById('beta-value');
+        const drawdownValue = document.getElementById('drawdown-value');
+        const hedgeGap = document.getElementById('hedge-gap');
+
+        if (stressRange) {
+            stressRange.addEventListener('input', (event) => {
+                const factor = Number(event.target.value) / 100;
+                betaValue.textContent = (1.1 + factor * 0.6).toFixed(2);
+                drawdownValue.textContent = `-${(3 + factor * 4.2).toFixed(1)}%`;
+                hedgeGap.textContent = `$${(1.2 + factor * 1.5).toFixed(1)}M`;
+            });
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!window.SvgMask || typeof window.SvgMask.apply !== 'function') {
+                console.warn('SvgMask not available');
+                return;
+            }
+
+            const applyMaskedText = (containerId, contentId, text) => {
+                const container = document.getElementById(containerId);
+                const content = document.getElementById(contentId);
+                if (!container || !content || !text) {
+                    return;
+                }
+                content.textContent = text;
+                SvgMask.apply({ containerId, contentId });
+                content.textContent = '';
+            };
+
+            applyMaskedText(
+                'bright-container-1',
+                'bright-content-1',
+                '持仓Fed敏感度分布'
+            );
+
+            applyMaskedText(
+                'bright-container-2',
+                'bright-content-2',
+                '来源：GUI-Agent 抓取 Yahoo Finance Portfolio'
+            );
+
+            const tableData = {
+                rows: [
+                    {
+                        symbol: 'AAPL',
+                        name: 'Apple',
+                        weight: '18.5%',
+                        beta: '1.18',
+                        commentary: '服务/硬件现金流稳定，利率冲击可对冲 40%'
+                    },
+                    {
+                        symbol: 'MSFT',
+                        name: 'Microsoft',
+                        weight: '22.3%',
+                        beta: '1.05',
+                        commentary: '云收入锁定，Beta 低于板块'
+                    },
+                    {
+                        symbol: 'NVDA',
+                        name: 'Nvidia',
+                        weight: '24.7%',
+                        beta: '1.72',
+                        commentary: 'AI CapEx 加速导致对冲缺口'
+                    },
+                    {
+                        symbol: 'TSLA',
+                        name: 'Tesla',
+                        weight: '11.2%',
+                        beta: '1.95',
+                        commentary: '融资成本弹性极高，Fed 路径敏感'
+                    },
+                    {
+                        symbol: 'AMD',
+                        name: 'Advanced Micro Devices',
+                        weight: '9.1%',
+                        beta: '1.56',
+                        commentary: 'AI/PC 混合暴露，需要波动对冲'
+                    }
+                ]
+            };
+
+            const tbody = document.getElementById('bright-table-body');
+            if (!tbody) {
+                return;
+            }
+            tbody.innerHTML = '';
+
+            const maskJobs = [];
+            tableData.rows.forEach((entry, index) => {
+                const tr = document.createElement('tr');
+
+                const createMaskedCell = (className, text) => {
+                    const td = document.createElement('td');
+                    td.className = className;
+                    const maskTarget = document.createElement('div');
+                    maskTarget.className = 'bright-placeholder table-mask';
+                    maskTarget.id = `bright-cell-${index}-${maskJobs.length + 1}`;
+                    td.appendChild(maskTarget);
+                    maskJobs.push({ id: maskTarget.id, text });
+                    return td;
+                };
+
+                tr.appendChild(createMaskedCell('py-3 pr-4', `${entry.symbol} · ${entry.name}`));
+                tr.appendChild(createMaskedCell('py-3 pr-4', entry.weight));
+                tr.appendChild(createMaskedCell('py-3 pr-4', entry.beta));
+                tr.appendChild(createMaskedCell('py-3 pr-4 text-slate-600', entry.commentary));
+                tbody.appendChild(tr);
+            });
+
+            maskJobs.forEach(({ id, text }) => SvgMask.renderText(id, text));
+        });
+    </script>
+</body>
+
+</html>

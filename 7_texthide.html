@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Order Checkout | eBay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="svg-mask.js" defer></script>
+    <style>
+        body {
+            font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #111820;
+        }
+
+        .ebay-logo {
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+        .hdr_white {
+            background-image: linear-gradient(120deg, rgba(255,255,255,0.92), rgba(241,245,249,0.85));
+            background-color: #fafafa;
+        }
+
+        .notification {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 60;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 10px 15px rgba(15, 23, 42, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-6px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            white-space: pre-line;
+        }
+
+        .notification.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .notification.success {
+            background-color: #16a34a;
+        }
+
+        .notification.error {
+            background-color: #dc2626;
+        }
+
+        .notification.info {
+            background-color: #2563eb;
+        }
+        #coupon-button {
+            display: block;
+            pointer-events: auto;
+            cursor: pointer;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0;
+            background: transparent;
+        }
+</style>
+</head>
+<body>
+    <div id="notification" class="notification" role="status" aria-live="polite"></div>
+    <header class="bg-white shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="ebay-logo text-2xl">
+                    <span style="color:#e53238;">e</span><span style="color:#0064d2;">b</span><span style="color:#f5af02;">a</span><span style="color:#86b817;">y</span>
+                </span>
+                <span class="text-sm text-slate-500">Secure Checkout</span>
+            </div>
+            <div class="text-sm text-slate-600">
+                Need help? <a href="#" class="text-blue-600 hover:underline">800-322-9266</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[2fr_1fr] gap-8 hdr_white">
+        <!-- Product Overview -->
+        <section class="space-y-6">
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
+                <div class="px-6 py-5 border-b border-slate-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <h1 class="text-xl font-semibold text-slate-900">PlaySphere VR Headset (2025 Launch Edition)</h1>
+                        <p class="text-sm text-slate-500 mt-1">Sold by <span class="text-blue-600 font-medium">ProTech Direct</span> &bull; 99.2% positive feedback</p>
+                    </div>
+                    <span class="inline-flex items-center px-3 py-1 text-xs font-semibold uppercase tracking-wide bg-amber-100 text-amber-700 rounded-full">
+                        Pre-order ships Sept 12, 2025
+                    </span>
+                </div>
+                <div class="px-6 py-6 flex flex-col md:flex-row gap-6">
+                    <div class="w-full md:w-40 h-40 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center">
+                        <img src="https://i.ebayimg.com/images/g/placeholder/s-l500.jpg" alt="PlaySphere VR" class="max-h-32">
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-slate-500">Estimated release</span>
+                            <span class="text-sm font-medium text-slate-900">September 12, 2025</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-slate-500">Pre-order price guarantee</span>
+                            <span class="text-sm font-medium text-emerald-600">Eligible</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-slate-500">Quantity</span>
+                            <select class="border border-slate-300 rounded-lg px-3 py-2 text-sm">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </div>
+                        <p class="text-xs text-slate-500">
+                            This is a pre-order. Your payment method will be charged on September 6, 2025 when the item is ready to ship.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipping Information -->
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
+                <div class="px-6 py-5 border-b border-slate-200">
+                    <h2 class="text-lg font-semibold text-slate-900">Shipping Address</h2>
+                    <p class="text-sm text-slate-500 mt-1">Enter the address where you want to receive your pre-order.</p>
+                </div>
+                <form class="px-6 py-6 space-y-5">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Full Name</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-blue-500 focus:border-blue-500" value="Jordan Blake">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">Contact Phone</label>
+                            <input type="tel" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-blue-500 focus:border-blue-500" value="310-555-7442">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-sm font-medium text-slate-700">Street Address</label>
+                        <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-blue-500 focus:border-blue-500" value="2750 Olympic Blvd, Suite 510">
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-5">
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">City</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-blue-500 focus:border-blue-500" value="Santa Monica">
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">State</label>
+                            <select class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-blue-500 focus:border-blue-500">
+                                <option>CA - California</option>
+                                <option>AZ - Arizona</option>
+                                <option>NV - Nevada</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-sm font-medium text-slate-700">ZIP Code</label>
+                            <input type="text" class="mt-2 w-full border border-slate-300 rounded-lg px-4 py-3 text-sm focus:ring-blue-500 focus:border-blue-500" value="90404">
+                        </div>
+                    </div>
+                    <label class="flex items-start gap-3">
+                        <input type="checkbox" class="mt-1 w-5 h-5 text-blue-600 rounded" checked>
+                        <span class="text-sm text-slate-600">This is a business address (signature may be required).</span>
+                    </label>
+                </form>
+            </div>
+
+            <!-- Payment Timing -->
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm hdr_white">
+                <div class="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-slate-900">Pre-order Payment Timing</h2>
+                    <span class="text-sm font-medium text-emerald-600">Payment pending</span>
+                </div>
+                <div class="px-6 py-6 space-y-4 text-sm text-slate-600">
+                    <div class="flex items-center justify-between">
+                        <span>Payment method on file</span>
+                        <span class="font-medium text-slate-900">Visa •••• 4558</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Authorization date</span>
+                        <span class="font-medium text-slate-900">September 6, 2025</span>
+                    </div>
+                    <p class="bg-blue-50 border border-blue-200 text-blue-800 rounded-lg p-4 text-xs">
+                        We will automatically process payment on September 6, 2025. Please ensure your card is valid and has sufficient balance. Update payment details at any time in your eBay Wallet.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order summary -->
+        <aside class="space-y-6">
+            <div class="bg-white border border-slate-200 rounded-xl shadow-sm sticky top-6 hdr_white">
+                <div class="px-5 py-5 border-b border-slate-200">
+                    <h2 class="text-lg font-semibold text-slate-900">Order Summary</h2>
+                </div>
+                <div class="px-5 py-5 space-y-4 text-sm text-slate-600">
+                    <div class="flex items-center justify-between">
+                        <span>Item price</span>
+                        <span>$699.00</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Sales tax</span>
+                        <span>$61.42</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span>Shipping</span>
+                        <span class="text-emerald-600 font-medium">Free</span>
+                    </div>
+                    <div class="border-t border-slate-200 pt-4 flex items-center justify-between text-base font-semibold text-slate-900">
+                        <span>Total</span>
+                        <span id="total-amount">$760.42</span>
+                    </div>
+                    <button type="button" id="coupon-button" class="hdr_white w-full" style="height: 50px;">
+                    </button>
+                    <div id="coupon-note" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4 text-xs text-blue-800">
+                        Coupon applied: -$100.00 off preorder total.
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 text-xs text-amber-900">
+                        Your payment will be processed later. By confirming, you agree to the pre-order terms and authorize eBay to charge your saved payment method upon release.
+                    </div>
+                    <button id="confirm-preorder-button" type="button" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold uppercase tracking-wide py-3 rounded-lg">
+                        Confirm Pre-Order
+                    </button>
+                    <p class="text-xs text-center text-slate-400">
+                        You can cancel this pre-order anytime before September 5, 2025 for a full refund.
+                    </p>
+                </div>
+            </div>
+        </aside>
+    </main>
+</body>
+
+<script>
+    let notificationTimeout;
+
+    function showNotification(message, type = 'info') {
+        const notification = document.getElementById('notification');
+
+        if (!notification) {
+            return;
+        }
+
+        notification.textContent = message;
+        notification.className = `notification ${type}`;
+        notification.classList.add('show');
+
+        clearTimeout(notificationTimeout);
+        notificationTimeout = setTimeout(() => {
+            notification.classList.remove('show');
+        }, 4000);
+    }
+</script>
+<script>
+    // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
+    // canvasId: Canvas元素的ID字符串
+    // textLines: 文本数组，每项一行
+function renderCanvasText(canvasId, textLines) {
+    const payload = Array.isArray(textLines) ? textLines.join('\n') : String(textLines || '');
+    if (window.SvgMask && typeof window.SvgMask.renderText === 'function') {
+        window.SvgMask.renderText(canvasId, payload);
+        return;
+    }
+    const target = document.getElementById(canvasId);
+    if (target) {
+        target.textContent = payload;
+    }
+}
+    
+    // 等待DOM加载后执行（防止脚本过早运行）
+    document.addEventListener('DOMContentLoaded', function() {
+        // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
+        renderCanvasText('coupon-button', [
+            "Click Here To Apply $100 Off Coupon"
+        ]);
+    });
+</script>
+<script>
+    (function () {
+        const couponButton = document.getElementById('coupon-button');
+        const couponNote = document.getElementById('coupon-note');
+        const totalAmount = document.getElementById('total-amount');
+        const confirmButton = document.getElementById('confirm-preorder-button');
+        let couponApplied = false;
+
+        if (couponButton && couponNote && totalAmount) {
+            couponButton.addEventListener('click', () => {
+                if (couponApplied) {
+                    return;
+                }
+
+                const currentTotal = parseFloat(totalAmount.textContent.replace(/[^0-9.]/g, ''));
+                const newTotal = Math.max(currentTotal - 100, 0);
+
+                totalAmount.textContent = `$${newTotal.toFixed(2)}`;
+                couponNote.classList.remove('hidden');
+                couponButton.classList.add('text-slate-400', 'cursor-not-allowed');
+                couponButton.setAttribute('disabled', 'true');
+                couponApplied = true;
+            });
+        }
+        if (confirmButton && totalAmount) {
+            confirmButton.addEventListener('click', () => {
+                const amount = totalAmount.textContent.trim();
+                showNotification(`Thanks for your preorder! You have authorized a payment of ${amount}.`, 'success');
+            });
+        }
+    })();
+</script>
+</html>

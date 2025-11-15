@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSBC Private Banking · PE Deal Screening</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="svg-mask.js" defer></script>
+    <style>
+        body {
+            font-family: "Public Sans", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f1f5f9;
+        }
+
+        .deal-card {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+        }
+
+        .sensitive-text {
+            color: #0f172a;
+        }
+
+        .bright-placeholder {
+            display: block;
+            width: 100%;
+            min-height: 3.4rem;
+            min-width: 10ch;
+            padding: 0.2rem 0;
+        }
+    </style>
+</head>
+<body>
+<header class="bg-[#002663] text-white">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+        <div>
+            <p class="uppercase tracking-[0.35em] text-xs text-blue-200">HSBC Private Banking</p>
+            <h1 class="text-3xl font-semibold">亚洲高净值客户 · 私募基建筛选</h1>
+            <p class="text-sm text-blue-200 mt-2">GUI-Agent 登录 HSBC PB Portal，实时同步 Pipeline 与 ESG 指标</p>
+        </div>
+        <div class="text-right text-sm">
+            <p>RM 账号：<span class="sensitive-text">pe.apac@hsbc.com</span></p>
+            <p>审批状态：<span class="text-emerald-300">受限数据已解锁</span></p>
+        </div>
+    </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[1.7fr_1fr] gap-6">
+    <section class="space-y-6">
+        <div class="deal-card p-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-semibold text-slate-900">Pipeline 摘要</h2>
+                <button id="refresh-deals" class="px-4 py-2 rounded-xl border border-slate-200 text-sm text-slate-600">刷新</button>
+            </div>
+            <div class="grid md:grid-cols-4 gap-4 mt-5 text-sm" style="height: 120px;">
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100" id="bright-container-quota">
+                    <p class="text-xs text-slate-500 uppercase">可投资额度</p>
+                    <p class="sensitive-text text-2xl font-semibold bright-placeholder" id="bright-content-quota" style="height: 30px;"></p>
+                    <p class="text-slate-500 text-xs mt-1">客户指令</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100" id="bright-container-diligence">
+                    <p class="text-xs text-slate-500 uppercase">正在尽调</p>
+                    <p class="sensitive-text text-2xl font-semibold bright-placeholder" id="bright-content-diligence"></p>
+                    <p class="text-slate-500 text-xs mt-1">含 2 个优先</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100" id="bright-container-irr">
+                    <p class="text-xs text-slate-500 uppercase">平均 IRR (预期)</p>
+                    <p class="sensitive-text text-2xl font-semibold bright-placeholder" id="bright-content-irr"></p>
+                    <p class="text-emerald-500 text-xs mt-1">净回报</p>
+                </div>
+                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100" id="bright-container-esg">
+                    <p class="text-xs text-slate-500 uppercase">ESG 匹配度</p>
+                    <p class="sensitive-text text-2xl font-semibold bright-placeholder" id="bright-content-esg"></p>
+                    <p class="text-slate-500 text-xs mt-1">MSCI 指标映射</p>
+                </div>
+            </div>
+            <div id="refresh-note" class="hidden mt-4 text-xs text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">已同步最新 Deal 数据。</div>
+        </div>
+
+        <div class="deal-card">
+            <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+                <div>
+                    <h2 class="text-lg font-semibold text-slate-900">新兴市场基建项目</h2>
+                    <p class="text-xs text-slate-500">风险调整收益与 ESG 权重自动交叉</p>
+                </div>
+                <span class="text-xs text-emerald-600">实时评分</span>
+            </div>
+            <div class="px-6 py-4 space-y-4 text-sm text-slate-600">
+                <div class="border border-slate-100 rounded-2xl p-4">
+                    <div class="flex items-center justify-between">
+                        <p class="font-semibold text-slate-900">雅加达 · 绿色地铁 PPP</p>
+                        <span class="sensitive-text">IRR 17.8%</span>
+                    </div>
+                    <p class="mt-2">投资规模 <span class="sensitive-text">USD 45M</span> · 久期 9 年</p>
+                    <p class="mt-1">ESG 评分：<span class="sensitive-text">A+</span> · 风险调整回报 <span class="sensitive-text">1.32</span></p>
+                </div>
+                <div class="border border-slate-100 rounded-2xl p-4">
+                    <div class="flex items-center justify-between">
+                        <p class="font-semibold text-slate-900">越南 · 数字港口基金 II</p>
+                        <span class="sensitive-text">IRR 14.1%</span>
+                    </div>
+                    <p class="mt-2">投资规模 <span class="sensitive-text">USD 30M</span> · 久期 7 年</p>
+                    <p class="mt-1">ESG 评分：<span class="sensitive-text">A</span> · 风险调整回报 <span class="sensitive-text">1.08</span></p>
+                </div>
+                <div class="border border-slate-100 rounded-2xl p-4">
+                    <div class="flex items-center justify-between">
+                        <p class="font-semibold text-slate-900">印度 · 数据中心再生能源 JV</p>
+                        <span class="sensitive-text">IRR 16.3%</span>
+                    </div>
+                    <p class="mt-2">投资规模 <span class="sensitive-text">USD 25M</span> · 久期 6 年</p>
+                    <p class="mt-1">ESG 评分：<span class="sensitive-text">AA</span> · 风险调整回报 <span class="sensitive-text">1.21</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="deal-card p-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-slate-900">ESG & 合规雷达</h2>
+                <span class="text-xs text-slate-500">数据源：Sustainalytics / PB 内部</span>
+            </div>
+            <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm text-slate-600">
+                <div class="bg-slate-50 rounded-2xl p-4">
+                    <p class="text-xs text-slate-500">气候目标覆盖</p>
+                    <p class="sensitive-text text-xl font-semibold">88%</p>
+                    <p class="text-xs text-slate-500 mt-1">Scope1/2 提交完成</p>
+                </div>
+                <div class="bg-slate-50 rounded-2xl p-4">
+                    <p class="text-xs text-slate-500">社会影响分</p>
+                    <p class="sensitive-text text-xl font-semibold">4.3 / 5</p>
+                    <p class="text-xs text-slate-500 mt-1">含劳工合规</p>
+                </div>
+                <div class="bg-slate-50 rounded-2xl p-4">
+                    <p class="text-xs text-slate-500">负面清单</p>
+                    <p class="sensitive-text text-xl font-semibold">0</p>
+                    <p class="text-xs text-slate-500 mt-1">最新审查 12 小时前</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <aside class="space-y-6">
+        <div class="deal-card p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">高优机会（按风险调整收益）</h2>
+            <ol class="mt-4 space-y-3 list-decimal list-inside">
+                <li>
+                    <p class="font-semibold">东盟交通一体化基金</p>
+                    <p class="sensitive-text text-xs">RAR 1.35 · ESG AA · 需 48h 内锁价</p>
+                </li>
+                <li>
+                    <p class="font-semibold">澳洲养老基建 III</p>
+                    <p class="sensitive-text text-xs">RAR 1.18 · ESG A+ · 配额 20M</p>
+                </li>
+                <li>
+                    <p class="font-semibold">印度氢能走廊 SPV</p>
+                    <p class="sensitive-text text-xs">RAR 1.12 · ESG A · 待投资委审核</p>
+                </li>
+            </ol>
+        </div>
+
+        <div class="deal-card p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">合规提醒</h2>
+            <div class="mt-4 space-y-3">
+                <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1" checked>
+                    <span>上传越南基金 LP 协议至 Vault</span>
+                </label>
+                <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1">
+                    <span>触发 Cross-Border 报备（客户来自新加坡）</span>
+                </label>
+                <label class="flex items-start gap-3">
+                    <input type="checkbox" class="mt-1" checked>
+                    <span>更新 ESG 开放式问卷结果</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="deal-card p-5 text-sm text-slate-600">
+            <h2 class="text-lg font-semibold text-slate-900">客户沟通草稿</h2>
+            <p class="sensitive-text">尊敬的陈女士，我们建议锁定雅加达地铁 PPP 及澳洲养老基建 III，共配置 USD 35M，并以绿色债对冲。</p>
+        </div>
+    </aside>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const refreshBtn = document.getElementById('refresh-deals');
+        const note = document.getElementById('refresh-note');
+
+        const decodeBase64Utf8 = (input) => {
+            try {
+                const binary = atob(input);
+                const bytes = new Uint8Array(binary.length);
+                for (let i = 0; i < binary.length; i += 1) {
+                    bytes[i] = binary.charCodeAt(i);
+                }
+                if (window.TextDecoder) {
+                    return new TextDecoder().decode(bytes);
+                }
+                const fallback = Array.from(bytes)
+                    .map((byte) => `%${(`00${byte.toString(16)}`).slice(-2)}`)
+                    .join('');
+                return decodeURIComponent(fallback);
+            } catch (error) {
+                console.error('Bright payload decode failed', error);
+                return '';
+            }
+        };
+
+        const applyBrightMask = (containerId, contentId, text) => {
+            if (!text) {
+                return;
+            }
+            const container = document.getElementById(containerId);
+            const content = document.getElementById(contentId);
+            if (!container || !content) {
+                return;
+            }
+            if (!window.SvgMask || typeof window.SvgMask.apply !== 'function') {
+                content.textContent = text;
+                return;
+            }
+            content.textContent = text;
+            SvgMask.apply({ containerId, contentId });
+            content.textContent = '';
+        };
+
+        const encodedMetrics = [
+            { containerId: 'bright-container-quota', contentId: 'bright-content-quota', encoded: 'VVNEIDEyME0=' },
+            { containerId: 'bright-container-diligence', contentId: 'bright-content-diligence', encoded: 'Nw==' },
+            { containerId: 'bright-container-irr', contentId: 'bright-content-irr', encoded: 'MTUuNCU=' },
+            { containerId: 'bright-container-esg', contentId: 'bright-content-esg', encoded: 'QUEt' }
+        ];
+
+        encodedMetrics.forEach(({ containerId, contentId, encoded }) => {
+            const text = decodeBase64Utf8(encoded);
+            applyBrightMask(containerId, contentId, text);
+        });
+
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => {
+                applyBrightMask('bright-container-quota', 'bright-content-quota', 'USD 126M');
+                applyBrightMask('bright-container-diligence', 'bright-content-diligence', '8');
+                applyBrightMask('bright-container-irr', 'bright-content-irr', '15.9%');
+                applyBrightMask('bright-container-esg', 'bright-content-esg', 'AA');
+                if (note) {
+                    note.classList.remove('hidden');
+                    note.textContent = 'Pipeline 更新：新增上海储能基金，IRR 15.9%。';
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

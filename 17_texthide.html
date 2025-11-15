@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信公众平台 · 舆情热度监控</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="svg-mask.js" defer></script>
+
+    <style>
+        body {
+            font-family: "Inter", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background-color: #03141f;
+        }
+
+        .glass-panel {
+            background: rgba(9, 24, 36, 0.85);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 20px;
+            box-shadow: inset 0 0 0 1px rgba(15, 76, 117, 0.2);
+        }
+
+        .heat-cell {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #0ea5e9, #f87171);
+        }
+
+        .sensitive-text {
+            color: #e2f3ff;
+        }
+
+        .bright-placeholder {
+            display: block;
+            min-height: 1.75rem;
+        }
+    </style>
+</head>
+
+<body class="text-slate-200">
+    <header class="bg-gradient-to-r from-[#062f4f] to-[#0d5c63]">
+        <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+            <div>
+                <p class="uppercase tracking-[0.4em] text-xs text-cyan-200">WeChat Official Accounts Ops</p>
+                <h1 class="text-3xl font-semibold text-white">热点话题 · 舆情情绪矩阵</h1>
+                <p class="text-sm text-cyan-200 mt-2">GUI-Agent 在公众平台后台抓取文章 & 评论，实时生成情绪极值热力图</p>
+            </div>
+            <div class="text-right text-sm">
+                <p>帐号：<span class="sensitive-text">brand_guardian@wx</span></p>
+                <p>最后同步：2025-04-02 15:08</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-10 flex flex-col gap-8">
+        <div class="grid gap-6 lg:grid-cols-3">
+            <div class="glass-panel p-6 lg:col-span-2">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-semibold text-white">热点矩阵</h2>
+                        <p class="text-sm text-slate-400">展示 6 个核心指标的异常幅度</p>
+                    </div>
+                    <button id="sync-btn"
+                        class="px-4 py-2 rounded-xl border border-cyan-200 text-sm text-cyan-100">重新抓取</button>
+                </div>
+                <div class="mt-5 grid grid-cols-2 gap-3 text-sm">
+                    <div class="bg-white/5 rounded-xl p-4 space-y-2" id="bright-container"
+                        style="background-color: white;">
+                        <p class="text-xs text-slate-400 uppercase">热度指数</p>
+                        <p class="sensitive-text text-2xl font-semibold bright-placeholder" id="heat-index"></p>
+                        <p class="text-xs text-slate-400">较昨日 +5</p>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-4 space-y-2" id="bright-container-1"
+                        style="background-color: white;">
+                        <p class="text-xs text-slate-400 uppercase">负面评论</p>
+                        <p class="sensitive-text text-2xl font-semibold bright-placeholder" id="negative-count"></p>
+                        <p class="text-xs text-slate-400">突发高峰 9:10</p>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-4 space-y-2" id="bright-container-2"
+                        style="background-color: white;">
+                        <p class="text-xs text-slate-400 uppercase">危机标签</p>
+                        <p class="sensitive-text text-2xl font-semibold bright-placeholder" id="crisis-tags"></p>
+                        <p class="text-xs text-slate-400">需响应</p>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-4 space-y-2" id="bright-container-3"
+                        style="background-color: white;">
+                        <p class="text-xs text-slate-400 uppercase">情绪平衡</p>
+                        <p class="sensitive-text text-2xl font-semibold bright-placeholder" id="balance"></p>
+                        <p class="text-xs text-slate-400">高于目标 5%</p>
+                    </div>
+                    <div class="bg-cyan-900/30 rounded-xl p-4 space-y-2" id="bright-container-4"
+                        style="background-color: white;">
+                        <p class="text-xs text-slate-400 uppercase">互动完成度</p>
+                        <p class="sensitive-text text-2xl font-semibold bright-placeholder" id="engagement-rate"></p>
+                        <p class="text-xs text-slate-400">周环比 +12%</p>
+                    </div>
+                    <div class="bg-cyan-900/30 rounded-xl p-4 space-y-2" id="bright-container-5"
+                        style="background-color: white;">
+                        <p class="text-xs text-slate-400 uppercase">粉丝回复率</p>
+                        <p class="sensitive-text text-2xl font-semibold bright-placeholder" id="reply-rate"></p>
+                        <p class="text-xs text-slate-400">客服 SLA 90%</p>
+                    </div>
+                </div>
+                <div id="sync-hint"
+                    class="hidden mt-4 text-xs text-emerald-300 bg-emerald-500/10 border border-emerald-500/40 rounded-xl px-4 py-3">
+                    已同步新增 58 条评论，热度数据更新。</div>
+            </div>
+            <div class="glass-panel p-5 text-sm text-slate-300">
+                <h2 class="text-lg font-semibold text-white">危机提醒</h2>
+                <ul class="mt-4 space-y-3">
+                    <li id="bright-container-6" style="background-color: white;">
+                        <p class="font-semibold text-white bright-placeholder" id="bright-content-1"></p>
+                        <p class="sensitive-text bright-placeholder" id="bright-content"></p>
+                    </li>
+                    <li>
+                        <p class="font-semibold text-white">#渠道缺货</p>
+                        <p class="sensitive-text">华东代理引导用户去竞品，建议区域直播</p>
+                    </li>
+                    <li>
+                        <p class="font-semibold text-white">#售后排队</p>
+                        <p class="sensitive-text">客服等待超 30 分钟 · 建议开放人工白名单</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-12">
+            <div class="glass-panel lg:col-span-7 col-span-12">
+                <div class="px-6 py-5 border-b border-white/10 flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-white">文章 & 评论极值</h2>
+                    <span class="text-xs text-slate-400">使用下拉查看具体情绪与建议</span>
+                </div>
+                <div class="px-6 py-5 space-y-4 text-sm">
+                    <label class="text-xs uppercase tracking-wide text-slate-400" for="article-selector">选择文章</label>
+                    <select id="article-selector"
+                        class="w-full rounded-2xl border border-cyan-200/40 bg-white/5 px-4 py-3 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-300/60">
+                        <option value="0">【新品】AI 智能耳机体验</option>
+                        <option value="1">CEO 直播回应补贴政策</option>
+                        <option value="2">售后体系升级公告</option>
+                    </select>
+                    <div id="article-detail" class="bg-white/5 rounded-2xl p-4 space-y-3 text-slate-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs text-slate-400 uppercase">情绪值</p>
+                                <p id="article-sentiment" class="text-2xl font-semibold text-rose-300">-0.63</p>
+                            </div>
+                            <div class="text-right text-xs text-slate-400">
+                                <p id="article-meta">阅读 42w · 评论 5.6k</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 uppercase">热词</p>
+                            <p id="article-tags">“发热”“虚假宣传”</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 uppercase">处理建议</p>
+                            <p id="article-action">技术团队 1h 内回复 + 发布降温 FAQ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-panel p-5 text-sm text-slate-300 lg:col-span-5 col-span-12">
+                <h2 class="text-lg font-semibold text-white">评论摘录</h2>
+                <div class="mt-4 space-y-3">
+                    <div class="bg-white/5 rounded-xl p-3">
+                        <p class="sensitive-text">“昨晚直播后就收到补贴到账，效率不错。”</p>
+                        <p class="text-xs text-slate-400 mt-2">正向 · 广州</p>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-3">
+                        <p class="sensitive-text">“耳机烫得像暖手宝，售后还在排队。”</p>
+                        <p class="text-xs text-slate-400 mt-2">负向 · 成都</p>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-3">
+                        <p class="sensitive-text">“客服说排到 72 小时后，能否开放线下换新？”</p>
+                        <p class="text-xs text-slate-400 mt-2">负向 · 上海</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+            <div class="glass-panel p-6">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-white">实时热力图</h2>
+                    <span class="text-xs text-slate-400">维度：城市 × 情绪极端</span>
+                </div>
+                <div class="grid grid-cols-6 gap-2 mt-5">
+                    <div class="heat-cell"></div>
+                    <div class="heat-cell opacity-80"></div>
+                    <div class="heat-cell opacity-70"></div>
+                    <div class="heat-cell opacity-40"></div>
+                    <div class="heat-cell opacity-90"></div>
+                    <div class="heat-cell opacity-50"></div>
+                    <div class="heat-cell opacity-80"></div>
+                    <div class="heat-cell opacity-30"></div>
+                    <div class="heat-cell opacity-60"></div>
+                    <div class="heat-cell opacity-95"></div>
+                    <div class="heat-cell opacity-45"></div>
+                    <div class="heat-cell opacity-75"></div>
+                </div>
+            </div>
+            <div class="glass-panel p-5 text-sm text-slate-300">
+                <h2 class="text-lg font-semibold text-white">行动清单</h2>
+                <label class="flex items-start gap-3 mt-3">
+                    <input type="checkbox" class="mt-1" checked>
+                    <span>向 PR 群推送耳机发热 FAQ</span>
+                </label>
+                <label class="flex items-start gap-3 mt-3">
+                    <input type="checkbox" class="mt-1">
+                    <span>安排 CEO 直播回访粉丝</span>
+                </label>
+                <label class="flex items-start gap-3 mt-3">
+                    <input type="checkbox" class="mt-1" checked>
+                    <span>将 46 个负面评论加入热词跟踪</span>
+                </label>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const syncBtn = document.getElementById('sync-btn');
+            const syncHint = document.getElementById('sync-hint');
+            const articleSelector = document.getElementById('article-selector');
+            const articleSentiment = document.getElementById('article-sentiment');
+            const articleMeta = document.getElementById('article-meta');
+            const articleTags = document.getElementById('article-tags');
+            const articleAction = document.getElementById('article-action');
+
+            const articleData = [
+                {
+                    sentiment: '-0.63',
+                    meta: '阅读 42w · 评论 5.6k',
+                    tags: '“发热”“虚假宣传”',
+                    action: '技术团队 1h 内回复 + 发布降温 FAQ',
+                    color: 'text-rose-300'
+                },
+                {
+                    sentiment: '+0.41',
+                    meta: '阅读 18w · 评论 2.1k',
+                    tags: '“透明”“诚意”',
+                    action: '精选正向评论置顶 · 强化口碑',
+                    color: 'text-emerald-300'
+                },
+                {
+                    sentiment: '-0.12',
+                    meta: '阅读 9w · 评论 980',
+                    tags: '“排队”“人工客服”',
+                    action: '同步工单系统 + 增设人工入口',
+                    color: 'text-amber-300'
+                }
+            ];
+
+            const decodeBase64Utf8 = (input) => {
+                try {
+                    return decodeURIComponent(atob(input).split('').map((char) => (
+                        `%${(`00${char.charCodeAt(0).toString(16)}`).slice(-2)}`
+                    )).join(''));
+                } catch (error) {
+                    console.warn('Bright payload decode failed', error);
+                    return '';
+                }
+            };
+
+            const hasSvgMask = () => window.SvgMask && typeof window.SvgMask.apply === 'function';
+
+            const applyBrightMask = (containerId, contentId, payload, { encoded = true } = {}) => {
+                const container = document.getElementById(containerId);
+                const content = document.getElementById(contentId);
+                if (!container || !content || payload == null) {
+                    return;
+                }
+                const source = encoded ? decodeBase64Utf8(String(payload)) : String(payload);
+                if (!source) {
+                    return;
+                }
+                content.dataset.brightText = source;
+                if (hasSvgMask()) {
+                    SvgMask.apply({ containerId, contentId });
+                    content.textContent = '';
+                } else {
+                    content.textContent = source;
+                }
+            };
+
+            const brightPairs = [
+                { containerId: 'bright-container', contentId: 'heat-index', payload: 'ODI=' },
+                { containerId: 'bright-container-1', contentId: 'negative-count', payload: 'MzEy' },
+                { containerId: 'bright-container-2', contentId: 'crisis-tags', payload: 'Mw==' },
+                { containerId: 'bright-container-3', contentId: 'balance', payload: 'NDYlIOato+WQkQ==' },
+                { containerId: 'bright-container-4', contentId: 'engagement-rate', payload: 'NzYl' },
+                { containerId: 'bright-container-5', contentId: 'reply-rate', payload: 'NTgl' },
+                {
+                    containerId: 'bright-container-6',
+                    contentId: 'bright-content',
+                    payload: 'OSDliIbpkp/lhoXmlrDlop4gODYg5p2h6LSf6K+EIMK3IOmcgOaKgOacr+WFrOWRig=='
+                },
+                { containerId: 'bright-container-6', contentId: 'bright-content-1', payload: 'I+iAs+acuuWPkeeDrQ==' },
+            ];
+
+            const brightLookup = new Map();
+            brightPairs.forEach(({ containerId, contentId, payload }) => {
+                brightLookup.set(contentId, containerId);
+                applyBrightMask(containerId, contentId, payload);
+            });
+
+            const updateBrightValue = (contentId, value) => {
+                const containerId = brightLookup.get(contentId);
+                if (!containerId) {
+                    return;
+                }
+                applyBrightMask(containerId, contentId, value, { encoded: false });
+            };
+
+            if (syncBtn) {
+                syncBtn.addEventListener('click', () => {
+                    updateBrightValue('heat-index', '88');
+                    updateBrightValue('negative-count', '274');
+                    updateBrightValue('crisis-tags', '2');
+                    updateBrightValue('balance', '53% 正向');
+                    updateBrightValue('engagement-rate', '81%');
+                    updateBrightValue('reply-rate', '62%');
+                    if (syncHint) {
+                        syncHint.classList.remove('hidden');
+                    }
+                });
+            }
+
+            if (articleSelector && articleSentiment && articleMeta && articleTags && articleAction) {
+                articleSelector.addEventListener('change', (event) => {
+                    const idx = Number(event.target.value);
+                    const payload = articleData[idx] || articleData[0];
+                    articleSentiment.textContent = payload.sentiment;
+                    articleSentiment.className = `text-2xl font-semibold ${payload.color}`;
+                    articleMeta.textContent = payload.meta;
+                    articleTags.textContent = payload.tags;
+                    articleAction.textContent = payload.action;
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

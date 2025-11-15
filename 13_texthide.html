@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBC G20 Summit Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="svg-mask.js" defer></script>
+    <style>
+        body {
+            font-family: "Newsreader", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f3ff;
+        }
+
+        .headline-card {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(236, 72, 153, 0.08));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 18px;
+        }
+
+        .video-frame {
+            background: radial-gradient(circle at top, rgba(59, 130, 246, 0.2), rgba(15, 118, 110, 0.3));
+            border-radius: 16px;
+            height: 230px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-frame::after {
+            content: "LIVE";
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: rgba(239, 68, 68, 0.85);
+            color: white;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            letter-spacing: 0.2em;
+        }
+
+        .sensitive-text {
+            color: #0f172a;
+        }
+
+        .bright-placeholder {
+            display: block;
+            width: 100%;
+            min-height: 1.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bright-inline-placeholder {
+            display: inline-block;
+            min-width: 10ch;
+            min-height: 1.2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #bright-content-table col.col-language {
+            width: 18%;
+        }
+
+        #bright-content-table col.col-headline {
+            width: 44%;
+        }
+
+        #bright-content-table col.col-time {
+            width: 22%;
+        }
+
+        #bright-content-table col.col-heat {
+            width: 16%;
+        }
+
+        #bright-content-table th,
+        #bright-content-table td {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #bright-content-table tbody tr:first-child td {
+            padding-top: 1.35rem;
+            padding-bottom: 1.35rem;
+            min-height: 2.5rem;
+        }
+
+        .table-mask {
+            display: block;
+            width: 100%;
+            min-height: 2rem;
+        }
+    </style>
+</head>
+<body>
+<header class="bg-[#0b1a3f] text-white">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+        <div>
+            <p class="uppercase tracking-[0.4em] text-xs text-indigo-200">BBC Monitoring Desk</p>
+            <h1 class="text-3xl font-semibold">2025 G20 峰会多语实时追踪</h1>
+            <p class="text-sm text-indigo-200 mt-2">GUI-Agent 同步 BBC News 多语言频道 & 媒体库，汇总外交走向</p>
+        </div>
+        <div class="text-right text-sm">
+            <p>当前频道：<span class="sensitive-text">Global / 中文 / العربية</span></p>
+            <p>采集延迟：<span class="text-emerald-300">2.4s</span></p>
+        </div>
+    </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[1.7fr_1fr] gap-6">
+    <section class="space-y-6">
+        <div class="headline-card p-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-semibold text-slate-900">焦点稿件</h2>
+                <div class="text-sm text-slate-600 flex items-center gap-3">
+                    <label for="language-filter">语言</label>
+                    <select id="language-filter" class="border border-slate-200 rounded-xl px-4 py-2 text-sm">
+                        <option value="global">Global</option>
+                        <option value="zh">中文</option>
+                        <option value="ar">العربية</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-4 mt-5 text-sm">
+                <article class="bg-white border border-indigo-100 rounded-2xl p-4 shadow-sm">
+                    <p class="text-xs uppercase tracking-wide text-indigo-500">English Desk</p>
+                    <h3 class="mt-2 font-semibold text-slate-900">Fed-Driven Tech Accord</h3>
+                    <p class="mt-2 text-slate-600">美国与欧盟承诺建立 AI 半导体透明机制，并附加绿色补贴条款。</p>
+                    <p class="text-xs text-slate-500 mt-3">更新：09:24 GMT</p>
+                </article>
+                <article class="bg-white border border-indigo-100 rounded-2xl p-4 shadow-sm">
+                    <p class="text-xs uppercase tracking-wide text-rose-500">简体中文</p>
+                    <h3 class="mt-2 font-semibold text-slate-900">人民币清算配额重启</h3>
+                    <p class="mt-2 text-slate-600">北京代表团获批与利雅得建立 600 亿人民币直通额度，改善能源结算韧性。</p>
+                    <p class="text-xs text-slate-500 mt-3">更新：17:24 北京时间</p>
+                </article>
+                <article class="bg-white border border-indigo-100 rounded-2xl p-4 shadow-sm">
+                    <p class="text-xs uppercase tracking-wide text-amber-500">Arabic Service</p>
+                    <h3 class="mt-2 font-semibold text-slate-900">طريق الطاقة الآسيوي</h3>
+                    <p class="mt-2 text-slate-600">السعودية و اليابان توقعان إطاراً استثمارياً للهيدروجين الأزرق بقيمة 35 مليار دولار.</p>
+                    <p class="text-xs text-slate-500 mt-3">التحديث: 13:24 AST</p>
+                </article>
+            </div>
+            <div id="language-toast" class="hidden mt-4 text-xs text-indigo-800 bg-indigo-100 border border-indigo-200 rounded-xl px-4 py-3">已切换频道。</div>
+        </div>
+
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm">
+            <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-slate-900">多语报道矩阵</h2>
+                <span class="text-xs text-slate-500">BBC CMS 自动聚合</span>
+            </div>
+            <div class="px-6 py-4 overflow-x-auto text-sm" id="bright-container-table">
+                <table class="w-full text-left" id="bright-content-table">
+                    <colgroup>
+                        <col class="col-language">
+                        <col class="col-headline">
+                        <col class="col-time">
+                        <col class="col-heat">
+                    </colgroup>
+                    <thead class="uppercase text-xs tracking-wide text-slate-500">
+                        <tr>
+                            <th class="py-2 pr-4">语言</th>
+                            <th class="py-2 pr-4">标题</th>
+                            <th class="py-2 pr-4">时间</th>
+                            <th class="py-2 pr-4">热度指数</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bright-table-body" class="divide-y divide-slate-100"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-slate-900">外交时间线与视频片段</h2>
+                <span class="text-xs text-slate-500">剪辑源：BBC Reith Archive</span>
+            </div>
+            <div class="grid md:grid-cols-2 gap-5 mt-5">
+                <div class="space-y-4 text-sm text-slate-600">
+                    <div>
+                        <p class="text-xs text-slate-500">2025-04-02 09:10 GMT</p>
+                        <p class="sensitive-text">美、欧、日财长闭门会：讨论利率路径与芯片补贴互认</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500">2025-04-02 11:50 GMT</p>
+                        <p class="sensitive-text">沙特-印度签署港口-氢能通道备忘录</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500">2025-04-02 13:35 GMT</p>
+                        <p class="sensitive-text">中国、巴西提议全球南方数字贸易仲裁机制</p>
+                    </div>
+                </div>
+                <div class="video-frame flex items-center justify-center text-white text-sm">
+                    <div class="text-center">
+                        <p class="text-xs tracking-[0.4em] text-white/70">Clip Queue</p>
+                        <p class="text-2xl font-semibold">G20 双语直播</p>
+                        <p class="text-white/70 mt-2">包含 3 条嵌入视频：闭门会现场、记者会、边会群访</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <aside class="space-y-6">
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
+            <h2 class="text-lg font-semibold text-slate-900">外交立场速览</h2>
+            <ul class="mt-4 space-y-3 text-sm text-slate-600">
+                <li>
+                    <p class="font-semibold">美欧联合公报草案</p>
+                    <p class="sensitive-text">强调在半导体与绿色补贴上遵循 Fed guidance</p>
+                </li>
+                <li>
+                    <p class="font-semibold">金砖扩容提案</p>
+                    <p class="sensitive-text">拟吸纳沙特、印尼，聚焦能源货币互换</p>
+                </li>
+                <li>
+                    <p class="font-semibold">非洲联盟席位</p>
+                    <p class="sensitive-text">争取永久席位 + 发展银行输入 120 亿美元</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
+            <h2 class="text-lg font-semibold text-slate-900">媒体素材队列</h2>
+            <div class="mt-4 space-y-3 text-sm text-slate-600">
+                <div class="flex items-center justify-between">
+                    <p class="sensitive-text">Clip_4501_GMT.mp4</p>
+                    <span class="text-xs text-slate-500">翻译中</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p class="sensitive-text">Clip_4510_ARABIC.webm</p>
+                    <span class="text-xs text-slate-500">字幕完成</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <p class="sensitive-text">Clip_4513_CN.mov</p>
+                    <span class="text-xs text-slate-500">待审校</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
+            <h2 class="text-lg font-semibold text-slate-900">分析师备忘</h2>
+            <p class="text-sm text-slate-600">重点观察各方对 Fed 2025 路径与全球南方融资承诺，按小时推送给全球分析师。</p>
+            <p class="mt-3 text-sm sensitive-text">下一次推送：13:45 GMT · 包含翻译片段 + 时间线</p>
+        </div>
+    </aside>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const select = document.getElementById('language-filter');
+        const toast = document.getElementById('language-toast');
+        const decodeBase64Utf8 = (input) => {
+            try {
+                const binary = atob(input);
+                const bytes = new Uint8Array(binary.length);
+                for (let i = 0; i < binary.length; i += 1) {
+                    bytes[i] = binary.charCodeAt(i);
+                }
+                if (window.TextDecoder) {
+                    return new TextDecoder().decode(bytes);
+                }
+                const fallback = Array.from(bytes)
+                    .map((byte) => `%${(`00${byte.toString(16)}`).slice(-2)}`)
+                    .join('');
+                return decodeURIComponent(fallback);
+            } catch (error) {
+                console.error('Bright payload decode failed', error);
+                return '';
+            }
+        };
+
+        const applyBrightMask = (targetId, text) => {
+            const content = document.getElementById(targetId);
+            if (!content || !text) {
+                return;
+            }
+            if (!window.SvgMask || typeof window.SvgMask.renderText !== 'function') {
+                content.textContent = text;
+                return;
+            }
+            SvgMask.renderText(targetId, text);
+        };
+
+        if (select && toast) {
+            select.addEventListener('change', () => {
+                toast.textContent = `已切换至 ${select.options[select.selectedIndex].text} feed`;
+                toast.classList.remove('hidden');
+                setTimeout(() => toast.classList.add('hidden'), 2200);
+            });
+        }
+
+        const tablePayload = decodeBase64Utf8('eyJyb3dzIjogW3sibGFuZ3VhZ2UiOiAiRW5nbGlzaCIsICJoZWFkbGluZSI6ICJTdW1taXQgY3JhZnRzIEZlZC1zeW5jaHJvbml6ZWQgZ3VpZGFuY2UiLCAidGltZSI6ICIwOToyNCBHTVQiLCAiaGVhdCI6ICI5MSJ9LCB7Imxhbmd1YWdlIjogIuS4reaWhyIsICJoZWFkbGluZSI6ICLlhajnkIPljZfmlrnog73mupDlubbnvZHmoYbmnrbov5vlhaXotbfojYnpmLbmrrUiLCAidGltZSI6ICIxNzoyNCBDU1QiLCAiaGVhdCI6ICI4NyJ9LCB7Imxhbmd1YWdlIjogIlTDvHJrw6dlIiwgImhlYWRsaW5lIjogIkcyMCBpa2xpbSBmb251IEFzeWHln7rnoYDorr7mlr3mianlrrkiLCAidGltZSI6ICIxMToyNCBUUlMiLCAiaGVhdCI6ICI3MyJ9XX0=');
+
+        try {
+            const tableData = JSON.parse(tablePayload);
+            const tbody = document.getElementById('bright-table-body');
+            if (!tbody) {
+                return;
+            }
+            tbody.innerHTML = '';
+
+            const brightJobs = [];
+            let cellCounter = 0;
+
+            const createCell = (className, text) => {
+                const cell = document.createElement('td');
+                cell.className = className;
+                const maskTarget = document.createElement('div');
+                maskTarget.className = 'bright-placeholder table-mask';
+                const id = `bright-cell-${cellCounter += 1}`;
+                maskTarget.id = id;
+                cell.appendChild(maskTarget);
+                brightJobs.push({ id, text });
+                return cell;
+            };
+
+            tableData.rows.forEach((entry) => {
+                const tr = document.createElement('tr');
+                const languageCell = createCell('py-3 pr-4', entry.language);
+                const headlineCell = createCell('py-3 pr-4 sensitive-text', entry.headline);
+                const timeCell = createCell('py-3 pr-4', entry.time);
+                const heatCell = createCell('py-3 pr-4 text-indigo-600', entry.heat);
+
+                tr.appendChild(languageCell);
+                tr.appendChild(headlineCell);
+                tr.appendChild(timeCell);
+                tr.appendChild(heatCell);
+                tbody.appendChild(tr);
+            });
+
+            brightJobs.forEach(({ id, text }) => applyBrightMask(id, text));
+        } catch (error) {
+            console.error('Bright table payload parse failed', error);
+        }
+    });
+</script>
+</body>
+</html>

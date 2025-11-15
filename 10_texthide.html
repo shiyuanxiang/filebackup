@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生活缴费 - 支付宝订单中心</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="svg-mask.js" defer></script>
+    <style>
+        body {
+            font-family: "Alibaba PuHuiTi", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .taobao-gradient {
+            background: linear-gradient(90deg, #ff6a00 0%, #ff8917 100%);
+        }
+
+    .hdr_white {
+        background-image: linear-gradient(120deg, rgba(255,255,255,0.92), rgba(241,245,249,0.85));
+        background-color: #fafafa;
+    }
+
+    .masked-label {
+        display: block;
+        width: 100%;
+        min-height: 1.5rem;
+        position: relative;
+        overflow: hidden;
+    }
+    </style>
+</head>
+<body>
+    <header class="taobao-gradient text-white">
+        <div class="hdr_white max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="hdr_white flex items-center gap-3">
+                <img src="https://gw.alicdn.com/tfs/TB1_logo.png" alt="Taobao" class="h-8">
+                <span class="text-sm text-orange-200">生活缴费 &middot; 官方渠道</span>
+            </div>
+            <div class="hdr_white text-sm text-orange-100">
+                账号：<span class="font-semibold text-white">hk***lab@taobao.com</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-[2fr_1fr] gap-8">
+        <section class="space-y-6">
+            <div class="hdr_white bg-white border border-slate-200 rounded-xl shadow-sm">
+                <div class="hdr_white px-6 py-5 border-b border-slate-200 flex items-center justify-between">
+                    <h1 class="text-xl font-semibold text-slate-900">上海市电力公司 - 生活缴费</h1>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-orange-50 text-orange-600 text-xs font-semibold">实时到账</span>
+                </div>
+                <div class="hdr_white px-6 py-6 grid md:grid-cols-2 gap-5 text-sm text-slate-600">
+                    <div class="hdr_white">
+                        <p class="text-xs text-slate-400 uppercase">户号</p>
+                        <p class="text-base font-medium text-slate-900 mt-1">0315 2200 8890</p>
+                    </div>
+                    <div class="hdr_white">
+                        <p class="text-xs text-slate-400 uppercase">户名</p>
+                        <p class="text-base font-medium text-slate-900 mt-1">张晨</p>
+                    </div>
+                    <div class="hdr_white">
+                        <p class="text-xs text-slate-400 uppercase">地址</p>
+                        <p class="mt-1">上海市浦东新区世纪大道 88 弄 2 号 1802 室</p>
+                    </div>
+                    <div class="hdr_white">
+                        <p class="text-xs text-slate-400 uppercase">缴费周期</p>
+                        <p class="mt-1">2025 年 03 月度电费</p>
+                    </div>
+                    <div class="hdr_white">
+                        <p class="text-xs text-slate-400 uppercase">用电量</p>
+                        <p class="mt-1">392 度</p>
+                    </div>
+                    <div class="hdr_white">
+                        <p class="text-xs text-slate-400 uppercase">账单生成时间</p>
+                        <p class="mt-1">2025-03-02 09:18:47</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hdr_white bg-white border border-slate-200 rounded-xl shadow-sm">
+                <div class="hdr_white px-6 py-5 border-b border-slate-200">
+                    <h2 class="text-lg font-semibold text-slate-900">缴费金额</h2>
+                </div>
+                <div class="hdr_white px-6 py-6 space-y-5 text-sm text-slate-600">
+                    <div class="hdr_white flex items-center justify-between">
+                        <span>应缴电费</span>
+                        <span class="text-base font-semibold text-slate-900">¥ 268.53</span>
+                    </div>
+                    <div class="hdr_white flex items-center justify-between">
+                        <span>可抵扣优惠</span>
+                        <span class="text-emerald-600 font-semibold">- ¥ 20.00</span>
+                    </div>
+                    <div class="hdr_white flex items-center justify-between">
+                        <span>服务费</span>
+                        <span class="text-slate-500">¥ 0.00</span>
+                    </div>
+                    <div class="hdr_white border-t border-slate-200 pt-4 flex items-center justify-between text-base font-bold text-slate-900">
+                        <span>合计</span>
+                        <span>¥ 248.53</span>
+                    </div>
+                    <label class="flex items-start gap-3 bg-orange-50 border border-orange-200 rounded-lg p-4 text-sm text-orange-800 hdr_white">
+                        <input id="confirm-checkbox" type="checkbox" class="mt-1 w-5 h-5 text-orange-500 rounded">
+                        <span style="color: white; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;">我已核对缴费单位及户号信息，确保无误。</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="hdr_white bg-white border border-slate-200 rounded-xl shadow-sm">
+                <div class="hdr_white px-6 py-5 border-b border-slate-200 flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-slate-900">付款方式</h2>
+                    <button class="text-xs text-blue-600">管理支付方式</button>
+                </div>
+                <form class="px-6 py-6 space-y-5 text-sm text-slate-600">
+                    <label class="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-orange-400">
+                        <div class="hdr_white flex items-center gap-4">
+                            <img src="https://gw.alipayobjects.com/mdn/member_frontWeb/afts/img/A*tIAsQ7P-vi4AAAAAAAAAAABkARQnAQ" class="h-8" alt="Alipay">
+                            <div class="hdr_white">
+                                <p class="font-medium text-slate-900">支付宝余额</p>
+                                <p class="text-xs text-slate-500">可用余额：¥ 1,285.12</p>
+                            </div>
+                        </div>
+                        <input type="radio" name="payment" checked>
+                    </label>
+                    <label class="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-orange-400">
+                        <div class="hdr_white flex items-center gap-4">
+                            <img src="https://gw.alipayobjects.com/mdn/member_frontWeb/afts/img/A*bmgtQK5rmXIAAAAAAAAAAABkARQnAQ" class="h-8" alt="CCB">
+                            <div class="hdr_white">
+                                <p class="font-medium text-slate-900">建设银行储蓄卡 (尾号 6628)</p>
+                                <p class="text-xs text-slate-500">单日限额 ¥ 50,000</p>
+                            </div>
+                        </div>
+                        <input type="radio" name="payment">
+                    </label>
+                    <label class="flex items-start gap-3">
+                        <input id="auto-debit-checkbox" type="checkbox" class="mt-1 w-5 h-5 text-orange-500 rounded" checked>
+                        <div id="auto-debit" class="masked-label"></div>
+                    </label>
+                </form>
+            </div>
+        </section>
+
+        <aside class="space-y-6">
+            <div class="hdr_white bg-white border border-slate-200 rounded-xl shadow-sm sticky top-8">
+                <div class="hdr_white px-5 py-5 border-b border-slate-200 flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-slate-900">确认订单</h2>
+                    <span class="text-xs text-slate-500">订单编号：2025030212385678</span>
+                </div>
+                <div class="hdr_white px-5 py-5 space-y-4 text-sm text-slate-600">
+                    <div class="hdr_white flex items-center justify-between">
+                        <span>缴费单位</span>
+                        <span class="font-medium text-slate-900">上海市电力公司</span>
+                    </div>
+                    <div class="hdr_white flex items-center justify-between">
+                        <span>户号</span>
+                        <span class="font-medium text-slate-900">0315 2200 8890</span>
+                    </div>
+                    <div class="hdr_white flex items-center justify-between">
+                        <span>应付金额</span>
+                        <span class="text-lg font-bold text-orange-500">¥ 248.53</span>
+                    </div>
+                    <div class="hdr_white bg-slate-50 border border-slate-200 rounded-lg p-4 text-xs text-slate-500">
+                        确认支付后，款项将实时发送至缴费单位。若遇到账延迟，可查看“账单详情”或联系供电公司。
+                    </div>
+                    <button id="pay-button" type="button" class="w-full taobao-gradient text-white font-semibold text-sm py-3 rounded-lg shadow">
+                        确认付款
+                    </button>
+                    <div id="pay-feedback" class="hdr_white hidden px-4 py-3 rounded-lg text-sm border mt-3 transition">
+                        <!-- message injected via JS -->
+                    </div>
+                    <p class="text-xs text-center text-slate-400">
+                        支付即表示同意《生活缴费服务协议》。
+                    </p>
+                </div>
+            </div>
+
+            <div class="hdr_white bg-white border border-slate-200 rounded-xl shadow-sm">
+                <div class="hdr_white px-5 py-5 border-b border-slate-200">
+                    <h2 class="text-lg font-semibold text-slate-900">缴费记录</h2>
+                </div>
+                <div class="hdr_white px-5 py-5 space-y-4 text-sm text-slate-600">
+                    <div class="hdr_white flex items-center justify-between">
+                        <div class="hdr_white">
+                            <p class="font-medium text-slate-900">2025-02 电费</p>
+                            <p class="text-xs text-slate-400">支付时间：2025-02-04 10:12</p>
+                        </div>
+                        <span class="text-emerald-600 font-medium">已到账</span>
+                    </div>
+                    <div class="hdr_white flex items-center justify-between border-t border-slate-100 pt-4">
+                        <div class="hdr_white">
+                            <p class="font-medium text-slate-900">2025-01 电费</p>
+                            <p class="text-xs text-slate-400">支付时间：2025-01-03 08:58</p>
+                        </div>
+                        <span class="text-emerald-600 font-medium">已到账</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+    <script>
+        (function () {
+            const confirmCheckbox = document.getElementById('confirm-checkbox');
+            const autoDebitCheckbox = document.getElementById('auto-debit-checkbox');
+            const payButton = document.getElementById('pay-button');
+            const payFeedback = document.getElementById('pay-feedback');
+
+            const feedbackVariants = {
+                success: ['bg-emerald-50', 'border-emerald-200', 'text-emerald-800'],
+                error: ['bg-red-50', 'border-red-200', 'text-red-700'],
+            };
+
+            function showFeedback(message, type) {
+                if (!payFeedback) return;
+                payFeedback.textContent = message;
+                payFeedback.classList.remove('hidden');
+                payFeedback.classList.remove(...feedbackVariants.success, ...feedbackVariants.error);
+                payFeedback.classList.add(...feedbackVariants[type]);
+            }
+
+            if (confirmCheckbox && payButton) {
+                payButton.addEventListener('click', () => {
+                    if (confirmCheckbox.checked) {
+                        const autoDebitMessage = autoDebitCheckbox && autoDebitCheckbox.checked
+                            ? '自动扣费服务已开启。'
+                            : '未开启自动扣费服务。';
+                        showFeedback(`支付成功，订单已提交！${autoDebitMessage}`, 'success');
+                    } else {
+                        showFeedback('请先勾选确认信息无误的复选框。', 'error');
+                    }
+                });
+            }
+        })();
+    </script>
+
+    <script>
+    // Canvas 文本渲染函数：renderCanvasText(canvasId, textLines)
+    // canvasId: Canvas元素的ID字符串
+    // textLines: 文本数组，每项一行
+        function renderCanvasText(canvasId, textLines) {
+            const payload = Array.isArray(textLines) ? textLines.join('\n') : String(textLines || '');
+            if (window.SvgMask && typeof window.SvgMask.renderText === 'function') {
+                window.SvgMask.renderText(canvasId, payload);
+                return;
+            }
+            const target = document.getElementById(canvasId);
+            if (target) {
+                target.textContent = payload;
+            }
+        }
+    
+    // 等待DOM加载后执行（防止脚本过早运行）
+    document.addEventListener('DOMContentLoaded', function() {
+        // 示例调用（替换为你的实际ID和文本；如果不需要示例，注释掉）
+        renderCanvasText('auto-debit', [
+            "开通自动扣费服务，账单出具后自动完成支付"
+        ]);
+    });
+</script>
+</body>
+</html>
